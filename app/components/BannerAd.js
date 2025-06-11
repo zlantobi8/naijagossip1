@@ -21,15 +21,16 @@ export default function BannerAd({ slicepost }) {
     }
   }, [slicepost]);
 
-  if (adIndex === null) return null; // Wait for useEffect to set the index
+  if (adIndex === null) return null;
+  if (!slicepost || slicepost.length === 0 || !slicepost[adIndex]) return null;
 
-if (!slicepost || slicepost.length === 0 || !slicepost[adIndex]) {
-  return null; // or a loader, fallback component, etc.
-}
-
-const ad = slicepost[adIndex];
-const formattedDate = new Date(ad.date).toLocaleDateString('en-GB');
-
+  const ad = slicepost[adIndex];
+  const dateObj = new Date(ad.date);
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const slug = generateSlug(ad.title);
+  const formattedDate = dateObj.toLocaleDateString('en-GB');
 
   return (
     <div className="banner-inner pt-5">
@@ -61,11 +62,12 @@ const formattedDate = new Date(ad.date).toLocaleDateString('en-GB');
               <p>{ad.description.slice(0, 200)} .....</p>
               <button
                 className="btn btn-blue"
-                onClick={() => router.push(`/${generateSlug(ad.title)}/detail`)}
+                onClick={() =>
+                  router.push(`/${year}/${month}/${day}/${slug}`)
+                }
               >
                 Read More
               </button>
-
             </div>
           </div>
         </div>

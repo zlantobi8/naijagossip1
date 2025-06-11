@@ -13,17 +13,13 @@ import Footer from "./Footer";
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const handleSeeMore = (title) => {
+  const slug = title.toLowerCase(); // optional slug formatting
+  router.push(`/category/${slug}`);
+};
 
-  // const handleNavigation = (category) => {
-  //   const slug = category.toLowerCase().replace(/\s+/g, '-');
-  //   router.push(`/all-posts?slug=${slug}`);
 
-  // }
-
-  const handleSeeMore = (title) => {
-    const slug = title; // e.g., "politics"
-    router.push(`/${slug}/allposts`);
-  };
 
   const [mainPosts, setMainPosts] = useState([]);
   const [categorizedPosts, setCategorizedPosts] = useState({
@@ -138,23 +134,7 @@ export default function Home() {
       {!loading && (
         <>
           {/* search popup start */}
-          <div className="td-search-popup" id="td-search-popup">
-            <div className="search-form">
-              <div className="form-group">
-                <input
-                  type="text"
-                  id="form1"
-                  className="form-control"
-                  placeholder="Search....."
-                />
-              </div>
-              <button type="button" className="submit-btn" id="btn2">
-                <i className="fa fa-search"></i>
-              </button>
-            </div>
-          </div>
-          {/* search popup end */}
-          <div className="body-overlay" id="body-overlay"></div>
+
 
           {/* header start */}
           <div className="navbar-area">
@@ -219,49 +199,42 @@ export default function Home() {
               <div className="container nav-container">
                 <div className="responsive-mobile-menu">
                   <div className="logo d-lg-none d-block">
-                    <Link className="main-logo" href="/">
-                      <Image src="/assets/img/naija.png" alt="logo" width={100} height={100} />
+                    <Link href="/">
+                      <Image src="/assets/img/naija.png" alt="logo" width={100} height={50} />
                     </Link>
                   </div>
                   <button
                     className="menu toggle-btn d-block d-lg-none"
-                    data-target="#nextpage_main_menu"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   >
                     <span className="icon-left"></span>
                     <span className="icon-right"></span>
                   </button>
                 </div>
 
-                <div className="nav-right-part nav-right-part-mobile">
-                  <a className="search header-search" href="#">
-                    <i className="fa fa-search"></i>
-                  </a>
-                </div>
 
-                <div className="collapse navbar-collapse" id="nextpage_main_menu">
+                <div className={`collapse navbar-collapse ${mobileMenuOpen ? 'show' : ''}`} id="nextpage_main_menu">
                   <ul className="navbar-nav menu-open">
-                    <li className="current-menu-item"><Link href="/">Home</Link> </li>
+                    <li className="current-menu-item"><Link href="/">Home</Link></li>
                     <li className="current-menu-item">
                       <a onClick={() => handleSeeMore('politics')} style={{ cursor: 'pointer' }}>Politics</a>
                     </li>
-
-                    <li id="gotosp" className="current-menu-item"><a onClick={() => handleSeeMore('sport')}>Sport</a></li>
-                    <li id="gotoed" className="current-menu-item"><a onClick={() => handleSeeMore('education')}>Education</a></li>
-                    <li id="gotote" className="current-menu-item"><a onClick={() => handleSeeMore('technology')}>Technology</a></li>
-                    <li id="gotohe" className="current-menu-item"><a onClick={() => handleSeeMore('health')}>Health</a></li>
+                    <li className="current-menu-item">
+                      <a onClick={() => handleSeeMore('sport')} style={{ cursor: 'pointer' }}>Sport</a>
+                    </li>
+                    <li className="current-menu-item">
+                      <a onClick={() => handleSeeMore('education')} style={{ cursor: 'pointer' }}>Education</a>
+                    </li>
+                    <li className="current-menu-item">
+                      <a onClick={() => handleSeeMore('technology')} style={{ cursor: 'pointer' }}>Technology</a>
+                    </li>
+                    <li className="current-menu-item">
+                      <a onClick={() => handleSeeMore('health')} style={{ cursor: 'pointer' }}>Health</a>
+                    </li>
                   </ul>
                 </div>
 
-                <div className="nav-right-part nav-right-part-desktop">
-                  <div className="menu-search-inner">
-                    <input type="text" id="search-input" placeholder="Search For" />
-                    <button type="button" className="submit-btn" id="search-btn">
-                      <i className="fa fa-search"></i>
-                    </button>
-                  </div>
-                </div>
+
               </div>
             </nav>
 
@@ -298,7 +271,7 @@ export default function Home() {
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1846454425999803" crossOrigin="anonymous" />
 
           </div>
-            <Footer />
+          <Footer />
         </>
       )}
     </>

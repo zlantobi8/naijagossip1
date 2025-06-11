@@ -1,46 +1,26 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-const NavBar = ({ handleSeeMore }) => {
+const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+    const router = useRouter();
+// wherever your 'See More' button is:
+const handleSeeMore = (title) => {
+  const slug = title.toLowerCase(); // optional slug formatting
+  router.push(`/category/${slug}`);
+};
 
-  useEffect(() => {
-    const body = document.body;
-    if (mobileMenuOpen || searchOpen) {
-      body.classList.add('body-overlay-active');
-    } else {
-      body.classList.remove('body-overlay-active');
-    }
-  }, [mobileMenuOpen, searchOpen]);
 
+ 
   return (
     <>
       {/* Search popup */}
-      {searchOpen && (
-        <div className="td-search-popup">
-          <div className="search-form">
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Search....." />
-            </div>
-            <button type="button" className="submit-btn" onClick={() => alert('Searching...')}>
-              <i className="fa fa-search"></i>
-            </button>
-          </div>
-        </div>
-      )}
+ 
 
       {/* Overlay */}
-      {(mobileMenuOpen || searchOpen) && (
-        <div
-          className="body-overlay"
-          onClick={() => {
-            setMobileMenuOpen(false);
-            setSearchOpen(false);
-          }}
-        ></div>
-      )}
+    
 
       <div className="navbar-area">
         {/* Navbar */}
@@ -61,11 +41,6 @@ const NavBar = ({ handleSeeMore }) => {
               </button>
             </div>
 
-            <div className="nav-right-part nav-right-part-mobile">
-              <a className="search header-search" onClick={() => setSearchOpen(true)}>
-                <i className="fa fa-search"></i>
-              </a>
-            </div>
 
             <div className={`collapse navbar-collapse ${mobileMenuOpen ? 'show' : ''}`} id="nextpage_main_menu">
               <ul className="navbar-nav menu-open">
@@ -88,14 +63,6 @@ const NavBar = ({ handleSeeMore }) => {
               </ul>
             </div>
 
-            <div className="nav-right-part nav-right-part-desktop">
-              <div className="menu-search-inner">
-                <input type="text" placeholder="Search For" />
-                <button type="button" className="submit-btn" onClick={() => alert('Searching...')}>
-                  <i className="fa fa-search"></i>
-                </button>
-              </div>
-            </div>
           </div>
         </nav>
       </div>

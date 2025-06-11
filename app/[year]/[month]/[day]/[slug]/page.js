@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Footer from '@/app/Footer';
@@ -21,7 +21,7 @@ const slugify = (text) =>
 const DetailPage = () => {
   const params = useParams();
   const slug = params.slug;
-
+  const router = useRouter();
   const [post, setPost] = useState(null);
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [error, setError] = useState('');
@@ -59,7 +59,7 @@ const DetailPage = () => {
 
     fetch(url, {
       headers: {
-         Authorization: process.env.NEXT_PUBLIC_API_AUTH,
+        Authorization: process.env.NEXT_PUBLIC_API_AUTH,
       },
     })
       .then((res) => res.json())
@@ -118,11 +118,43 @@ const DetailPage = () => {
   if (error) return <p>{error}</p>;
   if (!post) return null;
 
+  const generateSlug = (text) =>
+    text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')       // remove punctuation, keeping spaces and dashes
+      .replace(/\s+/g, '-')           // replace spaces with single dash
+      .replace(/-+/g, '-')            // collapse multiple dashes into one
+      .replace(/^-+|-+$/g, '');
+  const date = new Date(post.date);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const formattedDate = `${day}-${month}-${year}`;
+  const postUrl = `/${year}/${month}/${day}/${generateSlug(post.title)}`;
+
+  const relatedDate = (dates) => {
+    const date = new Date(dates);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${day}-${month}-${year}`;
+    return formattedDate
+  }
+
   return (
     <>
       <Head>
         <title>{post.title}</title>
-
+        <meta name="description" content={post.description?.slice(0, 150) || 'Read the latest news and updates.'} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.description?.slice(0, 150) || ''} />
+        <meta property="og:image" content={post.image || '/default-thumbnail.jpg'} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://naijagossip.vercel.app/${postUrl}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.description?.slice(0, 150) || ''} />
+        <meta name="twitter:image" content={post.image || '/default-thumbnail.jpg'} />
       </Head>
 
       <Nav1 />
@@ -131,7 +163,7 @@ const DetailPage = () => {
 
         <div className={styles.meta}>
           <span><i className="fas fa-user" /> {post.author || 'Anonymous'}</span>
-          <span><i className="fas fa-calendar" /> {post.date || '--'}</span>
+          <span><i className="fas fa-calendar" /> {formattedDate || '--'}</span>
         </div>
 
         <Image
@@ -152,49 +184,62 @@ const DetailPage = () => {
         </div>
         <h3>Related Posts</h3>
         <div className="row">
-          {relatedPosts.map((related) => (
-            <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
-              <div
-                className="my-related-card p-2"
-                onClick={() => router.push(`/detail/${slugify(related.title)}`)}
-                style={{ cursor: 'pointer' }}
-              >
-                <div className="my-related-thumb position-relative">
-                  <Image
-                    src={related.image || '/assets/img/placeholder.png'}
-                    alt={related.title || 'Related Post'}
-                    width={400}
-                    height={200}
-                    className="card-img-top"
-                  />
-                  <a
-                    className={`my-related-tag ${related.categoryClass || 'bg-secondary'}`}
-                    href="#"
-                  >
-                    {related.category || 'General'}
-                  </a>
-                </div>
+          {relatedPosts.map((related) => {
 
-                <div className="my-related-details mt-2">
-                  <h6 className="my-related-title">
-                    <Link href={`/${slugify(related.title)}/detail`} className="text-dark">
-                      {related.title}
-                    </Link>
-                  </h6>
-                  <div className="my-related-meta">
-                    <ul className="list-unstyled mb-0">
-                      <li>
-                     <i className="fas fa-clock me-1"></i>
+            const date = new Date(related.date);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const formattedDate = `${day}-${month}-${year}`;
+            const postUrl = `/${year}/${month}/${day}/${generateSlug(related.title)}`;
 
+            return (
+              <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
+                <div
+                  className="my-related-card p-2"
+                  onClick={() => router.push(postUrl)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="my-related-thumb position-relative">
+                    <Image
+                      src={related.image || '/assets/img/placeholder.png'}
+                      alt={related.title || 'Related Post'}
+                      width={400}
+                      height={200}
+                      className="card-img-top"
+                    />
+                    <a
+                      className={`my-related-tag ${related.categoryClass || 'bg-secondary'}`}
+                      href="#"
+                    >
+                      {related.category || 'General'}
+                    </a>
+                  </div>
 
-                        {related.date || ''}
-                      </li>
-                    </ul>
+                  <div className="my-related-details mt-2">
+                    <h6 className="my-related-title">
+                      <Link href={postUrl} className="text-dark">
+                        {related.title}
+                      </Link>
+                    </h6>
+                    <div className="my-related-meta">
+                      <ul className="list-unstyled mb-0">
+                        <li>
+                          <i className="fas fa-clock me-1"></i>
+
+                          {relatedDate(related.date) || ''}
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+
+            )
+          })}
+
+
+
         </div>
 
 

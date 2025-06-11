@@ -15,9 +15,14 @@ export default function AllPosts() {
   const slugify = (text) =>
     text.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');
 
-  const generateSlug = (title) =>
-    title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
 
+  const generateSlug = (text) =>
+    text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')       // remove punctuation, keeping spaces and dashes
+      .replace(/\s+/g, '-')           // replace spaces with single dash
+      .replace(/-+/g, '-')            // collapse multiple dashes into one
+      .replace(/^-+|-+$/g, '');
   useEffect(() => {
     const query = encodeURIComponent(`{
       "mainPost": *[_type == "mainPost"] | order(date desc) { _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date },
@@ -31,7 +36,7 @@ export default function AllPosts() {
 
     fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`, {
       headers: {
-       Authorization: process.env.NEXT_PUBLIC_API_AUTH,
+        Authorization: process.env.NEXT_PUBLIC_API_AUTH,
       }
     })
       .then(res => res.json())
@@ -75,15 +80,20 @@ export default function AllPosts() {
   return (
 
 
-    <div className="navbar-area" style={{background:'#10284f'}}>
+    <div className="navbar-area" style={{ background: '#10284f' }}>
 
       <Nav1 />
 
-      <div className="container pt-5"  style={{background:'#10284f'}}>
+      <div className="container pt-5" style={{ background: '#10284f' }}>
         <h3 className="section-title">Latest in {slug.charAt(0).toUpperCase() + slug.slice(1)}</h3>
         <div className="row">
           {posts.map((post) => {
-            const formattedDate = new Date(post.date).toLocaleDateString('en-GB');
+            const date = new Date(post.date);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const formattedDate = `${day}-${month}-${year}`;
+            const postUrl = `/${year}/${month}/${day}/${generateSlug(post.title)}`;
             return (
               <div key={post._id} className="col-lg-3 col-sm-6">
                 <div className="single-post-wrap style-white">
@@ -93,7 +103,7 @@ export default function AllPosts() {
                   </div>
                   <div className="details">
                     <h6 className="title">
-                      <Link href={`/${generateSlug(post.title)}/detail`} className="text-light">
+                      <Link href={postUrl} className="text-light">
                         {post.title}
                       </Link>
                     </h6>
