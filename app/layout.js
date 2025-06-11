@@ -1,6 +1,7 @@
 import Script from 'next/script';
 import Footer from './Footer';
 import './globals.css';
+import LoadAdSense from './components/LoadAdsense';
 
 export const metadata = {
   title: 'Naija Gossip',
@@ -17,12 +18,7 @@ export default function RootLayout({ children }) {
         />
 
         {/* ✅ Google AdSense Script */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1846454425999803"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+      
 
         <link
           rel="stylesheet"
@@ -38,6 +34,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="/assets/css/responsive.css" />
       </head>
       <body>
+        <LoadAdSense/>
         {children}
         {/* You can add <Footer /> here if it should appear on all pages */}
       </body>
