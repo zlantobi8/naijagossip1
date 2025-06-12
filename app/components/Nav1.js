@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -5,22 +7,22 @@ import { useRouter } from 'next/navigation';
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const router = useRouter();
-// wherever your 'See More' button is:
-const handleSeeMore = (title) => {
-  const slug = title.toLowerCase(); // optional slug formatting
-  router.push(`/category/${slug}`);
-};
+  const router = useRouter();
+  // wherever your 'See More' button is:
+  const handleSeeMore = (title) => {
+    const slug = title.toLowerCase(); // optional slug formatting
+    router.push(`/category/${slug}`);
+  };
 
 
- 
+
   return (
     <>
       {/* Search popup */}
- 
+
 
       {/* Overlay */}
-    
+
 
       <div className="navbar-area">
         {/* Navbar */}

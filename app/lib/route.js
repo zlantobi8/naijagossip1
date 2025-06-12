@@ -54,7 +54,10 @@ export const getAllRoutes = async () => {
 
     const staticPages = [
         { slug: '/', lastModified: new Date().toISOString() },
-   
+        { slug: '/about', lastModified: new Date().toISOString() },
+        { slug: '/contact', lastModified: new Date().toISOString() },
+        { slug: '/privacy-policy', lastModified: new Date().toISOString() },
+
     ];
 
     return [...staticPages, ...allRoutes];
