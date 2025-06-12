@@ -14,10 +14,10 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-const handleSeeMore = (title) => {
-  const slug = title.toLowerCase(); // optional slug formatting
-  router.push(`/category/${slug}`);
-};
+  const handleSeeMore = (title) => {
+    const slug = title.toLowerCase(); // optional slug formatting
+    router.push(`/category/${slug}`);
+  };
 
 
 
@@ -217,19 +217,19 @@ const handleSeeMore = (title) => {
                   <ul className="navbar-nav menu-open">
                     <li className="current-menu-item"><Link href="/">Home</Link></li>
                     <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('politics')} style={{ cursor: 'pointer' }}>Politics</a>
+                      <Link href="/category/politics">Politics</Link>
                     </li>
                     <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('sport')} style={{ cursor: 'pointer' }}>Sport</a>
+                      <Link href="/category/sport">Sport</Link>
                     </li>
                     <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('education')} style={{ cursor: 'pointer' }}>Education</a>
+                      <Link href="/category/education">Education</Link>
                     </li>
                     <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('technology')} style={{ cursor: 'pointer' }}>Technology</a>
+                      <Link href="/category/technology">Technology</Link>
                     </li>
                     <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('health')} style={{ cursor: 'pointer' }}>Health</a>
+                      <Link href="/category/health">Health</Link>
                     </li>
                   </ul>
                 </div>
