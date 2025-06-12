@@ -213,26 +213,27 @@ const handleSeeMore = (title) => {
                 </div>
 
 
-                <div className={`collapse navbar-collapse ${mobileMenuOpen ? 'show' : ''}`} id="nextpage_main_menu">
-                  <ul className="navbar-nav menu-open">
-                    <li className="current-menu-item"><Link href="/">Home</Link></li>
-                    <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('politics')} style={{ cursor: 'pointer' }}>Politics</a>
-                    </li>
-                    <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('sport')} style={{ cursor: 'pointer' }}>Sport</a>
-                    </li>
-                    <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('education')} style={{ cursor: 'pointer' }}>Education</a>
-                    </li>
-                    <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('technology')} style={{ cursor: 'pointer' }}>Technology</a>
-                    </li>
-                    <li className="current-menu-item">
-                      <a onClick={() => handleSeeMore('health')} style={{ cursor: 'pointer' }}>Health</a>
-                    </li>
-                  </ul>
-                </div>
+          
+
+<ul className="navbar-nav menu-open">
+  <li className="current-menu-item"><Link href="/">Home</Link></li>
+  <li className="current-menu-item">
+    <Link href="/category/politics">Politics</Link>
+  </li>
+  <li className="current-menu-item">
+    <Link href="/category/sport">Sport</Link>
+  </li>
+  <li className="current-menu-item">
+    <Link href="/category/education">Education</Link>
+  </li>
+  <li className="current-menu-item">
+    <Link href="/category/technology">Technology</Link>
+  </li>
+  <li className="current-menu-item">
+    <Link href="/category/health">Health</Link>
+  </li>
+</ul>
+
 
 
               </div>
