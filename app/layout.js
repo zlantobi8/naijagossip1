@@ -12,6 +12,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="zxx">
       <head>
+<meta name="google-site-verification" content="jgfedbwYYJwFsiiWj38-xP3bU4vmeXLPTqmAY8G49yw" />
+
         <Script
           src="https://code.jquery.com/jquery-3.6.0.min.js"
           strategy="beforeInteractive"
