@@ -42,8 +42,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      
+      <head>
+        <link rel="icon" href="/assets/img/lll-removebg-preview.png" type="image/x-icon" />
+        <meta property="og:image" content="https://naijagossip.vercel.app/assets/img/lll-removebg-preview.png" />
+
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+  __html: JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://naijagossip.vercel.app/",
+    "logo": "https://naijagossip.vercel.app/assets/img/lll-removebg-preview.png",
+    "name": "Naija Gossip"
+  })
+}} />
+
+      </head>
       <body>
+
         <LoadAdSense />
         <RouteProgress />
         {children}

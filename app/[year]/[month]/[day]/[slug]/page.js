@@ -1,5 +1,4 @@
 "use client";
-
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
@@ -7,8 +6,8 @@ import Footer from '@/app/Footer';
 import Image from 'next/image';
 import styles from './detail.module.css';
 import Link from 'next/link';
-
 import Nav1 from '@/app/components/Nav1';
+import Script from 'next/script';
 const slugify = (text) =>
   text
     .toString()
@@ -155,6 +154,8 @@ const DetailPage = () => {
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.description?.slice(0, 150) || ''} />
         <meta name="twitter:image" content={post.image || '/default-thumbnail.jpg'} />
+
+
       </Head>
 
       <Nav1 />
@@ -162,8 +163,9 @@ const DetailPage = () => {
         <h1 className={styles.title}>{post.title}</h1>
 
         <div className={styles.meta}>
-          <span><i className="fas fa-user" /> {post.author || 'Anonymous'}</span>
-          <span><i className="fas fa-calendar" /> {formattedDate || '--'}</span>
+          <span><i className="fa fa-user"></i> {post.author || 'Anonymous'}</span>
+          <span><i className="fa fa-calendar"></i> {formattedDate || '--'}</span>
+
         </div>
 
         <Image
@@ -178,9 +180,11 @@ const DetailPage = () => {
 
         <p className={styles.author}>Written by {post.author || 'Anonymous'}</p>
         <div className={styles.share}>
-          <a href="#"><i className="fab fa-facebook" /></a>
-          <a href="#"><i className="fab fa-twitter" /></a>
-          <a href="#"><i className="fab fa-whatsapp" /></a>
+          <a href="#"><i className="fa fa-facebook"></i></a>
+          <a href="#"><i className="fa fa-twitter"></i></a>
+          <a href="#"><i className="fa fa-whatsapp"></i></a>
+
+
         </div>
         <h3>Related Posts</h3>
         <div className="row">
@@ -225,7 +229,8 @@ const DetailPage = () => {
                     <div className="my-related-meta">
                       <ul className="list-unstyled mb-0">
                         <li>
-                          <i className="fas fa-clock me-1"></i>
+                        <i className="fa fa-clock-o me-1"></i>
+
 
                           {relatedDate(related.date) || ''}
                         </li>
@@ -241,8 +246,7 @@ const DetailPage = () => {
 
 
         </div>
-
-
+        <Script src="/assets/js/vendor.js" />
       </div>
 
       <Footer />

@@ -136,7 +136,8 @@ export default function Home() {
           {/* search popup start */}
 
 
-          {/* header start */}
+          {/* 
+          er start */}
           <div className="navbar-area">
             {/* topbar start */}
             <div className="topbar-area">
@@ -265,11 +266,8 @@ export default function Home() {
             </div>
 
             {/* Scripts */}
-            <Script src="/assets/js/vendor.js" />
-           
-            {/* <Script src="/assets/js/modified.js" strategy="afterInteractive" /> */}
-            <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1846454425999803" crossOrigin="anonymous" />
-
+          
+     
           </div>
           <Footer />
         </>
