@@ -18,12 +18,24 @@ const fetchPosts = async () => {
     "sportsPost": *[_type == "sportsPost"] | order(date desc) {
       _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
     },
-    "educationPost": *[_type == "educationPost"] | order(date desc) {...},
-    "politicsPost": *[_type == "politicsPost"] | order(date desc) {...},
-    "technologyPost": *[_type == "technologyPost"] | order(date desc) {...},
-    "healthPost": *[_type == "healthPost"] | order(date desc) {...},
-    "celebrityPost": *[_type == "celebrityPost"] | order(date desc) {...},
-    "mainPost": *[_type == "mainPost"] | order(date desc) {...}
+    "educationPost": *[_type == "educationPost"] | order(date desc) {
+      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+    },
+    "politicsPost": *[_type == "politicsPost"] | order(date desc) {
+      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+    },
+    "technologyPost": *[_type == "technologyPost"] | order(date desc) {
+      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+    },
+    "healthPost": *[_type == "healthPost"] | order(date desc) {
+      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+    },
+    "celebrityPost": *[_type == "celebrityPost"] | order(date desc) {
+      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+    },
+    "mainPost": *[_type == "mainPost"] | order(date desc) {
+      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+    }
   }`);
   const url = `https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`;
 
