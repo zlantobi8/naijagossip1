@@ -2,6 +2,7 @@ import Script from 'next/script';
 import Footer from './Footer';
 import './globals.css';
 import LoadAdSense from './components/LoadAdsense';
+import RouteProgress from './components/RouteProgress';
 
 export const metadata = {
   title: 'Naija Gossip',
@@ -43,6 +44,7 @@ export default function RootLayout({ children }) {
 
       <body>
         <LoadAdSense />
+         <RouteProgress />
         {children}
         {/* You can add <Footer /> here if it should appear on all pages */}
       </body>

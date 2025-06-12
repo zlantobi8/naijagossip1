@@ -40,3 +40,17 @@ a {
     color-scheme: dark;
   }
 }
+/* Fix for NProgress being invisible */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #29d; /* or any visible color */
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
