@@ -266,7 +266,7 @@ export default function Home() {
 
             {/* Scripts */}
             <Script src="/assets/js/vendor.js" />
-            <Script src="/assets/js/main.js" />
+           
             {/* <Script src="/assets/js/modified.js" strategy="afterInteractive" /> */}
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1846454425999803" crossOrigin="anonymous" />
 
