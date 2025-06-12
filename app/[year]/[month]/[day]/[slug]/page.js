@@ -1,258 +1,198 @@
-"use client";
-import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import Footer from '@/app/Footer';
+import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import Footer from '@/app/Footer';
 import styles from './detail.module.css';
 import Link from 'next/link';
 import Nav1 from '@/app/components/Nav1';
 import Script from 'next/script';
+import Head from 'next/head';
+
 const slugify = (text) =>
-  text
-    .toString()
-    .toLowerCase()
-    .trim()
+  text.toString().toLowerCase().trim()
     .replace(/\s+/g, '-')
     .replace(/[^\w\-]+/g, '')
     .replace(/\-\-+/g, '-');
 
-const DetailPage = () => {
-  const params = useParams();
-  const slug = params.slug;
-  const router = useRouter();
-  const [post, setPost] = useState(null);
-  const [relatedPosts, setRelatedPosts] = useState([]);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
-
+const fetchPosts = async () => {
   const query = encodeURIComponent(`{
     "sportsPost": *[_type == "sportsPost"] | order(date desc) {
       _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
     },
-    "educationPost": *[_type == "educationPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "politicsPost": *[_type == "politicsPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "technologyPost": *[_type == "technologyPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "healthPost": *[_type == "healthPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "celebrityPost": *[_type == "celebrityPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "mainPost": *[_type == "mainPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    }
+    "educationPost": *[_type == "educationPost"] | order(date desc) {...},
+    "politicsPost": *[_type == "politicsPost"] | order(date desc) {...},
+    "technologyPost": *[_type == "technologyPost"] | order(date desc) {...},
+    "healthPost": *[_type == "healthPost"] | order(date desc) {...},
+    "celebrityPost": *[_type == "celebrityPost"] | order(date desc) {...},
+    "mainPost": *[_type == "mainPost"] | order(date desc) {...}
   }`);
-
   const url = `https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`;
 
+  const res = await fetch(url, {
+    headers: {
+      Authorization: process.env.NEXT_PUBLIC_API_AUTH
+    },
+    next: { revalidate: 60 } // cache for 1 min
+  });
+  const data = await res.json();
+  return [
+    ...(data.result?.mainPost || []),
+    ...(data.result?.sportsPost || []),
+    ...(data.result?.educationPost || []),
+    ...(data.result?.politicsPost || []),
+    ...(data.result?.technologyPost || []),
+    ...(data.result?.healthPost || []),
+    ...(data.result?.celebrityPost || [])
+  ];
+};
 
-  useEffect(() => {
-    if (!slug) return;
+export async function generateMetadata({ params }) {
+  const allPosts = await fetchPosts();
+  const post = allPosts.find((p) => slugify(p.title) === params.slug);
 
-    fetch(url, {
-      headers: {
-        Authorization: process.env.NEXT_PUBLIC_API_AUTH,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const {
-          mainPost = [],
-          sportsPost = [],
-          educationPost = [],
-          politicsPost = [],
-          technologyPost = [],
-          healthPost = [],
-          celebrityPost = [],
-        } = data.result || {};
+  if (!post) return notFound();
 
-        const allPosts = [
-          ...mainPost,
-          ...sportsPost,
-          ...educationPost,
-          ...politicsPost,
-          ...technologyPost,
-          ...healthPost,
-          ...celebrityPost,
-        ];
+  return {
+    title: post.title,
+    description: post.description?.slice(0, 150),
+    openGraph: {
+      title: post.title,
+      description: post.description?.slice(0, 150),
+      images: [post.image || '/default-thumbnail.jpg'],
+      type: 'article',
+      url: `https://naijagossip.vercel.app/${params.slug}`
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description?.slice(0, 150),
+      images: [post.image || '/default-thumbnail.jpg']
+    }
+  };
+}
 
-        const matchedPost = allPosts.find((p) => slugify(p.title) === slug);
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+}
 
-        if (!matchedPost) {
-          setError('Article not found.');
-          setLoading(false);
-          return;
-        }
+function generateSlug(text) {
+  return text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '');
+}
 
-        setPost(matchedPost);
+export default async function DetailPage({ params }) {
+  const allPosts = await fetchPosts();
+  const post = allPosts.find((p) => slugify(p.title) === params.slug);
 
-        const related = allPosts
-          .filter((p) => slugify(p.title) !== slug && p.category === matchedPost.category)
-          .slice(0, 6);
+  if (!post) return notFound();
 
-        setRelatedPosts(related);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError('Failed to load article.');
-        setLoading(false);
-      });
-  }, [slug]);
+  const relatedPosts = allPosts
+    .filter((p) => slugify(p.title) !== params.slug && p.category === post.category)
+    .slice(0, 6);
 
-  if (loading) return <div className="preloader" id="preloader">
-    <div className="preloader-inner">
-      <div className="spinner">
-        <div className="dot1"></div>
-        <div className="dot2"></div>
-      </div>
-    </div>
-  </div>;
-  if (error) return <p>{error}</p>;
-  if (!post) return null;
-
-  const generateSlug = (text) =>
-    text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')       // remove punctuation, keeping spaces and dashes
-      .replace(/\s+/g, '-')           // replace spaces with single dash
-      .replace(/-+/g, '-')            // collapse multiple dashes into one
-      .replace(/^-+|-+$/g, '');
   const date = new Date(post.date);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  const formattedDate = `${day}-${month}-${year}`;
   const postUrl = `/${year}/${month}/${day}/${generateSlug(post.title)}`;
-
-  const relatedDate = (dates) => {
-    const date = new Date(dates);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const formattedDate = `${day}-${month}-${year}`;
-    return formattedDate
-  }
 
   return (
     <>
       <Head>
         <title>{post.title}</title>
-        <meta name="description" content={post.description?.slice(0, 150) || 'Read the latest news and updates.'} />
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description?.slice(0, 150) || ''} />
-        <meta property="og:image" content={post.image || '/default-thumbnail.jpg'} />
+        <meta property="og:description" content={post.description || "Latest gist from NaijaGossip"} />
+        <meta property="og:image" content={post.image || "/default-thumbnail.jpg"} />
+        <meta property="og:url" content={`https://naijagossip.vercel.app/${params.slug}`} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://naijagossip.vercel.app/${postUrl}`} />
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.description?.slice(0, 150) || ''} />
-        <meta name="twitter:image" content={post.image || '/default-thumbnail.jpg'} />
-
-
+        <meta name="twitter:description" content={post.description || "Latest gist from NaijaGossip"} />
+        <meta name="twitter:image" content={post.image || "/default-thumbnail.jpg"} />
       </Head>
 
       <Nav1 />
       <div className={styles.wrapper}>
         <h1 className={styles.title}>{post.title}</h1>
-
         <div className={styles.meta}>
           <span><i className="fa fa-user"></i> {post.author || 'Anonymous'}</span>
-          <span><i className="fa fa-calendar"></i> {formattedDate || '--'}</span>
-
+          <span><i className="fa fa-calendar"></i> {formatDate(post.date)}</span>
         </div>
-
-        <Image
-          src={post.image}
-          alt={post.title}
-          width={800}
-          height={450}
-          className={styles.hero}
-        />
-
+        <Image src={post.image} alt={post.title} width={800} height={450} className={styles.hero} />
         <p className={styles.content}>{post.description}</p>
-
         <p className={styles.author}>Written by {post.author || 'Anonymous'}</p>
         <div className={styles.share}>
-          <a href="#"><i className="fa fa-facebook"></i></a>
-          <a href="#"><i className="fa fa-twitter"></i></a>
-          <a href="#"><i className="fa fa-whatsapp"></i></a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=https://naijagossip.vercel.app${postUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-facebook"></i>
+          </a>
 
+          <a
+            href={`https://twitter.com/intent/tweet?url=https://naijagossip.vercel.app${postUrl}&text=${encodeURIComponent(post.title)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-twitter"></i>
+          </a>
 
+          <a
+            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' https://naijagossip.vercel.app' + postUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-whatsapp"></i>
+          </a>
         </div>
-        <h3>Related Posts</h3>
+
+
+        <h4>Related Posts</h4>
         <div className="row">
           {relatedPosts.map((related) => {
-
             const date = new Date(related.date);
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
-            const formattedDate = `${day}-${month}-${year}`;
-            const postUrl = `/${year}/${month}/${day}/${generateSlug(related.title)}`;
+            const relatedSlug = `/${year}/${month}/${day}/${generateSlug(related.title)}`;
 
             return (
               <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
                 <div
                   className="my-related-card p-2"
-                  onClick={() => router.push(postUrl)}
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="my-related-thumb position-relative">
                     <Image
                       src={related.image || '/assets/img/placeholder.png'}
-                      alt={related.title || 'Related Post'}
+                      alt={related.title}
                       width={400}
                       height={200}
                       className="card-img-top"
                     />
-                    <a
-                      className={`my-related-tag ${related.categoryClass || 'bg-secondary'}`}
-                      href="#"
-                    >
-                      {related.category || 'General'}
+                    <a className={`my-related-tag ${related.categoryClass || 'bg-secondary'}`} href="#">
+                      {related.category}
                     </a>
                   </div>
-
                   <div className="my-related-details mt-2">
                     <h6 className="my-related-title">
-                      <Link href={postUrl} className="text-dark">
-                        {related.title}
-                      </Link>
+                      <Link href={relatedSlug} className="text-dark">{related.title}</Link>
                     </h6>
                     <div className="my-related-meta">
                       <ul className="list-unstyled mb-0">
-                        <li>
-                        <i className="fa fa-clock-o me-1"></i>
-
-
-                          {relatedDate(related.date) || ''}
-                        </li>
+                        <li><i className="fa fa-clock-o me-1"></i>{formatDate(related.date)}</li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
-
-            )
+            );
           })}
-
-
-
         </div>
         <Script src="/assets/js/vendor.js" />
       </div>
-
       <Footer />
     </>
   );
-
-};
-
-export default DetailPage;
+}
