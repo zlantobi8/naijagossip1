@@ -46,7 +46,7 @@ export const getAllRoutes = async () => {
 
         posts.forEach((post) => {
             allRoutes.push({
-                slug: `${path}/${encodeURIComponent(generateSlug(post.title))}`,
+                slug: `/${path}/${encodeURIComponent(generateSlug(post.title))}`,
                 lastModified: post._updatedAt,
             });
         });
