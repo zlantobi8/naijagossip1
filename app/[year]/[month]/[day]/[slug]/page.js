@@ -118,7 +118,7 @@ export default async function DetailPage({ params }) {
           <span><i className="fa fa-user"></i> {post.author || 'Anonymous'}</span>
           <span><i className="fa fa-calendar"></i> {formatDate(post.date)}</span>
         </div>
-        <Image src={post.image} alt={post.title} width={800} height={450} className={styles.hero} />
+        <Image src={post.image} alt={post.title} width={800} height={450} className={styles.hero}   loading="lazy"/>
         <p className={styles.content}>{post.description}</p>
         <p className={styles.author}>Written by {post.author || 'Anonymous'}</p>
         <div className={styles.share}>
@@ -170,6 +170,7 @@ export default async function DetailPage({ params }) {
                       width={400}
                       height={200}
                       className="card-img-top"
+                        loading="lazy"
                     />
                     <a className={`my-related-tag ${related.categoryClass || 'bg-secondary'}`} href="#">
                       {related.category}
