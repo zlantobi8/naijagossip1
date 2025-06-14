@@ -52,7 +52,7 @@ export default function About() {
 
         <p><strong>Address:</strong><br />
           Lagos State, Nigeria<br />
-          Phone: <a href="tel:+2348101234567">+2348101234567</a></p>
+          Phone: <a href="tel:+2348101234567">+2347061043812</a></p>
 
         <p><strong>Connect With Us:</strong><br />
           Twitter: <a href="https://twitter.com/naijagossip" target="_blank">@naijagossip</a> | <a href="https://twitter.com/naijagossipceo" target="_blank">@naijagossipceo</a><br />

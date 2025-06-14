@@ -39,7 +39,8 @@ export default function BannerAd({ slicepost }) {
           {/* Image Section */}
           <div className="col-lg-6">
             <div className="thumb after-left-top">
-              <img src={ad.image} alt="img" width={640} height={360} />
+              <img src={ad.image} alt="img" width={480} height={270} />
+
             </div>
           </div>
 
