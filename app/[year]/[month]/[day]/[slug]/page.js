@@ -13,74 +13,27 @@ const slugify = (text) =>
     .replace(/[^\w\-]+/g, '')
     .replace(/\-\-+/g, '-');
 
-const fetchPosts = async () => {
+const fetchAllPosts = async () => {
   const query = encodeURIComponent(`{
-    "sportsPost": *[_type == "sportsPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "educationPost": *[_type == "educationPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "politicsPost": *[_type == "politicsPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "technologyPost": *[_type == "technologyPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "healthPost": *[_type == "healthPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "celebrityPost": *[_type == "celebrityPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "mainPost": *[_type == "mainPost"] | order(date desc) {
+    "posts": *[
+      _type in ["mainPost", "sportsPost", "educationPost", "politicsPost", "technologyPost", "healthPost", "celebrityPost"]
+    ] {
       _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
     }
   }`);
+
   const url = `https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`;
 
   const res = await fetch(url, {
     headers: {
-      Authorization: process.env.NEXT_PUBLIC_API_AUTH
+      Authorization: process.env.NEXT_PUBLIC_API_AUTH,
     },
-    next: { revalidate: 60 } // cache for 1 min
+    next: { revalidate: 60 },
   });
+
   const data = await res.json();
-  return [
-    ...(data.result?.mainPost || []),
-    ...(data.result?.sportsPost || []),
-    ...(data.result?.educationPost || []),
-    ...(data.result?.politicsPost || []),
-    ...(data.result?.technologyPost || []),
-    ...(data.result?.healthPost || []),
-    ...(data.result?.celebrityPost || [])
-  ];
+  return data.result?.posts || [];
 };
-
-export async function generateMetadata({ params }) {
-  const allPosts = await fetchPosts();
-  const post = allPosts.find((p) => slugify(p.title) === params.slug);
-
-  if (!post) return notFound();
-
-  return {
-    title: post.title,
-    description: post.description?.slice(0, 150),
-    openGraph: {
-      title: post.title,
-      description: post.description?.slice(0, 150),
-      images: [post.image || '/default-thumbnail.jpg'],
-      type: 'article',
-      url: `https://naijagossip.vercel.app/${params.slug}`
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.description?.slice(0, 150),
-      images: [post.image || '/default-thumbnail.jpg']
-    }
-  };
-}
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -91,20 +44,45 @@ function generateSlug(text) {
   return text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '');
 }
 
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const allPosts = await fetchAllPosts();
+  const post = allPosts.find((p) => slugify(p.title) === slug);
+
+  if (!post) return notFound();
+
+  const { year, month, day } = params;
+
+  return {
+    title: post.title,
+    description: post.description?.slice(0, 150),
+    openGraph: {
+      title: post.title,
+      description: post.description?.slice(0, 150),
+      images: [post.image || '/default-thumbnail.jpg'],
+      type: 'article',
+      url: `https://naijagossip.vercel.app/${year}/${month}/${day}/${slug}`
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description?.slice(0, 150),
+      images: [post.image || '/default-thumbnail.jpg']
+    }
+  };
+}
+
 export default async function DetailPage({ params }) {
-  const allPosts = await fetchPosts();
-  const post = allPosts.find((p) => slugify(p.title) === params.slug);
+  const { slug, year, month, day } = params;
+  const allPosts = await fetchAllPosts();
+  const post = allPosts.find((p) => slugify(p.title) === slug);
 
   if (!post) return notFound();
 
   const relatedPosts = allPosts
-    .filter((p) => slugify(p.title) !== params.slug && p.category === post.category)
+    .filter((p) => slugify(p.title) !== slug && p.category === post.category)
     .slice(0, 6);
 
-  const date = new Date(post.date);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
   const postUrl = `/${year}/${month}/${day}/${generateSlug(post.title)}`;
 
   return (
@@ -114,7 +92,7 @@ export default async function DetailPage({ params }) {
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description || "Latest gist from NaijaGossip"} />
         <meta property="og:image" content={post.image || "/default-thumbnail.jpg"} />
-        <meta property="og:url" content={`https://naijagossip.vercel.app/${params.slug}`} />
+        <meta property="og:url" content={`https://naijagossip.vercel.app${postUrl}`} />
         <meta property="og:type" content="article" />
 
         <meta name="twitter:card" content="summary_large_image" />
@@ -130,9 +108,10 @@ export default async function DetailPage({ params }) {
           <span><i className="fa fa-user"></i> {post.author || 'Anonymous'}</span>
           <span><i className="fa fa-calendar"></i> {formatDate(post.date)}</span>
         </div>
-        <Image src={post.image} alt={post.title} width={800} height={450} className={styles.hero}   loading="lazy"/>
+        <Image src={post.image} alt={post.title} width={800} height={450} className={styles.hero} loading="lazy" />
         <p className={styles.content}>{post.description}</p>
         <p className={styles.author}>Written by {post.author || 'Anonymous'}</p>
+
         <div className={styles.share}>
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=https://naijagossip.vercel.app${postUrl}`}
@@ -141,7 +120,6 @@ export default async function DetailPage({ params }) {
           >
             <i className="fa fa-facebook"></i>
           </a>
-
           <a
             href={`https://twitter.com/intent/tweet?url=https://naijagossip.vercel.app${postUrl}&text=${encodeURIComponent(post.title)}`}
             target="_blank"
@@ -149,7 +127,6 @@ export default async function DetailPage({ params }) {
           >
             <i className="fa fa-twitter"></i>
           </a>
-
           <a
             href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' https://naijagossip.vercel.app' + postUrl)}`}
             target="_blank"
@@ -159,22 +136,18 @@ export default async function DetailPage({ params }) {
           </a>
         </div>
 
-
         <h4>Related Posts</h4>
         <div className="row">
           {relatedPosts.map((related) => {
             const date = new Date(related.date);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const relatedSlug = `/${year}/${month}/${day}/${generateSlug(related.title)}`;
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            const relatedSlug = `/${y}/${m}/${d}/${generateSlug(related.title)}`;
 
             return (
               <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
-                <div
-                  className="my-related-card p-2"
-                  style={{ cursor: 'pointer' }}
-                >
+                <div className="my-related-card p-2" style={{ cursor: 'pointer' }}>
                   <div className="my-related-thumb position-relative">
                     <Image
                       src={related.image || '/assets/img/placeholder.png'}
@@ -182,7 +155,7 @@ export default async function DetailPage({ params }) {
                       width={400}
                       height={200}
                       className="card-img-top"
-                        loading="lazy"
+                      loading="lazy"
                     />
                     <a className={`my-related-tag ${related.categoryClass || 'bg-secondary'}`} href="#">
                       {related.category}

@@ -4,84 +4,88 @@ import { useEffect, useState } from "react";
 import { useParams } from 'next/navigation';
 import Footer from "@/app/Footer";
 import Link from "next/link";
-import Image from "next/image";
 import Nav1 from "@/app/components/Nav1";
 
 export default function AllPosts() {
   const { slug } = useParams();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const pageSize = 8;
 
-  const slugify = (text) =>
-    text.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');
-
+  const slugToSanityType = {
+    sport: "sportsPost",
+    education: "educationPost",
+    politics: "politicsPost",
+    technology: "technologyPost",
+    health: "healthPost",
+    celebrity: "celebrityPost",
+    general: "mainPost",
+  };
 
   const generateSlug = (text) =>
     text
       .toLowerCase()
-      .replace(/[^\w\s-]/g, '')       // remove punctuation, keeping spaces and dashes
-      .replace(/\s+/g, '-')           // replace spaces with single dash
-      .replace(/-+/g, '-')            // collapse multiple dashes into one
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
       .replace(/^-+|-+$/g, '');
+
   useEffect(() => {
-    const query = encodeURIComponent(`{
-      "mainPost": *[_type == "mainPost"] | order(date desc) { _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date },
-      "sportsPost": *[_type == "sportsPost"] | order(date desc) { _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date },
-      "educationPost": *[_type == "educationPost"] | order(date desc) { _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date },
-      "politicsPost": *[_type == "politicsPost"] | order(date desc) { _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date },
-      "technologyPost": *[_type == "technologyPost"] | order(date desc) { _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date },
-      "healthPost": *[_type == "healthPost"] | order(date desc) { _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date },
-      "celebrityPost": *[_type == "celebrityPost"] | order(date desc) { _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date }
-    }`);
+    const fetchPosts = async () => {
+      setLoading(true);
+      const postType = slugToSanityType[slug] || "mainPost";
+      const start = (currentPage - 1) * pageSize;
+      const end = start + pageSize;
+      console.log(postType);
+      const query = encodeURIComponent(`*[_type == "${postType}"] | order(date desc) [${start}...${end}] {
+        _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+      }`);
 
-    fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`, {
-      headers: {
-        Authorization: process.env.NEXT_PUBLIC_API_AUTH,
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        const {
-          mainPost = [],
-          sportsPost = [],
-          educationPost = [],
-          politicsPost = [],
-          technologyPost = [],
-          healthPost = [],
-          celebrityPost = [],
-        } = data.result || {};
+      const countQuery = encodeURIComponent(`count(*[_type == "${postType}"])`);
 
-        const all = [
-          ...mainPost,
-          ...sportsPost,
-          ...educationPost,
-          ...politicsPost,
-          ...technologyPost,
-          ...healthPost,
-          ...celebrityPost
-        ];
+      const [postsRes, countRes] = await Promise.all([
+        fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`, {
+          headers: {
+            Authorization: process.env.NEXT_PUBLIC_API_AUTH,
+          }
+        }),
+        fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${countQuery}`, {
+          headers: {
+            Authorization: process.env.NEXT_PUBLIC_API_AUTH,
+          }
+        })
+      ]);
 
-        const filtered = all.filter(p => slugify(p.category) === slug);
-        setPosts(filtered);
-      })
-      .finally(() => setLoading(false));
-  }, [slug]);
+      const postsData = await postsRes.json();
+      const countData = await countRes.json();
 
-  if (loading) return <div className="preloader" id="preloader">
-    <div className="preloader-inner">
-      <div className="spinner">
-        <div className="dot1"></div>
-        <div className="dot2"></div>
+      setPosts(postsData.result || []);
+      setTotalPages(Math.ceil(countData.result / pageSize));
+      setLoading(false);
+    };
+
+    fetchPosts();
+  }, [slug, currentPage]);
+
+  if (loading) {
+    return (
+      <div className="preloader" id="preloader">
+        <div className="preloader-inner">
+          <div className="spinner">
+            <div className="dot1"></div>
+            <div className="dot2"></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>;
+    );
+  }
+
   if (posts.length === 0) return <p>No posts found for {slug}</p>;
 
   return (
-
-
     <div className="navbar-area" style={{ background: '#10284f' }}>
-
       <Nav1 />
 
       <div className="container pt-5" style={{ background: '#10284f' }}>
@@ -92,8 +96,8 @@ export default function AllPosts() {
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
-            const formattedDate = `${day}-${month}-${year}`;
             const postUrl = `/${year}/${month}/${day}/${generateSlug(post.title)}`;
+
             return (
               <div key={post._id} className="col-lg-3 col-sm-6">
                 <div className="single-post-wrap style-white">
@@ -109,7 +113,7 @@ export default function AllPosts() {
                     </h6>
                     <div className="post-meta-single mt-3">
                       <ul>
-                        <li><i className="fa fa-clock-o"></i> {formattedDate}</li>
+                        <li><i className="fa fa-clock-o"></i> {`${day}-${month}-${year}`}</li>
                       </ul>
                     </div>
                   </div>
@@ -119,101 +123,125 @@ export default function AllPosts() {
           })}
         </div>
 
-        {/* Styles go here */}
+        <div className="pagination">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              className={`page-btn ${currentPage === i + 1 ? 'active' : ''}`}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+
         <style jsx>{`
-        body {
-          background-color: #10284f;
-          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          color: white;
-          margin: 0;
-          padding: 0;
-        }
-
-        h3.section-title {
-          color: white;
-          padding-top: 30px;
-          font-size: 1.8rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-        }
-
-        @media (max-width: 768px) {
           h3.section-title {
-            padding-left: 20px;
-            font-size: 1.5rem;
+            color: white;
+            padding-top: 30px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
           }
-        }
 
-        .row {
-          display: flex;
-          flex-wrap: wrap;
-          margin-left: -15px;
-          margin-right: -15px;
-        }
+          @media (max-width: 768px) {
+            h3.section-title {
+              padding-left: 20px;
+              font-size: 1.5rem;
+            }
+          }
 
-        .col-lg-3 {
-          width: 25%;
-          padding-left: 15px;
-          padding-right: 15px;
-          box-sizing: border-box;
-        }
+          .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -15px;
+            margin-right: -15px;
+          }
 
-        .col-sm-6 {
-          width: 50%;
-          padding-left: 15px;
-          padding-right: 15px;
-          box-sizing: border-box;
-        }
+          .col-lg-3 {
+            width: 25%;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+          }
 
-        .single-post-wrap {
-          background-color: #1b3a6f;
-          padding: 15px;
-          border-radius: 8px;
-          color: white;
-        }
+          .col-sm-6 {
+            width: 50%;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+          }
 
-        .thumb img {
-          width: 100%;
-          height: auto;
-          border-radius: 6px;
-        }
+          .single-post-wrap {
+            background-color: #1b3a6f;
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 20px;
+          }
 
-        .tag-base {
-          display: inline-block;
-          margin-top: 10px;
-          padding: 3px 8px;
-          background-color: #ff5d00;
-          color: white;
-          font-size: 0.8rem;
-          border-radius: 3px;
-        }
+          .thumb img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+          }
 
-        .details .title {
-          margin-top: 10px;
-          font-size: 1rem;
-        }
+          .tag-base {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 3px 8px;
+            background-color: #ff5d00;
+            color: white;
+            font-size: 0.8rem;
+            border-radius: 3px;
+          }
 
-        .details .title a {
-          color: white;
-          text-decoration: none;
-        }
+          .details .title {
+            margin-top: 10px;
+            font-size: 1rem;
+          }
 
-        .post-meta-single ul {
-          padding: 0;
-          list-style: none;
-          margin-top: 10px;
-        }
+          .details .title a {
+            color: white;
+            text-decoration: none;
+          }
 
-        .post-meta-single li {
-          font-size: 0.8rem;
-        }
+          .post-meta-single ul {
+            padding: 0;
+            list-style: none;
+            margin-top: 10px;
+          }
+
+          .post-meta-single li {
+            font-size: 0.8rem;
+          }
+
           @media (max-width: 576px) {
-  .col-sm-6, .col-lg-3 {
-    width: 100% !important;
-  }
-}
+            .col-sm-6, .col-lg-3 {
+              width: 100% !important;
+            }
+          }
 
-      `}</style>
+          .pagination {
+            margin-top: 30px;
+            text-align: center;
+          }
+
+          .page-btn {
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 6px 12px;
+            margin: 0 4px;
+            cursor: pointer;
+            border-radius: 4px;
+          }
+
+          .page-btn.active {
+            background-color: #ff5d00;
+            border-color: #ff5d00;
+          }
+        `}</style>
       </div>
       <Footer />
     </div>

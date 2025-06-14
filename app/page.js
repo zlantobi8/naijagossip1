@@ -31,29 +31,30 @@ export default function Home() {
     celebrityPost: [],
   });
 
-  const query = encodeURIComponent(`{
-    "sportsPost": *[_type == "sportsPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "educationPost": *[_type == "educationPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "politicsPost": *[_type == "politicsPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "technologyPost": *[_type == "technologyPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "healthPost": *[_type == "healthPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "celebrityPost": *[_type == "celebrityPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    },
-    "mainPost": *[_type == "mainPost"] | order(date desc) {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-    }
-  }`);
+const query = encodeURIComponent(`{
+  "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...8] {
+    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  },
+  "educationPost": *[_type == "educationPost"] | order(date desc)[0...8] {
+    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  },
+  "politicsPost": *[_type == "politicsPost"] | order(date desc)[0...8] {
+    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  },
+  "technologyPost": *[_type == "technologyPost"] | order(date desc)[0...8] {
+    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  },
+  "healthPost": *[_type == "healthPost"] | order(date desc)[0...8] {
+    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  },
+  "celebrityPost": *[_type == "celebrityPost"] | order(date desc)[0...8] {
+    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  },
+  "mainPost": *[_type == "mainPost"] | order(date desc)[0...8] {
+    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  }
+}`);
+
 
   useEffect(() => {
     const fetchData = async () => {
