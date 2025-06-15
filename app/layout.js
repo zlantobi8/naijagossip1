@@ -8,6 +8,7 @@ export const metadata = {
     'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
   keywords: [
     'Naija Gossip',
+    'naijagossip',
     'Nigerian news',
     'Celebrity news',
     'Entertainment',
@@ -21,9 +22,9 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: '/assets/img/lll-removebg-preview.png',
-        width: 800,
-        height: 600,
+        url: 'https://naijagossip.vercel.app/assets/img/naijagossip-og.jpg', // <-- Replace with a 1200x630 JPG
+        width: 1200,
+        height: 630,
         alt: 'Naija Gossip Logo',
       },
     ],
@@ -32,7 +33,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Naija Gossip',
     description: 'Latest news and celebrity gossip from Nigeria.',
-    images: ['/assets/img/lll-removebg-preview.png'],
+    images: ['https://naijagossip.vercel.app/assets/img/naijagossip-og.jpg'],
   },
   verification: {
     google: 'jgfedbwYYJwFsiiWj38-xP3bU4vmeXLPTqmAY8G49yw',
@@ -43,26 +44,69 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/assets/img/lll-removebg-preview.png" type="image/x-icon" />
-        <meta property="og:image" content="https://naijagossip.vercel.app/assets/img/lll-removebg-preview.png" />
+        {/* Manual SEO tags for better indexing */}
+        <title>Naija Gossip - Latest Celebrity & Entertainment News in Nigeria</title>
+        <meta
+          name="description"
+          content="Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!"
+        />
+        <meta
+          name="keywords"
+          content="Naija Gossip, naijagossip, Nigerian news, Celebrity news, Entertainment, Naija gist"
+        />
 
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-  __html: JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "url": "https://naijagossip.vercel.app/",
-    "logo": "https://naijagossip.vercel.app/assets/img/lll-removebg-preview.png",
-    "name": "Naija Gossip"
-  })
-}} />
+        {/* Open Graph */}
+        <meta property="og:title" content="Naija Gossip" />
+        <meta
+          property="og:description"
+          content="Latest news and celebrity gossip from Nigeria."
+        />
+        <meta
+          property="og:image"
+          content="https://naijagossip.vercel.app/assets/img/naijagossip-og.jpg"
+        />
+        <meta property="og:url" content="https://naijagossip.vercel.app/" />
+        <meta property="og:type" content="website" />
 
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Naija Gossip" />
+        <meta
+          name="twitter:description"
+          content="Latest news and celebrity gossip from Nigeria."
+        />
+        <meta
+          name="twitter:image"
+          content="https://naijagossip.vercel.app/assets/img/naijagossip-og.jpg"
+        />
+
+        {/* Favicon */}
+        <link
+          rel="icon"
+          href="/assets/img/lll-removebg-preview.png"
+          type="image/x-icon"
+        />
+
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Naija Gossip",
+              url: "https://naijagossip.vercel.app/",
+              logo:
+                "https://naijagossip.vercel.app/assets/img/naijagossip-og.jpg",
+            }),
+          }}
+        />
       </head>
-      <body>
 
+      <body>
         <LoadAdSense />
         <RouteProgress />
         {children}
-        {/* <Footer /> can be placed here if needed globally */}
       </body>
     </html>
   );

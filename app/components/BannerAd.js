@@ -10,6 +10,7 @@ export default function BannerAd({ slicepost }) {
   const [adIndex, setAdIndex] = useState(null);
   const router = useRouter();
 
+  
   useEffect(() => {
     let sessionAd = sessionStorage.getItem('randomAdsession');
     if (sessionAd === null) {
