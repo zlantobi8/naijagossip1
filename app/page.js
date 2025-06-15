@@ -108,7 +108,9 @@ const query = encodeURIComponent(`{
 
     fetchData();
   },);
-
+ const currentDate = new Date().toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
 
   useEffect(() => {
     if (mainPosts == "") {
@@ -157,7 +159,7 @@ const query = encodeURIComponent(`{
                   <div className="col-lg-6 col-md-5 mt-2 mt-md-0 text-md-right text-center">
                     <div className="topbar-social">
                       <div className="topbar-date d-none d-lg-inline-block" id="lateDate">
-                        <i className="fa fa-calendar"></i>
+                         <i className="fa fa-calendar"></i> <span>{currentDate}</span>
                       </div>
                       <ul className="social-area social-area-2">
                         <li><a className="facebook-icon" href="#"><i className="fa fa-facebook"></i></a></li>
