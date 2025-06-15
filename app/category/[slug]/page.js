@@ -19,7 +19,7 @@ export default function AllPosts() {
     education: "educationPost",
     politics: "politicsPost",
     technology: "technologyPost",
-    health: "healthPost",
+    entertainment: "healthPost",
     celebrity: "celebrityPost",
     general: "mainPost",
   };

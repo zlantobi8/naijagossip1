@@ -231,7 +231,7 @@ const query = encodeURIComponent(`{
                       <Link href="/category/technology">Technology</Link>
                     </li>
                     <li className="current-menu-item">
-                      <Link href="/category/health">Health</Link>
+                      <Link href="/category/entertainment">Entertainment</Link>
                     </li>
                   </ul>
                 </div>
@@ -254,7 +254,7 @@ const query = encodeURIComponent(`{
             <Section title="Sport" id="sport" rowId="latest-posts-row" seeMoreId="see-more-sport" posts={categorizedPosts.sportsPost} />
             <Section title="Education" id="education" rowId="education-posts-row" seeMoreId="see-more-education" posts={categorizedPosts.educationPost} />
             <Section title="Technology" id="technology" rowId="Technology-posts-row" seeMoreId="see-more-technology" posts={categorizedPosts.technologyPost} />
-            <Section title="Health" id="health" rowId="health-posts-row" seeMoreId="see-more-health" posts={categorizedPosts.healthPost} />
+            <Section title="Entertainment" id="health" rowId="health-posts-row" seeMoreId="see-more-Entertainment" posts={categorizedPosts.healthPost} />
 
             <div id="container-4de593a4c6840ec4df6914b2537aff00"></div>
 
