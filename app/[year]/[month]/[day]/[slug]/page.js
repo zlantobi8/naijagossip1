@@ -45,13 +45,10 @@ function generateSlug(text) {
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = params;
   const allPosts = await fetchAllPosts();
-  const post = allPosts.find((p) => slugify(p.title) === slug);
+  const post = allPosts.find((p) => slugify(p.title) === params.slug);
 
   if (!post) return notFound();
-
-  const { year, month, day } = params;
 
   return {
     title: post.title,
@@ -61,16 +58,17 @@ export async function generateMetadata({ params }) {
       description: post.description?.slice(0, 150),
       images: [post.image || '/default-thumbnail.jpg'],
       type: 'article',
-      url: `https://naijagossip.vercel.app/${year}/${month}/${day}/${slug}`
+      url: `https://naijagossip.vercel.app/${params.year}/${params.month}/${params.day}/${params.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description?.slice(0, 150),
-      images: [post.image || '/default-thumbnail.jpg']
-    }
+      images: [post.image || '/default-thumbnail.jpg'],
+    },
   };
 }
+
 
 export default async function DetailPage({ params }) {
   const { slug, year, month, day } = params;

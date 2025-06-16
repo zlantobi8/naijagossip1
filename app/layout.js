@@ -1,6 +1,6 @@
 import './globals.css';
 import LoadAdSense from './components/LoadAdsense';
-import RouteProgress from './components/RouteProgress';
+import ProgressBar1 from './components/ClientProgressBar';
 
 export const metadata = {
   title: 'Naija Gossip - Latest Celebrity & Entertainment News in Nigeria',
@@ -105,8 +105,9 @@ export default function RootLayout({ children }) {
 
       <body>
         <LoadAdSense />
-        <RouteProgress />
+     
         {children}
+       <ProgressBar1/>
       </body>
     </html>
   );
