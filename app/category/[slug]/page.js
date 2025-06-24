@@ -1,95 +1,72 @@
-// app/allposts/[slug]/page.tsx
-'use client';
-import { useEffect, useState } from "react";
-import { useParams } from 'next/navigation';
+// app/allposts/[slug]/page.js
+
 import Footer from "@/app/Footer";
-import Link from "next/link";
 import Nav1 from "@/app/components/Nav1";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-export default function AllPosts() {
-  const { slug } = useParams();
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const pageSize = 8;
+const slugToSanityType = {
+  sport: "sportsPost",
+  education: "educationPost",
+  politics: "politicsPost",
+  technology: "technologyPost",
+  entertainment: "healthPost",
+  celebrity: "celebrityPost",
+  general: "mainPost",
+};
 
-  const slugToSanityType = {
-    sport: "sportsPost",
-    education: "educationPost",
-    politics: "politicsPost",
-    technology: "technologyPost",
-    entertainment: "healthPost",
-    celebrity: "celebrityPost",
-    general: "mainPost",
-  };
+const pageSize = 8;
 
-  const generateSlug = (text) =>
-    text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-+|-+$/g, '');
+function generateSlug(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      const postType = slugToSanityType[slug] || "mainPost";
-      const start = (currentPage - 1) * pageSize;
-      const end = start + pageSize;
-      console.log(postType);
-      const query = encodeURIComponent(`*[_type == "${postType}"] | order(date desc) [${start}...${end}] {
-        _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-      }`);
+export default async function AllPosts({ params, searchParams }) {
+  const slug = params.slug;
+  const postType = slugToSanityType[slug] || "mainPost";
+  const currentPage = parseInt(searchParams?.page || "1");
+  const start = (currentPage - 1) * pageSize;
+  const end = start + pageSize;
 
-      const countQuery = encodeURIComponent(`count(*[_type == "${postType}"])`);
+  const query = encodeURIComponent(`*[_type == "${postType}"] | order(date desc) [${start}...${end}] {
+    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  }`);
 
-      const [postsRes, countRes] = await Promise.all([
-        fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`, {
-          headers: {
-            Authorization: process.env.NEXT_PUBLIC_API_AUTH,
-          }
-        }),
-        fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${countQuery}`, {
-          headers: {
-            Authorization: process.env.NEXT_PUBLIC_API_AUTH,
-          }
-        })
-      ]);
+  const countQuery = encodeURIComponent(`count(*[_type == "${postType}"])`);
 
-      const postsData = await postsRes.json();
-      const countData = await countRes.json();
+  const [postsRes, countRes] = await Promise.all([
+    fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`, {
+      headers: {
+        Authorization: process.env.NEXT_PUBLIC_API_AUTH,
+      },
+      next: { revalidate: 30 },
+    }),
+    fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${countQuery}`, {
+      headers: {
+        Authorization: process.env.NEXT_PUBLIC_API_AUTH,
+      },
+      next: { revalidate: 30 },
+    }),
+  ]);
 
-      setPosts(postsData.result || []);
-      setTotalPages(Math.ceil(countData.result / pageSize));
-      setLoading(false);
-    };
+  const postsData = await postsRes.json();
+  const countData = await countRes.json();
 
-    fetchPosts();
-  }, [slug, currentPage]);
+  const posts = postsData.result || [];
+  const totalPages = Math.ceil(countData.result / pageSize);
 
-  if (loading) {
-    return (
-      <div className="preloader" id="preloader">
-        <div className="preloader-inner">
-          <div className="spinner">
-            <div className="dot1"></div>
-            <div className="dot2"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (posts.length === 0) return <p>No posts found for {slug}</p>;
+  if (!posts.length) return notFound();
 
   return (
     <div className="navbar-area" style={{ background: '#10284f' }}>
       <Nav1 />
-
       <div className="container pt-5" style={{ background: '#10284f' }}>
-        <h3 className="section-title">Latest in {slug.charAt(0).toUpperCase() + slug.slice(1)}</h3>
+        <h3 className="section-title  text-light">Latest in {slug.charAt(0).toUpperCase() + slug.slice(1)}</h3>
         <div className="row">
           {posts.map((post) => {
             const date = new Date(post.date);
@@ -125,123 +102,17 @@ export default function AllPosts() {
 
         <div className="pagination">
           {Array.from({ length: totalPages }, (_, i) => (
-            <button
+            <Link
               key={i}
+              href={`/allposts/${slug}?page=${i + 1}`}
               className={`page-btn ${currentPage === i + 1 ? 'active' : ''}`}
-              onClick={() => setCurrentPage(i + 1)}
             >
               {i + 1}
-            </button>
+            </Link>
           ))}
         </div>
 
-        <style jsx>{`
-          h3.section-title {
-            color: white;
-            padding-top: 30px;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-          }
-
-          @media (max-width: 768px) {
-            h3.section-title {
-              padding-left: 20px;
-              font-size: 1.5rem;
-            }
-          }
-
-          .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -15px;
-            margin-right: -15px;
-          }
-
-          .col-lg-3 {
-            width: 25%;
-            padding-left: 15px;
-            padding-right: 15px;
-            box-sizing: border-box;
-          }
-
-          .col-sm-6 {
-            width: 50%;
-            padding-left: 15px;
-            padding-right: 15px;
-            box-sizing: border-box;
-          }
-
-          .single-post-wrap {
-            background-color: #1b3a6f;
-            padding: 15px;
-            border-radius: 8px;
-            color: white;
-            margin-bottom: 20px;
-          }
-
-          .thumb img {
-            width: 100%;
-            height: auto;
-            border-radius: 6px;
-          }
-
-          .tag-base {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 3px 8px;
-            background-color: #ff5d00;
-            color: white;
-            font-size: 0.8rem;
-            border-radius: 3px;
-          }
-
-          .details .title {
-            margin-top: 10px;
-            font-size: 1rem;
-          }
-
-          .details .title a {
-            color: white;
-            text-decoration: none;
-          }
-
-          .post-meta-single ul {
-            padding: 0;
-            list-style: none;
-            margin-top: 10px;
-          }
-
-          .post-meta-single li {
-            font-size: 0.8rem;
-          }
-
-          @media (max-width: 576px) {
-            .col-sm-6, .col-lg-3 {
-              width: 100% !important;
-            }
-          }
-
-          .pagination {
-            margin-top: 30px;
-            text-align: center;
-          }
-
-          .page-btn {
-            background: none;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 6px 12px;
-            margin: 0 4px;
-            cursor: pointer;
-            border-radius: 4px;
-          }
-
-          .page-btn.active {
-            background-color: #ff5d00;
-            border-color: #ff5d00;
-          }
-        `}</style>
+        {/* You can move your existing styles here */}
       </div>
       <Footer />
     </div>
