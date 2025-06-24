@@ -1,17 +1,18 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function Section({ title, id, posts = [] }) {
   const router = useRouter();
 
-const generateSlug = (text) =>
-  text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')       // remove punctuation, keeping spaces and dashes
-    .replace(/\s+/g, '-')           // replace spaces with single dash
-    .replace(/-+/g, '-')            // collapse multiple dashes into one
-    .replace(/^-+|-+$/g, '');       // trim leading/trailing dashes
+  const generateSlug = (text) =>
+    text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')       // remove punctuation, keeping spaces and dashes
+      .replace(/\s+/g, '-')           // replace spaces with single dash
+      .replace(/-+/g, '-')            // collapse multiple dashes into one
+      .replace(/^-+|-+$/g, '');       // trim leading/trailing dashes
 
 
   const handleSeeMore = () => {
@@ -48,7 +49,15 @@ const generateSlug = (text) =>
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="thumb">
-                    <img src={post.image} alt={post.title || 'Post image'} className="img-fluid" />
+                    <Image
+                      src={post.image}
+                      alt={post.title || 'Post image'}
+                      width={400}               // Or adjust to your preferred width
+                      height={250}              // Adjust height as needed
+                      className="img-fluid"
+                      priority={false}          // Only set to true for important images
+                      loading="lazy"
+                    />
                     <p className="btn-date">
                       <i className="fa fa-clock-o"></i> {formattedDate}
                     </p>

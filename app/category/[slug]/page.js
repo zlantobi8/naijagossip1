@@ -2,6 +2,7 @@
 
 import Footer from "@/app/Footer";
 import Nav1 from "@/app/components/Nav1";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 const slugToSanityType = {
@@ -78,7 +79,14 @@ export default async function AllPosts({ params, searchParams }) {
               <div key={post._id} className="col-lg-3 col-sm-6">
                 <div className="single-post-wrap style-white">
                   <div className="thumb">
-                    <img src={post.image} alt={post.title} />
+                    <Image
+                      src={post.image}
+                      alt={post.title || 'Post image'}
+                      width={400}       // Adjust based on your layout
+                      height={250}      // Adjust to match aspect ratio
+                      loading="lazy"
+                      className="img-fluid" // Optional: for responsive layout if using Bootstrap or custom CSS
+                    />
                     <a className={`tag-base ${post.categoryClass}`}>{post.category}</a>
                   </div>
                   <div className="details">

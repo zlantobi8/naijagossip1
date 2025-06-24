@@ -107,7 +107,7 @@ export default function RootLayout({ children }) {
         <LoadAdSense />
      
         {children}
-       <ProgressBar1/>
+     
       </body>
     </html>
   );

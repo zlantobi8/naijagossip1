@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 
@@ -33,7 +34,14 @@ const MainPosts = ({ posts = [] }) => {
 
                 {/* Image and Category */}
                 <div className="thumb">
-                  <img src={post.image} alt={post.title || "main post image"} />
+                  <Image
+                    src={post.image}
+                    alt={post.title || 'Main post image'}
+                    width={400} // Set an appropriate width
+                    height={250} // Set an appropriate height
+                    loading="lazy"
+                    className="img-fluid" // Optional if you're using Bootstrap or want responsive sizing
+                  />
                   <Link href="#" className={`tag-base ${post.categoryClass}`}>
                     {post.category}
                   </Link>

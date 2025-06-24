@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 function generateSlug(title) {
   return title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
@@ -10,7 +11,7 @@ export default function BannerAd({ slicepost }) {
   const [adIndex, setAdIndex] = useState(null);
   const router = useRouter();
 
-  
+
   useEffect(() => {
     let sessionAd = sessionStorage.getItem('randomAdsession');
     if (sessionAd === null) {
@@ -40,8 +41,14 @@ export default function BannerAd({ slicepost }) {
           {/* Image Section */}
           <div className="col-lg-6">
             <div className="thumb after-left-top">
-              <img src={ad.image} alt="img" width={480} height={270} />
-
+              <Image
+                src={ad.image}
+                alt="Advertisement"
+                width={480}
+                height={270}
+                loading="lazy"
+                className="img-fluid" // Optional: if you're using Bootstrap or want responsiveness
+              />
             </div>
           </div>
 
