@@ -83,7 +83,7 @@ export default function RootLayout({ children }) {
         {/* Favicon */}
         <link
           rel="icon"
-          href="/assets/img/lll-removebg-preview.png"
+          href="/assets/img/favicon.ico"
           type="image/x-icon"
         />
 
