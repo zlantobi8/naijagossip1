@@ -2,7 +2,6 @@
 
 import Nav1 from "@/app/components/Nav1";
 import Footer from "@/app/Footer";
-import Image from "next/image";
 import React from "react";
 
 // ✅ Export metadata BEFORE the component
@@ -14,15 +13,7 @@ export const metadata = {
 export default function About() {
   return (
     <div className="bg-light text-dark">
-      <div className="pt-4 text-center mb-4 d-none d-md-block">
-        <Image
-          src="/assets/img/naija.png"
-          width={400}
-          height={50}
-          alt="logo"
-          className="img-fluid"
-        />
-      </div>
+ 
 
       <div className="navbar-area" style={{ background: '#10284f' }}>
         <Nav1 />

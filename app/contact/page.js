@@ -1,7 +1,6 @@
 
 import Nav1 from "@/app/components/Nav1";
 import Footer from "@/app/Footer";
-import Image from "next/image";
 import React from "react";
 export const metadata = {
   title: "Contact Us | Naija Gossip",
@@ -12,15 +11,7 @@ export default function Contact() {
     return (
         <div className="bg-light text-dark">
             {/* Logo (Hidden on mobile) */}
-            <div className="pt-4 text-center mb-4 d-none d-md-block">
-                <Image
-                    src="/assets/img/naija.png"
-                    width={400}
-                    height={50}
-                    alt="logo"
-                    className="img-fluid"
-                />
-            </div>
+         
 
             {/* Navbar */}
             <div className="navbar-area" style={{ background: '#10284f' }}>

@@ -103,7 +103,7 @@ export default async function Home() {
               <div className="col-xl-6 col-lg-5 align-self-center">
                 <div className="logo text-md-left text-center">
                   <Link className="main-logo" href="/">
-                    <Image src="/assets/img/naija.png" alt="logo" width={200} height={50} />
+                    <Image src="/assets/img/naija.png" alt="logo" width={280} height={90} />
                   </Link>
                 </div>
               </div>
