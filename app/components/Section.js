@@ -85,11 +85,13 @@ export default function Section({ title, id, posts = [] }) {
           padding: '0.5rem 1rem',
           borderRadius: '4px',
           cursor: 'pointer',
+          userSelect: 'none', // prevent highlighting the whole button
         }}
         onClick={handleSeeMore}
       >
-        <span style={{ color: 'white' }}>See More</span>
+        <span style={{ color: 'white', userSelect: 'none' }}>See More</span>
       </div>
+
     </div>
   );
 }
