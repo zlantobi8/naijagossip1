@@ -39,7 +39,7 @@ const MainPosts = ({ posts = [] }) => {
                     alt={post.title || 'Main post image'}
                     width={400} // Set an appropriate width
                     height={250} // Set an appropriate height
-                    loading="lazy"
+                    priority
                     className="img-fluid" // Optional if you're using Bootstrap or want responsive sizing
                   />
                   <Link href="#" className={`tag-base ${post.categoryClass}`}>

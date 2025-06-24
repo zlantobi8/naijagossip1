@@ -74,13 +74,13 @@ export default async function AllPosts({ params, searchParams }) {
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
             const postUrl = `/${year}/${month}/${day}/${generateSlug(post.title)}`;
-
+            const optimizedUrl = post.image + '?w=400&auto=format';
             return (
               <div key={post._id} className="col-lg-3 col-sm-6">
                 <div className="single-post-wrap style-white">
                   <div className="thumb">
                     <Image
-                      src={post.image}
+                      src={optimizedUrl}
                       alt={post.title || 'Post image'}
                       width={400}       // Adjust based on your layout
                       height={250}      // Adjust to match aspect ratio

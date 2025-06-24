@@ -40,7 +40,7 @@ export default function Section({ title, id, posts = [] }) {
             const day = String(date.getDate()).padStart(2, '0');
             const formattedDate = `${day}-${month}-${year}`;
             const postUrl = `/${year}/${month}/${day}/${slug}`;
-
+            const optimizedUrl = post.image + '?w=400&auto=format';
             return (
               <div className="col-lg-3 col-sm-6 mb-4" key={index}>
                 <div
@@ -50,7 +50,7 @@ export default function Section({ title, id, posts = [] }) {
                 >
                   <div className="thumb">
                     <Image
-                      src={post.image}
+                      src={optimizedUrl}
                       alt={post.title || 'Post image'}
                       width={400}               // Or adjust to your preferred width
                       height={250}              // Adjust height as needed

@@ -33,7 +33,7 @@ export default function BannerAd({ slicepost }) {
   const day = String(dateObj.getDate()).padStart(2, '0');
   const slug = generateSlug(ad.title);
   const formattedDate = dateObj.toLocaleDateString('en-GB');
-
+  const optimizedUrl = ad.image + '?w=400&auto=format';
   return (
     <div className="banner-inner pt-5">
       <div className="container">
@@ -41,12 +41,15 @@ export default function BannerAd({ slicepost }) {
           {/* Image Section */}
           <div className="col-lg-6">
             <div className="thumb after-left-top">
+              {
+
+              }
               <Image
-                src={ad.image}
+                src={optimizedUrl}
                 alt="Advertisement"
                 width={480}
                 height={270}
-                loading="lazy"
+                priority // 💥 This tells Next.js to load it early
                 className="img-fluid" // Optional: if you're using Bootstrap or want responsiveness
               />
             </div>
