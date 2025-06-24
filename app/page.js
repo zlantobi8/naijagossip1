@@ -6,6 +6,7 @@ import BannerAd from './components/BannerAd';
 import MainPosts from './components/Mainposts';
 import Section from './components/Section';
 import Footer from './Footer';
+import Navbar2 from './components/Navbar2';
 
 const query = encodeURIComponent(`{
   "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...8] {
@@ -114,36 +115,7 @@ export default async function Home() {
         </div>
 
         {/* 🔵 Navbar */}
-        <nav className="navbar navbar-expand-lg">
-          <div className="container nav-container">
-            <div className="responsive-mobile-menu">
-              <div className="logo d-lg-none d-block">
-                <Link href="/">
-                  <Image src="/assets/img/naija.png" alt="logo" width={100} height={50} />
-                </Link>
-              </div>
-              <button
-                className="menu toggle-btn d-block d-lg-none"
-                data-bs-toggle="collapse"
-                data-bs-target="#nextpage_main_menu"
-              >
-                <span className="icon-left"></span>
-                <span className="icon-right"></span>
-              </button>
-            </div>
-
-            <div className="collapse navbar-collapse" id="nextpage_main_menu">
-              <ul className="navbar-nav menu-open">
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/category/politics">Politics</Link></li>
-                <li><Link href="/category/sport">Sport</Link></li>
-                <li><Link href="/category/education">Education</Link></li>
-                <li><Link href="/category/technology">Technology</Link></li>
-                <li><Link href="/category/entertainment">Entertainment</Link></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Navbar2 />
 
         {/* 🔵 Banner & Main Posts */}
         <div className="banner-area banner-inner-1 bg-black" id="banner">
