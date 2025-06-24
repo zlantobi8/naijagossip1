@@ -4,7 +4,6 @@ import Footer from "@/app/Footer";
 import Nav1 from "@/app/components/Nav1";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-
 const slugToSanityType = {
   sport: "sportsPost",
   education: "educationPost",
@@ -106,6 +105,17 @@ export default async function AllPosts({ params, searchParams }) {
               key={i}
               href={`/allposts/${slug}?page=${i + 1}`}
               className={`page-btn ${currentPage === i + 1 ? 'active' : ''}`}
+              style={{
+                background: 'none',
+                border: '1px solid #fff',
+                color: '#fff',
+                padding: '6px 12px',
+                margin: '0 4px',
+                cursor: 'pointer',
+                borderRadius: '4px',
+                backgroundColor: currentPage === i + 1 ? '#ff5d00' : 'transparent',
+                borderColor: currentPage === i + 1 ? '#ff5d00' : '#fff',
+              }}
             >
               {i + 1}
             </Link>
