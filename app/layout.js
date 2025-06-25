@@ -83,7 +83,7 @@ export default function RootLayout({ children }) {
         {/* Favicon */}
         <link
           rel="icon"
-          href="/assets/img/favicon.ico"
+          href="/assets/img/favicon.png"
           type="image/x-icon"
         />
 

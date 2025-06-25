@@ -7,6 +7,7 @@ import MainPosts from './components/Mainposts';
 import Section from './components/Section';
 import Footer from './Footer';
 import Navbar2 from './components/Navbar2';
+import Logo from './components/Logo';
 
 const query = encodeURIComponent(`{
   "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...8] {
@@ -102,9 +103,7 @@ export default async function Home() {
             <div className="row">
               <div className="col-xl-6 col-lg-5 align-self-center">
                 <div className="logo text-md-left text-center">
-                  <Link className="main-logo" href="/">
-                    <Image src="/assets/img/naija.png" alt="logo" width={280} height={90} />
-                  </Link>
+                 <Image src="/assets/img/naija.png" alt="logo" width={180} height={60} />
                 </div>
               </div>
               <div className="col-xl-6 col-lg-7 text-md-right text-center">

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Logo from './Logo';
 
 export default function Navbar2() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -11,9 +12,7 @@ export default function Navbar2() {
       <div className="container nav-container">
         <div className="responsive-mobile-menu">
           <div className="logo d-lg-none d-block">
-            <Link href="/">
-              <Image src="/assets/img/naija.png" alt="logo" width={100} height={50} />
-            </Link>
+           <Image src="/assets/img/naija.png" alt="logo" width={150} height={55} />
           </div>
 
           <button

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import Logo from './components/Logo';
 
 const Footer = () => {
   return (
@@ -13,15 +14,21 @@ const Footer = () => {
         <div className="container">
 
           {/* Centered Logo using Bootstrap */}
-          <div className="text-center mb-4">
+          <div
+            className="mb-4"
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          >
             <Image
-              src="/assets/img/naija.png"
-              width={400}
-              height={50}
-              alt="logo"
-              className="img-fluid"
+              src={'/assets/img/naija.png'}
+              alt={'Main post image'}
+              width={260}
+              height={80}
+              priority
             />
+
+
           </div>
+
 
           {/* FOOTER BOTTOM */}
           <div className="footer-bottom text-center">
@@ -29,7 +36,7 @@ const Footer = () => {
               <li className="list-inline-item">
                 <Link href="/about" className="text-white text-decoration-none">About</Link>
               </li>
-             
+
               <li className="list-inline-item">
                 <Link href="/privacy-policy" className="text-white text-decoration-none">Privacy Policy</Link>
               </li>
