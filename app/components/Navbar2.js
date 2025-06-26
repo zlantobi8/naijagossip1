@@ -8,11 +8,11 @@ export default function Navbar2() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="navbar navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container nav-container">
         <div className="responsive-mobile-menu">
           <div className="logo d-lg-none d-block">
-           <Image src="/assets/img/naija.png" alt="logo" width={150} height={55} />
+            <Image src="/assets/img/naija.png" alt="logo" width={160} height={55} />
           </div>
 
           <button
@@ -35,6 +35,23 @@ export default function Navbar2() {
           </ul>
         </div>
       </div>
+     <style jsx>{`
+  .custom-navbar {
+    background-color: #0866ff;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .custom-navbar {
+      background-color: #0866ff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* subtle shadow */
+      z-index: 999;
+      position: relative;
+    }
+  }
+`}</style>
+
     </nav>
+
   );
 }
