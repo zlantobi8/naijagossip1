@@ -3,8 +3,8 @@ import Nav1 from "@/app/components/Nav1";
 import Footer from "@/app/Footer";
 import React from "react";
 export const metadata = {
-  title: "Privacy Policy | Naija Gossip",
-  description: "Read about how Naija Gossip collects and uses your data.",
+  title: "Privacy Policy |  Daily Crust",
+  description: "Read about how  Daily Crust collects and uses your data.",
 };
 
 export default function Privacy() {
@@ -22,7 +22,7 @@ export default function Privacy() {
         <h1 className="text-center mb-4">Privacy Policy</h1>
 
         <p>
-          At <strong>Naija Gossip</strong>, your privacy is very important to us. This privacy policy outlines the types of information we collect,
+          At <strong> Daily Crust</strong>, your privacy is very important to us. This privacy policy outlines the types of information we collect,
           how we use it, and the measures we take to protect it.
         </p>
 
@@ -70,7 +70,7 @@ export default function Privacy() {
           If you have any questions about this Privacy Policy, you can contact us at:
         </p>
         <ul>
-          <li>Email: <a href="mailto:newsroom@naijagossip.com">newsroom@naijagossip.com</a></li>
+          <li>Email: <a href="mailto:newsroom@dailycrust.com">newsroom@dailycrust.com</a></li>
           <li>Phone: <a href="tel:+2347061043812">+2347061043812</a></li>
         </ul>
       </div>

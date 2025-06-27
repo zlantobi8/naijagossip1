@@ -6,17 +6,17 @@ export default function StructuredData() {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Daily Crust",
-        "url": "https://naijagossip.vercel.app/",
-        "logo": "https://naijagossip.vercel.app/assets/img/naija.png"
+        "url": "https://dailycrust.vercel.app/",
+        "logo": "https://dailycrust.vercel.app/assets/img/naija.png"
     };
     const webSiteData = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Daily Crust",
-        "url": "https://naijagossip.vercel.app/",
+        "url": "https://dailycrust.vercel.app/",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://naijagossip.vercel.app/search?q={search_term_string}",
+            "target": "https://dailycrust.vercel.app/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
         }
     };

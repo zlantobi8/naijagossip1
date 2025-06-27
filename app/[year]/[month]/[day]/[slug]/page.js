@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
       description: post.description?.slice(0, 150),
       images: [post.image || '/default-thumbnail.jpg'],
       type: 'article',
-      url: `https://naijagossip.vercel.app/${params.year}/${params.month}/${params.day}/${params.slug}`,
+      url: `https://dailycrust.vercel.app/${params.year}/${params.month}/${params.day}/${params.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -88,14 +88,14 @@ export default async function DetailPage({ params }) {
       <Head>
         <title>{post.title}</title>
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description || "Latest gist from NaijaGossip"} />
+        <meta property="og:description" content={post.description || "Latest gist from DailyCrust"} />
         <meta property="og:image" content={post.image || "/default-thumbnail.jpg"} />
-        <meta property="og:url" content={`https://naijagossip.vercel.app${postUrl}`} />
+        <meta property="og:url" content={`https://dailycrust.vercel.app${postUrl}`} />
         <meta property="og:type" content="article" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.description || "Latest gist from NaijaGossip"} />
+        <meta name="twitter:description" content={post.description || "Latest gist from DailyCrust"} />
         <meta name="twitter:image" content={post.image || "/default-thumbnail.jpg"} />
         <script
           type="application/ld+json"
@@ -115,7 +115,7 @@ export default async function DetailPage({ params }) {
                 name: "Daily Crust",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://naijagossip.vercel.app/assets/img/naija.png"
+                  url: "https://dailycrust.vercel.app/assets/img/naija.png"
                 }
               }
             })
@@ -136,21 +136,21 @@ export default async function DetailPage({ params }) {
 
         <div className={styles.share}>
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=https://naijagossip.vercel.app${postUrl}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=https://dailycrust.vercel.app${postUrl}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             <i className="fa fa-facebook"></i>
           </a>
           <a
-            href={`https://twitter.com/intent/tweet?url=https://naijagossip.vercel.app${postUrl}&text=${encodeURIComponent(post.title)}`}
+            href={`https://twitter.com/intent/tweet?url=https://https://dailycrust.vercel.app${postUrl}&text=${encodeURIComponent(post.title)}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             <i className="fa fa-twitter"></i>
           </a>
           <a
-            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' https://naijagossip.vercel.app' + postUrl)}`}
+            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + 'https://dailycrust.vercel.app' + postUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
           >

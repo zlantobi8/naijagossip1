@@ -14,15 +14,15 @@ export const metadata = {
     'Entertainment',
     'Naija gist',
   ],
-  metadataBase: new URL('https://naijagossip.vercel.app'),
+  metadataBase: new URL('https://dailycrust.vercel.app/'),
   openGraph: {
     title: 'Daily Crust',
     description: 'Latest news and celebrity gossip from Nigeria.',
-    url: 'https://naijagossip.vercel.app/',
+    url: 'https://dailycrust.vercel.app/',
     type: 'website',
     images: [
       {
-        url: 'https://naijagossip.vercel.app/assets/img/naija.png',
+        url: 'https://dailycrust.vercel.app/assets/img/naija.png',
         width: 1200,
         height: 630,
         alt: 'Daily Crust Logo',
@@ -33,7 +33,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Daily Crust',
     description: 'Latest news and celebrity gossip from Nigeria.',
-    images: ['https://naijagossip.vercel.app/assets/img/naija.png'],
+    images: ['https://dailycrust.vercel.app/assets/img/naija.png'],
   },
   verification: {
     google: 'jgfedbwYYJwFsiiWj38-xP3bU4vmeXLPTqmAY8G49yw',
