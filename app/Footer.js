@@ -18,11 +18,11 @@ const Footer = () => {
             className="mb-4"
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
           >
-            <Image
+            <Image className='foot1'
               src={'/assets/img/naija.png'}
               alt={'Main post image'}
               width={260}
-              height={80}
+              height={70}
               priority
             />
 
@@ -50,6 +50,14 @@ const Footer = () => {
             </p>
           </div>
         </div>
+        <style jsx>{`
+      @media (max-width: 768px) {
+    .foot1{
+    width:250;
+    height:60
+    }
+  }
+`}</style>
       </div>
     </>
   );

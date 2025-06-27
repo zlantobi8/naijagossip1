@@ -12,7 +12,10 @@ export default function Navbar2() {
       <div className="container nav-container">
         <div className="responsive-mobile-menu">
           <div className="logo d-lg-none d-block">
-            <Image src="/assets/img/naija.png" alt="logo" width={160} height={55} />
+            <div className="div22">
+              <Image src="/assets/img/naija.png" alt="logo" width={162} height={46} />
+            </div>
+
           </div>
 
           <button
@@ -35,12 +38,17 @@ export default function Navbar2() {
           </ul>
         </div>
       </div>
-     <style jsx>{`
+      <style jsx>{`
   .custom-navbar {
     background-color: #0866ff;
     transition: all 0.3s ease;
   }
-
+.div22{
+    background-color: #10284f;
+    width:165px;
+    height:50px;
+    border-radius:10px;
+}
   @media (max-width: 768px) {
     .custom-navbar {
       background-color: #0866ff;
