@@ -1,0 +1,35 @@
+// components/StructuredData.js
+import Head from 'next/head';
+
+export default function StructuredData() {
+    const orgData = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Daily Crust",
+        "url": "https://naijagossip.vercel.app/",
+        "logo": "https://naijagossip.vercel.app/assets/img/naija.png"
+    };
+    const webSiteData = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Daily Crust",
+        "url": "https://naijagossip.vercel.app/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://naijagossip.vercel.app/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    };
+
+    return (
+        <Head>
+            <script type="application/ld+json">
+                {JSON.stringify(orgData)}
+            </script>
+            <script type="application/ld+json">
+                {JSON.stringify(webSiteData)}
+            </script>
+        </Head>
+
+    );
+}

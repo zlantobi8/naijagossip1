@@ -71,15 +71,7 @@ const NavBar = () => {
 
           </div>
         </nav>
-     <style jsx>{`
-   
-    .div23{
-    background-color: #10284f;
-    width:145px;
-    height:40px;
-    border-radius:10px;
-}
-`}</style>
+ 
       </div>
      
     </>
