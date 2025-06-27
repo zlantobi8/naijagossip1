@@ -97,6 +97,30 @@ export default async function DetailPage({ params }) {
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.description || "Latest gist from NaijaGossip"} />
         <meta name="twitter:image" content={post.image || "/default-thumbnail.jpg"} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "NewsArticle",
+              headline: post.title,
+              image: [post.image],
+              datePublished: new Date(post.date).toISOString(),
+              author: {
+                "@type": "Person",
+                name: post.author || "Daily Crust"
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "Daily Crust",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://naijagossip.vercel.app/assets/img/naija.png"
+                }
+              }
+            })
+          }}
+        />
       </Head>
 
       <Nav1 />
