@@ -31,7 +31,11 @@ const NavBar = () => {
             <div className="responsive-mobile-menu">
               <div className="logo d-lg-none d-block">
                 <Link href="/">
-                  <Image src="/assets/img/naija.png" alt="logo" width={100} height={50} />
+                        <div className="div23">
+
+         
+                  <Image className='foot2' src="/assets/img/naija.png" alt="logo" width={100} height={50} />
+                                 </div>
                 </Link>
               </div>
               <button
@@ -67,7 +71,17 @@ const NavBar = () => {
 
           </div>
         </nav>
+     <style jsx>{`
+   
+    .div23{
+    background-color: #10284f;
+    width:145px;
+    height:40px;
+    border-radius:10px;
+}
+`}</style>
       </div>
+     
     </>
   );
 };
