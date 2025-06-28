@@ -22,7 +22,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://dailycrust.vercel.app/assets/img/naija.png',
+        url: 'https://dailycrust.vercel.app/assets/img/naija2.png',
         width: 1200,
         height: 630,
         alt: 'Daily Crust Logo',
@@ -33,11 +33,17 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Daily Crust',
     description: 'Latest news and celebrity gossip from Nigeria.',
-    images: ['https://dailycrust.vercel.app/assets/img/naija.png'],
+    images: ['https://dailycrust.vercel.app/assets/img/naija2.png'],
   },
   verification: {
     google: 'jgfedbwYYJwFsiiWj38-xP3bU4vmeXLPTqmAY8G49yw',
   },
+  icons: {
+  icon: '/assets/img/favicon.png',
+  shortcut: '/assets/img/favicon.png',
+  apple: '/assets/img/favicon.png',
+},
+
 };
 
 export default function RootLayout({ children }) {

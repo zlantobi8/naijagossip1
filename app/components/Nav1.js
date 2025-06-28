@@ -31,11 +31,11 @@ const NavBar = () => {
             <div className="responsive-mobile-menu">
               <div className="logo d-lg-none d-block">
                 <Link href="/">
-                        <div className="div23">
+                  <div className="div23">
 
-         
-                  <Image className='foot2' src="/assets/img/naija.png" alt="logo" width={100} height={50} />
-                                 </div>
+
+                    <Image className='foot2' src="/assets/img/naija.png" alt="logo" width={100} height={58} />
+                  </div>
                 </Link>
               </div>
               <button
@@ -64,16 +64,24 @@ const NavBar = () => {
                   <a onClick={() => handleSeeMore('technology')} style={{ cursor: 'pointer' }}>Technology</a>
                 </li>
                 <li className="current-menu-item">
-                  <a onClick={() => handleSeeMore('health')} style={{ cursor: 'pointer' }}>Health</a>
+                  <a onClick={() => handleSeeMore('Entertainment')} style={{ cursor: 'pointer' }}>Entertainment</a>
                 </li>
               </ul>
             </div>
 
           </div>
         </nav>
+        <style jsx>{`
+.div23{
+    background-color: #10284f;
+    width:155px;
+    height:40px;
+    border-radius:10px;
+}
  
+`}</style>
       </div>
-     
+
     </>
   );
 };
