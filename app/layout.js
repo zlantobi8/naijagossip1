@@ -1,5 +1,4 @@
 import './globals.css';
-import LoadAdSense from './components/LoadAdsense';
 import StructuredData from './components/StructuredData';
 
 export const metadata = {
@@ -35,9 +34,7 @@ export const metadata = {
     description: 'Latest news and celebrity gossip from Nigeria.',
     images: ['https://dailycrust.vercel.app/assets/img/naija2.png'],
   },
-  verification: {
-    google: 'jgfedbwYYJwFsiiWj38-xP3bU4vmeXLPTqmAY8G49yw',
-  },
+
   icons: {
   icon: '/assets/img/favicon.png',
   shortcut: '/assets/img/favicon.png',
@@ -51,7 +48,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <StructuredData/>
-        <LoadAdSense />
+     
         {children}
       </body>
     </html>
