@@ -7,7 +7,7 @@ export default function StructuredData() {
         "@type": "Organization",
         "name": "Daily Crust",
         "url": "https://dailycrust.vercel.app/",
-        "logo": "https://dailycrust.vercel.app/assets/img/naija.png"
+        "logo": "https://dailycrust.vercel.app/assets/img/naija2.png"
     };
     const webSiteData = {
         "@context": "https://schema.org",

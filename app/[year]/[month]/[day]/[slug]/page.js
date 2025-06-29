@@ -115,7 +115,7 @@ export default async function DetailPage({ params }) {
                 name: "Daily Crust",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://dailycrust.vercel.app/assets/img/naija.png"
+                  url: "https://dailycrust.vercel.app/assets/img/naija2.png"
                 }
               }
             })
