@@ -36,10 +36,10 @@ export const metadata = {
   },
 
   icons: {
-  icon: '/assets/img/favicon.png',
-  shortcut: '/assets/img/favicon.png',
-  apple: '/assets/img/favicon.png',
-},
+    icon: '/assets/img/favicon.png',
+    shortcut: '/assets/img/favicon.png',
+    apple: '/assets/img/favicon.png',
+  },
 
 };
 
@@ -47,9 +47,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <StructuredData/>
-     
+        <StructuredData />
+
         {children}
+        <script type="text/javascript" src="//cdn.runative-syndicate.com/sdk/v1/bi.js" data-ts-spot="f86939fb1420439eb7534dd80e0b2ccb" data-ts-width="728" data-ts-height="90" async defer></script>
       </body>
     </html>
   );
