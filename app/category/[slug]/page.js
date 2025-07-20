@@ -1,4 +1,4 @@
-// app/allposts/[slug]/page.js
+
 
 import Footer from "@/app/Footer";
 import Nav1 from "@/app/components/Nav1";
@@ -17,14 +17,28 @@ const slugToSanityType = {
 
 const pageSize = 8;
 
+
+
+
 function generateSlug(text) {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-+|-+$/g, '');
+  // Convert to lowercase and trim leading/trailing whitespace
+  let slug = text.toLowerCase().trim();
+
+  // Replace accented characters with their non-accented equivalents
+  slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
+  slug = slug.replace(/[^a-z0-9 -]/g, "")
+             .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
+             .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+
+  // Remove leading and trailing hyphens
+  slug = slug.replace(/^-+|-+$/g, "");
+
+  return slug;
 }
+
+
 
 export default async function AllPosts({ params, searchParams }) {
   const slug = params.slug;
@@ -111,7 +125,7 @@ export default async function AllPosts({ params, searchParams }) {
           {Array.from({ length: totalPages }, (_, i) => (
             <Link
               key={i}
-              href={`/allposts/${slug}?page=${i + 1}`}
+              href={`/category/${slug}?page=${i + 1}`}
               className={`page-btn ${currentPage === i + 1 ? 'active' : ''}`}
               style={{
                 background: 'none',

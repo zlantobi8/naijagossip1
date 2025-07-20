@@ -7,11 +7,23 @@ import Nav1 from '@/app/components/Nav1';
 import Script from 'next/script';
 import Head from 'next/head';
 
-const slugify = (text) =>
-  text.toString().toLowerCase().trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-');
+function slugify(text) {
+  // Convert to lowercase and trim leading/trailing whitespace
+  let slug = text.toLowerCase().trim();
+
+  // Replace accented characters with their non-accented equivalents
+  slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
+  slug = slug.replace(/[^a-z0-9 -]/g, "")
+             .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
+             .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+
+  // Remove leading and trailing hyphens
+  slug = slug.replace(/^-+|-+$/g, "");
+
+  return slug;
+}
 
 const fetchAllPosts = async () => {
   const query = encodeURIComponent(`{

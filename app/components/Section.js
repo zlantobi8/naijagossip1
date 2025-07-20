@@ -6,13 +6,27 @@ import { useRouter } from 'next/navigation';
 export default function Section({ title, id, posts = [] }) {
   const router = useRouter();
 
-  const generateSlug = (text) =>
-    text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')       // remove punctuation, keeping spaces and dashes
-      .replace(/\s+/g, '-')           // replace spaces with single dash
-      .replace(/-+/g, '-')            // collapse multiple dashes into one
-      .replace(/^-+|-+$/g, '');       // trim leading/trailing dashes
+
+
+
+function generateSlug(text) {
+  // Convert to lowercase and trim leading/trailing whitespace
+  let slug = text.toLowerCase().trim();
+
+  // Replace accented characters with their non-accented equivalents
+  slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
+  slug = slug.replace(/[^a-z0-9 -]/g, "")
+             .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
+             .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+
+  // Remove leading and trailing hyphens
+  slug = slug.replace(/^-+|-+$/g, "");
+
+  return slug;
+}
+
 
 
   const handleSeeMore = () => {

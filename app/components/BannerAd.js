@@ -3,8 +3,25 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+
+
+
 function generateSlug(title) {
-  return title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
+  // Convert to lowercase and trim leading/trailing whitespace
+  let slug = title.toLowerCase().trim();
+
+  // Replace accented characters with their non-accented equivalents
+  slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
+  slug = slug.replace(/[^a-z0-9 -]/g, "")
+             .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
+             .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+
+  // Remove leading and trailing hyphens
+  slug = slug.replace(/^-+|-+$/g, "");
+
+  return slug;
 }
 
 export default function BannerAd({ slicepost }) {

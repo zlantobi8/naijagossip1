@@ -85,11 +85,9 @@ export default async function Home() {
                     <i className="fa fa-calendar"></i> <span>{currentDate}</span>
                   </div>
                   <ul className="social-area social-area-2">
-                    <li><a className="facebook-icon" href="#"><i className="fa fa-facebook"></i></a></li>
+                    <li><a className="facebook-icon" href="https://www.facebook.com/profile.php?id=61578802011674"><i className="fa fa-facebook"></i></a></li>
                     <li><a className="twitter-icon" href="#"><i className="fa fa-twitter"></i></a></li>
-                    <li><a className="youtube-icon" href="#"><i className="fa fa-youtube-play"></i></a></li>
-                    <li><a className="instagram-icon" href="#"><i className="fa fa-instagram"></i></a></li>
-                    <li><a className="google-icon" href="#"><i className="fa fa-google-plus"></i></a></li>
+              
                   </ul>
                 </div>
               </div>
