@@ -87,7 +87,7 @@ export default async function Home() {
                   <ul className="social-area social-area-2">
                     <li><a className="facebook-icon" href="https://www.facebook.com/profile.php?id=61578802011674"><i className="fa fa-facebook"></i></a></li>
                     <li><a className="twitter-icon" href="#"><i className="fa fa-twitter"></i></a></li>
-              
+
                   </ul>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default async function Home() {
             <div className="row">
               <div className="col-xl-6 col-lg-5 align-self-center">
                 <div className="logo text-md-left text-center">
-                 <Image src="/assets/img/naija.png" alt="logo" width={200} height={60} />
+                  <Image src="/assets/img/naija.png" alt="logo" width={200} height={60} />
                 </div>
               </div>
               <div className="col-xl-6 col-lg-7 text-md-right text-center">
@@ -121,11 +121,12 @@ export default async function Home() {
         </div>
 
         {/* 🔵 Sections */}
+        <Section title="Entertainment" id="entertainment" posts={categorizedPosts.healthPost} />
         <Section title="Politics" id="politics" posts={categorizedPosts.politicsPost} />
         <Section title="Sport" id="sport" posts={categorizedPosts.sportsPost} />
         <Section title="Education" id="education" posts={categorizedPosts.educationPost} />
         <Section title="Technology" id="technology" posts={categorizedPosts.technologyPost} />
-        <Section title="Entertainment" id="entertainment" posts={categorizedPosts.healthPost} />
+
 
         {/* 🔵 Footer */}
         <Footer />
