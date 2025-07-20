@@ -7,17 +7,16 @@ export const metadata = {
     'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
   keywords: [
     'Trendzlib',
-    'Trendzlib',
     'Nigerian news',
     'Celebrity news',
     'Entertainment',
     'Naija gist',
   ],
-  metadataBase: new URL('https://trendzlib.com.ng/'),
+  metadataBase: new URL('https://trendzlib.com.ng'),
   openGraph: {
-    title: 'Trendzlib',
-    description: 'Latest news and celebrity gossip from Nigeria.',
-    url: 'https://trendzlib.com.ng/',
+    title: 'Trendzlib', // 🔧 match full title
+    description: 'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
+    url: 'https://trendzlib.com.ng',
     type: 'website',
     images: [
       {
@@ -27,20 +26,19 @@ export const metadata = {
         alt: 'Trendzlib Logo',
       },
     ],
+    siteName: 'Trendzlib',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trendzlib',
-    description: 'Latest news and celebrity gossip from Nigeria.',
+    title: 'Trendzlib - Latest Celebrity & Entertainment News in Nigeria', // 🔧 match full title
+    description: 'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
     images: ['https://trendzlib.com.ng/assets/img/naija2.png'],
   },
-
   icons: {
     icon: '/assets/img/favicon.png',
     shortcut: '/assets/img/favicon.png',
     apple: '/assets/img/favicon.png',
   },
-
 };
 
 export default function RootLayout({ children }) {
