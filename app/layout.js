@@ -13,15 +13,15 @@ export const metadata = {
     'Entertainment',
     'Naija gist',
   ],
-  metadataBase: new URL('https://Trendzlib.vercel.app/'),
+  metadataBase: new URL('https://trendzlib.com.ng/'),
   openGraph: {
     title: 'Trendzlib',
     description: 'Latest news and celebrity gossip from Nigeria.',
-    url: 'https://Trendzlib.vercel.app/',
+    url: 'https://trendzlib.com.ng/',
     type: 'website',
     images: [
       {
-        url: 'https://Trendzlib.vercel.app/assets/img/naija2.png',
+        url: 'https://trendzlib.com.ng/assets/img/naija2.png',
         width: 1200,
         height: 630,
         alt: 'Trendzlib Logo',
@@ -32,7 +32,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Trendzlib',
     description: 'Latest news and celebrity gossip from Nigeria.',
-    images: ['https://Trendzlib.vercel.app/assets/img/naija2.png'],
+    images: ['https://trendzlib.com.ng/assets/img/naija2.png'],
   },
 
   icons: {

@@ -6,17 +6,17 @@ export default function StructuredData() {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Trendzlib",
-        "url": "https://Trendzlib.vercel.app/",
-        "logo": "https://Trendzlib.vercel.app/assets/img/naija2.png"
+        "url": "https://trendzlib.com.ng/",
+        "logo": "https://trendzlib.com.ng/assets/img/naija2.png"
     };
     const webSiteData = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Trendzlib",
-        "url": "https://Trendzlib.vercel.app/",
+        "url": "https://trendzlib.com.ng/",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://Trendzlib.vercel.app/search?q={search_term_string}",
+            "target": "https://trendzlib.com.ng/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
         }
     };
