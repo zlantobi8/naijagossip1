@@ -2,7 +2,7 @@ import './globals.css';
 import StructuredData from './components/StructuredData';
 
 export const metadata = {
-  title: 'Trendzlib - Latest Celebrity & Entertainment News in Nigeria',
+  title: 'Trendzlib',
   description:
     'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
   keywords: [
@@ -30,7 +30,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trendzlib - Latest Celebrity & Entertainment News in Nigeria', // 🔧 match full title
+    title: 'Trendzlib', // 🔧 match full title
     description: 'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
     images: ['https://trendzlib.com.ng/assets/img/naija2.png'],
   },
