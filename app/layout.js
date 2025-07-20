@@ -2,37 +2,37 @@ import './globals.css';
 import StructuredData from './components/StructuredData';
 
 export const metadata = {
-  title: 'Daily Crust - Latest Celebrity & Entertainment News in Nigeria',
+  title: 'Trendzlib - Latest Celebrity & Entertainment News in Nigeria',
   description:
     'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
   keywords: [
-    'Daily Crust',
-    'dailycrust',
+    'Trendzlib',
+    'Trendzlib',
     'Nigerian news',
     'Celebrity news',
     'Entertainment',
     'Naija gist',
   ],
-  metadataBase: new URL('https://dailycrust.vercel.app/'),
+  metadataBase: new URL('https://Trendzlib.vercel.app/'),
   openGraph: {
-    title: 'Daily Crust',
+    title: 'Trendzlib',
     description: 'Latest news and celebrity gossip from Nigeria.',
-    url: 'https://dailycrust.vercel.app/',
+    url: 'https://Trendzlib.vercel.app/',
     type: 'website',
     images: [
       {
-        url: 'https://dailycrust.vercel.app/assets/img/naija2.png',
+        url: 'https://Trendzlib.vercel.app/assets/img/naija2.png',
         width: 1200,
         height: 630,
-        alt: 'Daily Crust Logo',
+        alt: 'Trendzlib Logo',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Daily Crust',
+    title: 'Trendzlib',
     description: 'Latest news and celebrity gossip from Nigeria.',
-    images: ['https://dailycrust.vercel.app/assets/img/naija2.png'],
+    images: ['https://Trendzlib.vercel.app/assets/img/naija2.png'],
   },
 
   icons: {

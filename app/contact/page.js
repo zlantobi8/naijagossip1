@@ -3,8 +3,8 @@ import Nav1 from "@/app/components/Nav1";
 import Footer from "@/app/Footer";
 import React from "react";
 export const metadata = {
-  title: "Contact Us | Daily Crust",
-  description: "Get in touch with the Daily Crust team for inquiries, feedback, or support.",
+  title: "Contact Us | Trendzlib",
+  description: "Get in touch with the Trendzlib team for inquiries, feedback, or support.",
 };
 
 export default function Contact() {

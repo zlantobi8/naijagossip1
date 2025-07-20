@@ -4,7 +4,7 @@ export default function Logo() {
   return (
     <div className={styles.logo}>
       <div className={styles.piechart}></div>
-      <div className={styles.text}>Daily Crust</div>
+      <div className={styles.text}>Trendzlib</div>
     </div>
   );
 }

@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
       description: post.description?.slice(0, 150),
       images: [post.image || '/default-thumbnail.jpg'],
       type: 'article',
-      url: `https://dailycrust.vercel.app/${params.year}/${params.month}/${params.day}/${params.slug}`,
+      url: `https://Trendzlib.vercel.app/${params.year}/${params.month}/${params.day}/${params.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -88,14 +88,14 @@ export default async function DetailPage({ params }) {
       <Head>
         <title>{post.title}</title>
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description || "Latest gist from DailyCrust"} />
+        <meta property="og:description" content={post.description || "Latest gist from Trendzlib"} />
         <meta property="og:image" content={post.image || "/default-thumbnail.jpg"} />
-        <meta property="og:url" content={`https://dailycrust.vercel.app${postUrl}`} />
+        <meta property="og:url" content={`https://Trendzlib.vercel.app${postUrl}`} />
         <meta property="og:type" content="article" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.description || "Latest gist from DailyCrust"} />
+        <meta name="twitter:description" content={post.description || "Latest gist from Trendzlib"} />
         <meta name="twitter:image" content={post.image || "/default-thumbnail.jpg"} />
         <script
           type="application/ld+json"
@@ -108,14 +108,14 @@ export default async function DetailPage({ params }) {
               datePublished: new Date(post.date).toISOString(),
               author: {
                 "@type": "Person",
-                name: post.author || "Daily Crust"
+                name: post.author || "Trendzlib"
               },
               publisher: {
                 "@type": "Organization",
-                name: "Daily Crust",
+                name: "Trendzlib",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://dailycrust.vercel.app/assets/img/naija2.png"
+                  url: "https://Trendzlib.vercel.app/assets/img/naija2.png"
                 }
               }
             })
@@ -136,21 +136,21 @@ export default async function DetailPage({ params }) {
 
         <div className={styles.share}>
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=https://dailycrust.vercel.app${postUrl}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=https://Trendzlib.vercel.app${postUrl}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             <i className="fa fa-facebook"></i>
           </a>
           <a
-            href={`https://twitter.com/intent/tweet?url=https://https://dailycrust.vercel.app${postUrl}&text=${encodeURIComponent(post.title)}`}
+            href={`https://twitter.com/intent/tweet?url=https://https://Trendzlib.vercel.app${postUrl}&text=${encodeURIComponent(post.title)}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             <i className="fa fa-twitter"></i>
           </a>
           <a
-            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + 'https://dailycrust.vercel.app' + postUrl)}`}
+            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + 'https://Trendzlib.vercel.app' + postUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
           >

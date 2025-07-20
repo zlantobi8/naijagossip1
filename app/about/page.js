@@ -6,8 +6,8 @@ import React from "react";
 
 // ✅ Export metadata BEFORE the component
 export const metadata = {
-  title: "About Us | Daily Crust",
-  description: "Learn more about  Daily Crust, our mission, journalism, and values.",
+  title: "About Us | Trendzlib",
+  description: "Learn more about  Trendzlib, our mission, journalism, and values.",
 };
 
 export default function About() {
@@ -22,11 +22,11 @@ export default function About() {
       <div className="container py-5" style={{ fontSize: "0.95rem", lineHeight: "1.8" }}>
         <h1 className="text-center mb-4">About Us</h1>
 
-        <p><strong>Daily Crust</strong> is a fully digital media platform powered by  Daily Crust Media.</p>
+        <p><strong>Trendzlib</strong> is a fully digital media platform powered by  Trendzlib Media.</p>
         <p>We are committed to delivering authentic, timely, and unbiased news to the Nigerian public and global readers. Our mission is to empower our audience with the facts—nothing more, nothing less.</p>
 
         <h4 className="mt-5">Our Editorial Values</h4>
-        <p>At Daily Crust, we prioritize truth, accuracy, and clarity in our journalism. We believe that credible reporting builds trust—and trust is the foundation of our relationship with you.</p>
+        <p>At Trendzlib, we prioritize truth, accuracy, and clarity in our journalism. We believe that credible reporting builds trust—and trust is the foundation of our relationship with you.</p>
         <p>We aim to inform, not influence. Rather than pushing opinions, our focus is to present facts and allow our readers to form their own perspectives. Our team works diligently to explain the full context of every story.</p>
 
         <h4 className="mt-5">Independence & Accountability</h4>
@@ -39,15 +39,15 @@ export default function About() {
         <h4 className="mt-5">Get in Touch</h4>
         <p>Have questions, feedback, or story tips? We’d love to hear from you.</p>
 
-        <p><strong>Email:</strong> <a href="mailto:newsroom@dailycrust.com">newsroom@dailycrust.com</a></p>
+        <p><strong>Email:</strong> <a href="mailto:newsroom@Trendzlib.com">newsroom@Trendzlib.com</a></p>
 
         <p><strong>Address:</strong><br />
           Lagos State, Nigeria<br />
           Phone: <a href="tel:+2348101234567">+2347061043812</a></p>
 
         <p><strong>Connect With Us:</strong><br />
-          Twitter: <a href="https://twitter.com/dailycrust" target="_blank">@dailycrust</a> | <a href="https://twitter.com/dailycrustceo" target="_blank">@dailycrustceo</a><br />
-          Facebook: <a href="https://www.facebook.com/officialdailycrust" target="_blank">facebook.com/officialdailycrust</a><br />
+          Twitter: <a href="https://twitter.com/Trendzlib" target="_blank">@Trendzlib</a> | <a href="https://twitter.com/Trendzlibceo" target="_blank">@Trendzlibceo</a><br />
+          Facebook: <a href="https://www.facebook.com/officialTrendzlib" target="_blank">facebook.com/officialTrendzlib</a><br />
           WhatsApp: <a href="https://wa.me/2347061043812" target="_blank">+2347061043812</a></p>
       </div>
 

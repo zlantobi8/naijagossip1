@@ -46,7 +46,7 @@ const Footer = () => {
             </ul>
 
             <p>
-              © 2025 <a href="#">Daily Crust</a>
+              © 2025 <a href="#">Trendzlib</a>
             </p>
           </div>
         </div>

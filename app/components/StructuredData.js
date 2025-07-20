@@ -5,18 +5,18 @@ export default function StructuredData() {
     const orgData = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Daily Crust",
-        "url": "https://dailycrust.vercel.app/",
-        "logo": "https://dailycrust.vercel.app/assets/img/naija2.png"
+        "name": "Trendzlib",
+        "url": "https://Trendzlib.vercel.app/",
+        "logo": "https://Trendzlib.vercel.app/assets/img/naija2.png"
     };
     const webSiteData = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Daily Crust",
-        "url": "https://dailycrust.vercel.app/",
+        "name": "Trendzlib",
+        "url": "https://Trendzlib.vercel.app/",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://dailycrust.vercel.app/search?q={search_term_string}",
+            "target": "https://Trendzlib.vercel.app/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
         }
     };
