@@ -46,12 +46,28 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
+        />
+        <link rel="icon" href="/assets/img/favicon.png" />
+        {/* You can also add other head elements here if needed */}
+      </head>
       <body>
         <StructuredData />
-
         {children}
-        <script type="text/javascript" src="//cdn.runative-syndicate.com/sdk/v1/bi.js" data-ts-spot="f86939fb1420439eb7534dd80e0b2ccb" data-ts-width="728" data-ts-height="90" async defer></script>
+        <script
+          type="text/javascript"
+          src="//cdn.runative-syndicate.com/sdk/v1/bi.js"
+          data-ts-spot="f86939fb1420439eb7534dd80e0b2ccb"
+          data-ts-width="728"
+          data-ts-height="90"
+          async
+          defer
+        ></script>
       </body>
     </html>
   );
 }
+
