@@ -7,6 +7,7 @@ export default function StructuredData() {
     "@type": "Organization",
     "@id": "https://trendzlib.com.ng/#organization",
     "name": "Trendzlib",
+
     "url": "https://trendzlib.com.ng/",
     "logo": {
       "@type": "ImageObject",
@@ -19,6 +20,7 @@ export default function StructuredData() {
     "@type": "WebSite",
     "@id": "https://trendzlib.com.ng/#website",
     "name": "Trendzlib",
+      "alternateName": "Trendzlib Nigeria", 
     "url": "https://trendzlib.com.ng/",
     "publisher": {
       "@id": "https://trendzlib.com.ng/#organization"
