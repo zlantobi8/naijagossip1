@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from "next/navigation";
 
 function formatDate(rawDate) {
   const date = new Date(rawDate);
@@ -31,7 +30,7 @@ function generateSlug(title) {
 
 const MainPosts = ({ posts = [] }) => {
   const visiblePosts = posts.slice(0, 5);
-  const router = useRouter();
+
 
   return (
     <div className="container">

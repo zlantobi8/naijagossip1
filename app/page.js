@@ -55,6 +55,7 @@ export default async function Home() {
     getLatest(categorizedPosts.sportsPost),
     getLatest(categorizedPosts.technologyPost),
     getLatest(categorizedPosts.celebrityPost),
+    getLatest(categorizedPosts.healthPost)
   ].filter(Boolean);
 
   const currentDate = new Date().toLocaleDateString('en-US', {
