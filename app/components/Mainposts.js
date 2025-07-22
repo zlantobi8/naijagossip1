@@ -36,7 +36,7 @@ const MainPosts = ({ posts = [] }) => {
     <div className="container">
       <h3 style={{ color: 'white' }} id="latestNews">Latest News</h3>
       <div className="row" id="postsRow">
-        {visiblePosts.map((post, index) => {
+        {visiblePosts.sort((a, b) => new Date(b.date) - new Date(a.date)).map((post, index) => {
           const dateObj = new Date(post.date);
           const year = dateObj.getFullYear();
           const month = String(dateObj.getMonth() + 1).padStart(2, '0');
