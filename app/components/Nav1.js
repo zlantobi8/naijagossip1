@@ -52,6 +52,9 @@ const NavBar = () => {
               <ul className="navbar-nav menu-open">
                 <li className="current-menu-item"><Link href="/">Home</Link></li>
                 <li className="current-menu-item">
+                  <a onClick={() => handleSeeMore('Entertainment')} style={{ cursor: 'pointer' }}>Entertainment</a>
+                </li>
+                <li className="current-menu-item">
                   <a onClick={() => handleSeeMore('politics')} style={{ cursor: 'pointer' }}>Politics</a>
                 </li>
                 <li className="current-menu-item">
@@ -61,11 +64,9 @@ const NavBar = () => {
                   <a onClick={() => handleSeeMore('education')} style={{ cursor: 'pointer' }}>Education</a>
                 </li>
                 <li className="current-menu-item">
-                  <a onClick={() => handleSeeMore('technology')} style={{ cursor: 'pointer' }}>Technology</a>
+                  <a onClick={() => handleSeeMore('Metro')} style={{ cursor: 'pointer' }}>Metro</a>
                 </li>
-                <li className="current-menu-item">
-                  <a onClick={() => handleSeeMore('Entertainment')} style={{ cursor: 'pointer' }}>Entertainment</a>
-                </li>
+
               </ul>
             </div>
 

@@ -30,11 +30,12 @@ export default function Navbar2() {
         <div className={`collapse navbar-collapse ${mobileMenuOpen ? 'show' : ''}`} id="nextpage_main_menu">
           <ul className="navbar-nav menu-open">
             <li><Link href="/">Home</Link></li>
+            <li><Link href="/category/entertainment">Entertainment</Link></li>
             <li><Link href="/category/politics">Politics</Link></li>
             <li><Link href="/category/sport">Sport</Link></li>
             <li><Link href="/category/education">Education</Link></li>
-            <li><Link href="/category/technology">Technology</Link></li>
-            <li><Link href="/category/entertainment">Entertainment</Link></li>
+            <li><Link href="/category/metro">Metro</Link></li>
+ 
           </ul>
         </div>
       </div>

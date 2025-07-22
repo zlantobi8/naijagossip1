@@ -9,7 +9,7 @@ const slugToSanityType = {
   sport: "sportsPost",
   education: "educationPost",
   politics: "politicsPost",
-  technology: "technologyPost",
+  metro: "technologyPost",
   entertainment: "healthPost",
   celebrity: "celebrityPost",
   general: "mainPost",

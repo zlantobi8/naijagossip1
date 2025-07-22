@@ -126,7 +126,7 @@ export default async function Home() {
         <Section title="Politics" id="politics" posts={categorizedPosts.politicsPost} />
         <Section title="Sport" id="sport" posts={categorizedPosts.sportsPost} />
         <Section title="Education" id="education" posts={categorizedPosts.educationPost} />
-        <Section title="Technology" id="technology" posts={categorizedPosts.technologyPost} />
+        <Section title="Metro" id="Metro" posts={categorizedPosts.technologyPost} />
 
 
         {/* 🔵 Footer */}
