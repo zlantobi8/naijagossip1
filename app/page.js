@@ -76,7 +76,7 @@ export default async function Home() {
                     <li><a href="#">Author</a></li>
                     <li><a href="#">Advertisment</a></li>
                     <li><a href="#">Member</a></li>
-                    <li><a href="#">Sitemap</a></li>
+                   
                   </ul>
                 </div>
               </div>
