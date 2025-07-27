@@ -20,7 +20,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://trendzlib.com.ng/assets/img/naija2.png',
+        url: 'https://trendzlib.com.ng/assets/img/naija.png',
         width: 1200,
         height: 630,
         alt: 'Trendzlib Logo',
@@ -32,7 +32,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Trendzlib - Naija Gossip & Entertainment', // 🔧 match full title
     description: 'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
-    images: ['https://trendzlib.com.ng/assets/img/naija2.png'],
+    images: ['https://trendzlib.com.ng/assets/img/naija.png'],
   },
   icons: {
     icon: '/assets/img/favicon.png',

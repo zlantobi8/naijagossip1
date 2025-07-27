@@ -76,7 +76,7 @@ export default async function Home() {
                     <li><a href="#">Author</a></li>
                     <li><a href="#">Advertisment</a></li>
                     <li><a href="#">Member</a></li>
-                   
+
                   </ul>
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default async function Home() {
           <BannerAd slicepost={mainPosts} />
           <MainPosts posts={mainPosts} />
         </div>
-
+      
         {/* 🔵 Sections */}
         <Section title="Entertainment" id="entertainment" posts={categorizedPosts.healthPost} />
         <Section title="Politics" id="politics" posts={categorizedPosts.politicsPost} />
