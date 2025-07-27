@@ -1,13 +1,12 @@
 // app/page.js
 
 import Image from 'next/image';
-import Link from 'next/link';
 import BannerAd from './components/BannerAd';
 import MainPosts from './components/Mainposts';
 import Section from './components/Section';
 import Footer from './Footer';
 import Navbar2 from './components/Navbar2';
-import Logo from './components/Logo';
+
 
 const query = encodeURIComponent(`{
   "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...8] {

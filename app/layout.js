@@ -38,7 +38,7 @@ export const metadata = {
     icon: '/assets/img/favicon.png',
     shortcut: '/assets/img/favicon.png',
     apple: '/assets/img/favicon.png',
-  },
+  }
 };
 
 export default function RootLayout({ children }) {
@@ -49,6 +49,7 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
+        <link rel="canonical" href="https://trendzlib.com.ng" />
         <link rel="icon" href="/assets/img/favicon.png" />
         {/* You can also add other head elements here if needed */}
          <StructuredData />
