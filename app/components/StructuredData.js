@@ -11,7 +11,7 @@ export default function StructuredData() {
     "url": "https://trendzlib.com.ng/",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://trendzlib.com.ng/assets/img/naija2.png"
+      "url": "https://trendzlib.com.ng/assets/img/favicon.png"
     }
   };
 
