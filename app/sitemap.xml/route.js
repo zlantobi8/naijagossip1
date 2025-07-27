@@ -3,6 +3,8 @@ import { getAllRoutes } from '../lib/route';
 
 export async function GET() {
   const routes = await getAllRoutes();
+  console.log("SITEMAP ROUTES:", routes); // ✅ ADD THIS LINE
+
   const baseUrl = 'https://trendzlib.com.ng';
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

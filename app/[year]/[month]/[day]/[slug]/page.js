@@ -101,6 +101,7 @@ export default async function DetailPage({ params }) {
     <>
       <Head>
         <title>{post.title}</title>
+        
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description || "Latest gist from Trendzlib"} />
         <meta property="og:image" content={post.image || "/default-thumbnail.jpg"} />
@@ -135,6 +136,10 @@ export default async function DetailPage({ params }) {
             })
           }}
         />
+         <link
+    rel="canonical"
+    href={`https://trendzlib.com.ng${postUrl}`}
+  />
       </Head>
 
       <Nav1 />
