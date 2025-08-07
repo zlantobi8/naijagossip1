@@ -5,7 +5,7 @@ import styles from './detail.module.css';
 import Link from 'next/link';
 import Nav1 from '@/app/components/Nav1';
 import Script from 'next/script';
-import Head from 'next/head';
+
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
@@ -64,15 +64,20 @@ export async function generateMetadata({ params }) {
 
   if (!post) return notFound();
 
+  const postUrl = `https://trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${generateSlug(post.title)}`;
+
   return {
     title: post.title,
     description: post.description?.slice(0, 150),
+    alternates: {
+      canonical: postUrl,
+    },
     openGraph: {
       title: post.title,
       description: post.description?.slice(0, 150),
       images: [post.image || '/default-thumbnail.jpg'],
       type: 'article',
-      url: `https://trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`,
+      url: postUrl,
     },
     twitter: {
       card: 'summary_large_image',
@@ -99,48 +104,7 @@ export default async function DetailPage({ params }) {
 
   return (
     <>
-      <Head>
-        <title>{post.title}</title>
-        
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description || "Latest gist from Trendzlib"} />
-        <meta property="og:image" content={post.image || "/default-thumbnail.jpg"} />
-        <meta property="og:url" content={`https://trendzlib.com.ng${postUrl}`} />
-        <meta property="og:type" content="article" />
 
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.description || "Latest gist from Trendzlib"} />
-        <meta name="twitter:image" content={post.image || "/default-thumbnail.jpg"} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "NewsArticle",
-              headline: post.title,
-              image: [post.image],
-              datePublished: new Date(post.date).toISOString(),
-              author: {
-                "@type": "Person",
-                name: post.author || "Trendzlib"
-              },
-              publisher: {
-                "@type": "Organization",
-                name: "Trendzlib",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://trendzlib.com.ng/assets/img/naija2.png"
-                }
-              }
-            })
-          }}
-        />
-         <link
-    rel="canonical"
-    href={`https://trendzlib.com.ng${postUrl}`}
-  />
-      </Head>
 
       <Nav1 />
       <div className={styles.wrapper}>
@@ -168,7 +132,8 @@ export default async function DetailPage({ params }) {
             <i className="fa fa-facebook"></i>
           </a>
           <a
-            href={`https://twitter.com/intent/tweet?url=https://https://trendzlib.com.ng${postUrl}&text=${encodeURIComponent(post.title)}`}
+            href={`https://twitter.com/intent/tweet?url=https://trendzlib.com.ng${postUrl}&text=${encodeURIComponent(post.title)}`
+}
             target="_blank"
             rel="noopener noreferrer"
           >
