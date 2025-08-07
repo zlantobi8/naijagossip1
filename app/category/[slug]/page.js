@@ -37,6 +37,23 @@ function generateSlug(text) {
 
   return slug;
 }
+export async function generateMetadata({ params, searchParams }) {
+  const slug = params.slug;
+  const currentPage = parseInt(searchParams?.page || "1");
+
+  const canonicalUrl =
+    currentPage === 1
+      ? `https://trendzlib.com.ng/category/${slug}`
+      : `https://trendzlib.com.ng/category/${slug}?page=${currentPage}`;
+
+  return {
+    title: `Latest in ${slug.charAt(0).toUpperCase() + slug.slice(1)} - TrendzLib`,
+    description: `Read the latest articles in ${slug} on TrendzLib.`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+  };
+}
 
 
 
