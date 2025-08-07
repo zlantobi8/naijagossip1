@@ -14,8 +14,8 @@ export const metadata = {
   ],
   metadataBase: new URL('https://trendzlib.com.ng'),
   openGraph: {
-    title: 'Trendzlib - Naija Gossip & Entertainment', // 🔧 match full title
-    description: 'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
+    title: 'Trendzlib - Latest Nigerian News, Gossip & Trends', // 🔧 match full title
+    description: 'Catch up on trending Naija news, celebrity gossip, politics, health, education and more. Fresh posts daily!',
     url: 'https://trendzlib.com.ng',
     type: 'website',
     images: [
@@ -49,7 +49,8 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
-        <link rel="canonical" href="https://trendzlib.com.ng" />
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <link rel="icon" href="/assets/img/favicon.png" />
         {/* You can also add other head elements here if needed */}
          <StructuredData />
