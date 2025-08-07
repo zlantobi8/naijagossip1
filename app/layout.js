@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
-       <meta name="viewport" content="width=device-width, initial-scale=1" />
+     
 
         <link rel="icon" href="/assets/img/favicon.png" />
         {/* You can also add other head elements here if needed */}
