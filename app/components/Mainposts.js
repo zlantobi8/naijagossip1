@@ -34,7 +34,7 @@ const MainPosts = ({ posts = [] }) => {
 
   return (
     <div className="container">
-      <h3 style={{ color: 'white' }} id="latestNews">Latest News</h3>
+      <h1 style={{ color: 'white' }} id="latestNews">Latest News</h1>
       <div className="row" id="postsRow">
         {visiblePosts.sort((a, b) => new Date(b.date) - new Date(a.date)).map((post, index) => {
           const dateObj = new Date(post.date);
