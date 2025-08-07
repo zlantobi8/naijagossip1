@@ -5,7 +5,11 @@ import React from "react";
 export const metadata = {
   title: "Contact Us | Trendzlib",
   description: "Get in touch with the Trendzlib team for inquiries, feedback, or support.",
+  alternates: {
+    canonical: "https://trendzlib.com.ng/contact",
+  },
 };
+
 
 export default function Contact() {
     return (
