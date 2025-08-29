@@ -95,3 +95,12 @@
 .markdown-body ul {
   padding-left: 1.5em;
 }
+.description a {
+  color: #0070f3; /* Next.js blue */
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.description a:hover {
+  color: #0051a3;
+}
