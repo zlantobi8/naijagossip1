@@ -9,24 +9,20 @@ import Script from 'next/script';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
+
+// ✅ Slugify function
 function slugify(text) {
-  // Convert to lowercase and trim leading/trailing whitespace
-  let slug = text.toLowerCase().trim();
-
-  // Replace accented characters with their non-accented equivalents
-  slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-  // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
-  slug = slug.replace(/[^a-z0-9 -]/g, "")
-    .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
-    .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
-
-  // Remove leading and trailing hyphens
-  slug = slug.replace(/^-+|-+$/g, "");
-
-  return slug;
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9 -]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
+// ✅ Fetch all posts from Sanity
 const fetchAllPosts = async () => {
   const query = encodeURIComponent(`{
     "posts": *[
@@ -39,9 +35,7 @@ const fetchAllPosts = async () => {
   const url = `https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`;
 
   const res = await fetch(url, {
-    headers: {
-      Authorization: process.env.NEXT_PUBLIC_API_AUTH,
-    },
+    headers: { Authorization: process.env.NEXT_PUBLIC_API_AUTH },
     next: { revalidate: 60 },
   });
 
@@ -49,13 +43,18 @@ const fetchAllPosts = async () => {
   return data.result?.posts || [];
 };
 
+// ✅ Format date
 function formatDate(dateString) {
   const date = new Date(dateString);
   return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
 }
 
 function generateSlug(text) {
-  return text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '');
+  return text.toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 export async function generateMetadata({ params }) {
@@ -69,9 +68,7 @@ export async function generateMetadata({ params }) {
   return {
     title: post.title,
     description: post.description?.slice(0, 150),
-    alternates: {
-      canonical: postUrl,
-    },
+    alternates: { canonical: postUrl },
     openGraph: {
       title: post.title,
       description: post.description?.slice(0, 150),
@@ -88,6 +85,51 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// ✅ Smarter inline link injector
+function injectSmartLinks(content, relatedPosts) {
+  if (!relatedPosts.length) return content;
+
+  let enhanced = content;
+  let used = [];
+
+  relatedPosts.forEach((rel) => {
+    const keyword = rel.title.split(" ")[0]; // take first word as a simple keyword
+    const regex = new RegExp(`\\b${keyword}\\b`, "i");
+
+    if (regex.test(enhanced) && !used.includes(rel._id)) {
+      const date = new Date(rel.date);
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      const relSlug = `/${y}/${m}/${d}/${generateSlug(rel.title)}`;
+
+      // Replace first keyword occurrence with interlink
+      enhanced = enhanced.replace(
+        regex,
+        (match) => `${match} (👉 [Read also: ${rel.title}](${relSlug}))`
+      );
+      used.push(rel._id);
+    }
+  });
+
+  // Fallback: if no keyword matches, insert one link after 2nd paragraph
+  if (used.length === 0 && relatedPosts[0]) {
+    const rel = relatedPosts[0];
+    const date = new Date(rel.date);
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    const relSlug = `/${y}/${m}/${d}/${generateSlug(rel.title)}`;
+
+    const paragraphs = enhanced.split("\n\n");
+    if (paragraphs.length > 2) {
+      paragraphs[1] += `\n\n👉 **Read also:** [${rel.title}](${relSlug})`;
+    }
+    enhanced = paragraphs.join("\n\n");
+  }
+
+  return enhanced;
+}
 
 export default async function DetailPage({ params }) {
   const { slug, year, month, day } = params;
@@ -102,10 +144,11 @@ export default async function DetailPage({ params }) {
 
   const postUrl = `/${year}/${month}/${day}/${generateSlug(post.title)}`;
 
+  // ✅ Use smarter inline injection
+  const enhancedDescription = injectSmartLinks(post.description, relatedPosts);
+
   return (
     <>
-
-
       <Nav1 />
       <div className={styles.wrapper}>
         <h1 className={styles.title}>{post.title}</h1>
@@ -113,37 +156,32 @@ export default async function DetailPage({ params }) {
           <span><i className="fa fa-user"></i> {post.author || 'Anonymous'}</span>
           <span><i className="fa fa-calendar"></i> {formatDate(post.date)}</span>
         </div>
-        <Image src={post.image} alt={post.title} width={800} height={450} className={styles.hero} loading="lazy" />
+
+        <Image
+          src={post.image}
+          alt={post.title}
+          width={800}
+          height={450}
+          className={styles.hero}
+          loading="lazy"
+        />
+
         <div className={styles.description}>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeSanitize]}>
-            {post.description}
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>
+            {enhancedDescription}
           </ReactMarkdown>
         </div>
 
         <p className={styles.author}>Written by {post.author || 'Anonymous'}</p>
 
         <div className={styles.share}>
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=https://trendzlib.com.ng${postUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=https://trendzlib.com.ng${postUrl}`} target="_blank" rel="noopener noreferrer">
             <i className="fa fa-facebook"></i>
           </a>
-          <a
-            href={`https://twitter.com/intent/tweet?url=https://trendzlib.com.ng${postUrl}&text=${encodeURIComponent(post.title)}`
-}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={`https://twitter.com/intent/tweet?url=https://trendzlib.com.ng${postUrl}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer">
             <i className="fa fa-twitter"></i>
           </a>
-          <a
-            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + 'https://trendzlib.com.ng' + postUrl)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' https://trendzlib.com.ng' + postUrl)}`} target="_blank" rel="noopener noreferrer">
             <i className="fa fa-whatsapp"></i>
           </a>
         </div>
@@ -188,6 +226,7 @@ export default async function DetailPage({ params }) {
             );
           })}
         </div>
+
         <Script src="/assets/js/vendor.js" />
       </div>
       <Footer />
