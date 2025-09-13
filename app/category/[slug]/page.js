@@ -41,6 +41,9 @@ function generateSlug(text) {
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
+  const postType = slugToSanityType[slug] || "mainPost";
+  const displayName = sanityToDisplayName[postType] || slug; // ✅ fallback safe
+
   const currentPage = parseInt(searchParams?.page || "1");
   const canonicalUrl =
     currentPage === 1
@@ -48,13 +51,14 @@ export async function generateMetadata({ params, searchParams }) {
       : `https://trendzlib.com.ng/category/${slug}?page=${currentPage}`;
 
   return {
-    title: `Latest in ${slug.charAt(0).toUpperCase() + slug.slice(1)} - TrendzLib`,
-    description: `Read the latest articles in ${slug} on TrendzLib.`,
+    title: `Latest in ${displayName} - TrendzLib`,   // ✅ friendly category name
+    description: `Read the latest articles in ${displayName} on TrendzLib.`, // ✅ friendly category name
     alternates: {
       canonical: canonicalUrl,
     },
   };
 }
+
 
 export default async function AllPosts({ params, searchParams }) {
   const slug = params.slug;
