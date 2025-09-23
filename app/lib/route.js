@@ -15,8 +15,7 @@ export const getAllRoutes = async () => {
       headers: {
         Authorization: process.env.NEXT_PUBLIC_API_AUTH || "",
       },
-      // Revalidate sitemap every 6 hours in production
-      next: { revalidate: 21600 },
+      next: { revalidate: 21600 }, // refresh sitemap every 6h
     }
   );
 
@@ -25,34 +24,28 @@ export const getAllRoutes = async () => {
 
   const allRoutes = [];
 
-  const mapCategoryToPath = {
-    sportsPost: "sports",
-    educationPost: "education",
-    politicsPost: "politics",
-    technologyPost: "technology",
-    healthPost: "health",
-    celebrityPost: "celebrity",
-  };
-
-  // Clean SEO slug
+  // Generate SEO slug
   const generateSlug = (text) =>
     text
       .toLowerCase()
-      .replace(/[^\w\s-]/g, "") // strip punctuation
-      .replace(/\s+/g, "-") // spaces → dash
-      .replace(/-+/g, "-") // collapse dashes
-      .replace(/^-+|-+$/g, ""); // trim dashes
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   // Dynamic posts
   for (const category in result) {
     const posts = result[category] || [];
-    const categoryPath = mapCategoryToPath[category];
 
     posts.forEach((post) => {
-      const slug = generateSlug(post.title);
+      const date = new Date(post.date);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
 
       allRoutes.push({
-        slug: `/category/${categoryPath}/${slug}`,
+        // ✅ Match your actual working structure
+        slug: `/${year}/${month}/${day}/${generateSlug(post.title)}`,
         lastModified: new Date(post._updatedAt || post.date).toISOString(),
         changefreq: "daily",
         priority: 0.9,
@@ -62,30 +55,10 @@ export const getAllRoutes = async () => {
 
   // Static pages
   const staticPages = [
-    {
-      slug: "/",
-      lastModified: new Date().toISOString(),
-      changefreq: "daily",
-      priority: 1.0,
-    },
-    {
-      slug: "/about",
-      lastModified: new Date().toISOString(),
-      changefreq: "monthly",
-      priority: 0.7,
-    },
-    {
-      slug: "/contact",
-      lastModified: new Date().toISOString(),
-      changefreq: "monthly",
-      priority: 0.6,
-    },
-    {
-      slug: "/privacy-policy",
-      lastModified: new Date().toISOString(),
-      changefreq: "monthly",
-      priority: 0.5,
-    },
+    { slug: "/", lastModified: new Date().toISOString(), changefreq: "daily", priority: 1.0 },
+    { slug: "/about", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.7 },
+    { slug: "/contact", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.6 },
+    { slug: "/privacy-policy", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.5 },
   ];
 
   return [...staticPages, ...allRoutes];
