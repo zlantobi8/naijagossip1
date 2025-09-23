@@ -1,3 +1,4 @@
+// lib/route.js
 export const getAllRoutes = async () => {
   const query = encodeURIComponent(`{
     "sportsPost": *[_type == "sportsPost"]{title, date, _updatedAt},
@@ -14,7 +15,8 @@ export const getAllRoutes = async () => {
       headers: {
         Authorization: process.env.NEXT_PUBLIC_API_AUTH || "",
       },
-      next: { revalidate: 60 },
+      // Always return fresh sitemap
+      cache: "no-store",
     }
   );
 
@@ -23,6 +25,7 @@ export const getAllRoutes = async () => {
 
   const allRoutes = [];
 
+  // Map Sanity doc type -> category path
   const mapCategoryToPath = {
     sportsPost: "sports",
     educationPost: "education",
@@ -32,28 +35,26 @@ export const getAllRoutes = async () => {
     celebrityPost: "celebrity",
   };
 
+  // Clean slug generator
   const generateSlug = (text) =>
     text
       .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/^-+|-+$/g, "");
+      .replace(/[^\w\s-]/g, "") // remove invalid chars
+      .replace(/\s+/g, "-") // spaces -> dash
+      .replace(/-+/g, "-") // multiple dashes -> one
+      .replace(/^-+|-+$/g, ""); // trim dashes
 
+  // Loop through posts in each category
   for (const category in result) {
     const posts = result[category];
-    const path = mapCategoryToPath[category];
+    const categoryPath = mapCategoryToPath[category];
 
     posts.forEach((post) => {
-      const date = new Date(post.date);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
+      const slug = generateSlug(post.title);
 
       allRoutes.push({
-        slug: `/${year}/${month}/${day}/${encodeURIComponent(
-          generateSlug(post.title)
-        )}`,
+        // ✅ FIX: match your actual site structure
+        slug: `/category/${categoryPath}/${slug}`,
         lastModified: new Date(post._updatedAt || post.date).toISOString(),
         changefreq: "daily",
         priority: 0.9,
@@ -61,11 +62,32 @@ export const getAllRoutes = async () => {
     });
   }
 
+  // Static pages
   const staticPages = [
-    { slug: "/", lastModified: new Date().toISOString(), changefreq: "daily", priority: 1.0 },
-    { slug: "/about", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.7 },
-    { slug: "/contact", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.6 },
-    { slug: "/privacy-policy", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.5 },
+    {
+      slug: "/",
+      lastModified: new Date().toISOString(),
+      changefreq: "daily",
+      priority: 1.0,
+    },
+    {
+      slug: "/about",
+      lastModified: new Date().toISOString(),
+      changefreq: "monthly",
+      priority: 0.7,
+    },
+    {
+      slug: "/contact",
+      lastModified: new Date().toISOString(),
+      changefreq: "monthly",
+      priority: 0.6,
+    },
+    {
+      slug: "/privacy-policy",
+      lastModified: new Date().toISOString(),
+      changefreq: "monthly",
+      priority: 0.5,
+    },
   ];
 
   return [...staticPages, ...allRoutes];
