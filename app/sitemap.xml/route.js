@@ -27,6 +27,7 @@ ${routes
   return new Response(xml, {
     headers: {
       "Content-Type": "application/xml",
+      "Cache-Control": "s-maxage=21600, stale-while-revalidate", // 6h cache
     },
   });
 }

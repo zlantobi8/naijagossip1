@@ -15,8 +15,8 @@ export const getAllRoutes = async () => {
       headers: {
         Authorization: process.env.NEXT_PUBLIC_API_AUTH || "",
       },
-      // Always return fresh sitemap
-      cache: "no-store",
+      // Revalidate sitemap every 6 hours in production
+      next: { revalidate: 21600 },
     }
   );
 
@@ -25,7 +25,6 @@ export const getAllRoutes = async () => {
 
   const allRoutes = [];
 
-  // Map Sanity doc type -> category path
   const mapCategoryToPath = {
     sportsPost: "sports",
     educationPost: "education",
@@ -35,25 +34,24 @@ export const getAllRoutes = async () => {
     celebrityPost: "celebrity",
   };
 
-  // Clean slug generator
+  // Clean SEO slug
   const generateSlug = (text) =>
     text
       .toLowerCase()
-      .replace(/[^\w\s-]/g, "") // remove invalid chars
-      .replace(/\s+/g, "-") // spaces -> dash
-      .replace(/-+/g, "-") // multiple dashes -> one
+      .replace(/[^\w\s-]/g, "") // strip punctuation
+      .replace(/\s+/g, "-") // spaces → dash
+      .replace(/-+/g, "-") // collapse dashes
       .replace(/^-+|-+$/g, ""); // trim dashes
 
-  // Loop through posts in each category
+  // Dynamic posts
   for (const category in result) {
-    const posts = result[category];
+    const posts = result[category] || [];
     const categoryPath = mapCategoryToPath[category];
 
     posts.forEach((post) => {
       const slug = generateSlug(post.title);
 
       allRoutes.push({
-        // ✅ FIX: match your actual site structure
         slug: `/category/${categoryPath}/${slug}`,
         lastModified: new Date(post._updatedAt || post.date).toISOString(),
         changefreq: "daily",
