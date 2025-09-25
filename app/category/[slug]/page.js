@@ -9,22 +9,22 @@ const slugToSanityType = {
   sport: "sportsPost",
   education: "educationPost",
   politics: "politicsPost",
-  metro: "technologyPost",       // slug "metro" → Sanity "technologyPost"
-  entertainment: "healthPost",   // slug "entertainment" → Sanity "healthPost"
+  metro: "technologyPost",
+  entertainment: "healthPost",  // still healthPost in Sanity
   celebrity: "celebrityPost",
   general: "mainPost",
 };
 
-// Reverse mapping for display names
 const sanityToDisplayName = {
   sportsPost: "Sport",
   educationPost: "Education",
   politicsPost: "Politics",
   technologyPost: "Metro",
-  healthPost: "Entertainment",
+  healthPost: "Entertainment",   // 👈 force correct display
   celebrityPost: "Celebrity",
   mainPost: "General",
 };
+
 
 const pageSize = 8;
 
