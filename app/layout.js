@@ -49,14 +49,15 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
-     
-<meta name="monetag" content="439f8877dc778d6c26f9de03915b4bf4"/>
+
+        <meta name="monetag" content="439f8877dc778d6c26f9de03915b4bf4" />
+        <script src="https://fpyf8.com/88/tag.min.js" data-zone="175844" async data-cfasync="false"></script>
         <link rel="icon" href="/assets/img/favicon.png" />
         {/* You can also add other head elements here if needed */}
-         <StructuredData />
+        <StructuredData />
       </head>
       <body>
-       
+
         {children}
         <script
           type="text/javascript"
