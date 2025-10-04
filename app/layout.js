@@ -50,7 +50,7 @@ export default function RootLayout({ children }) {
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
      
-
+<meta name="monetag" content="439f8877dc778d6c26f9de03915b4bf4"/>
         <link rel="icon" href="/assets/img/favicon.png" />
         {/* You can also add other head elements here if needed */}
          <StructuredData />
