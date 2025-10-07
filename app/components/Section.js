@@ -2,52 +2,52 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import createAdHandler from 'monetag-tg-sdk'; // ✅ Import SDK
 
 export default function Section({ title, id, posts = [] }) {
   const router = useRouter();
 
+  // Your Monetag Rewarded Interstitial Zone ID
+  const REWARDED_ZONE_ID = '10003329';
 
+  // Initialize ad handler
+  const adHandler = createAdHandler(REWARDED_ZONE_ID);
 
+  const [adReady, setAdReady] = useState(false);
+
+  useEffect(() => {
+    // Preload ad for faster experience
+    adHandler({ type: 'preload', ymid: 'preload-event' })
+      .then(() => setAdReady(true))
+      .catch(() => console.warn('Ad preload failed'));
+
+    // Initialize Telegram SDK if available
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+    }
+  }, []);
 
   function generateSlug(text) {
-    // Convert to lowercase and trim leading/trailing whitespace
     let slug = text.toLowerCase().trim();
-
-    // Replace accented characters with their non-accented equivalents
     slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
-    slug = slug.replace(/[^a-z0-9 -]/g, "")
-      .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
-      .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
-
-    // Remove leading and trailing hyphens
-    slug = slug.replace(/^-+|-+$/g, "");
-
-    return slug;
+    slug = slug.replace(/[^a-z0-9 -]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
+    return slug.replace(/^-+|-+$/g, "");
   }
 
-
-
-const handleSeeMore = async () => {
-  try {
-    // Show the rewarded interstitial ad
-    await show_10003329();
-    
-    // Reward the user (optional)
-    alert('You have seen an ad!');
-
-    // Generate the slug and navigate
-    const slug = generateSlug(title);
-    router.push(`/category/${slug}`);
-  } catch (error) {
-    console.error('Ad failed to load or was skipped:', error);
-    // Optionally still allow navigation if ad fails
-    const slug = generateSlug(title);
-    router.push(`/category/${slug}`);
-  }
-};
-
+  const handleSeeMore = async () => {
+    try {
+      // Show ad
+      await adHandler({ ymid: 'user-123' });
+      alert('🎉 You have seen an ad!');
+    } catch (error) {
+      console.error('Ad failed or was skipped:', error);
+    } finally {
+      // Always navigate after
+      const slug = generateSlug(title);
+      router.push(`/category/${slug}`);
+    }
+  };
 
   return (
     <div className="bg-sky pd-top-70 pd-bottom-50" id={id}>
@@ -81,10 +81,10 @@ const handleSeeMore = async () => {
                     <Image
                       src={optimizedUrl}
                       alt={post.title || 'Post image'}
-                      width={400}               // Or adjust to your preferred width
-                      height={250}              // Adjust height as needed
+                      width={400}
+                      height={250}
                       className="img-fluid"
-                      priority={false}          // Only set to true for important images
+                      priority={false}
                       loading="lazy"
                     />
                     <p className="btn-date">
@@ -109,18 +109,18 @@ const handleSeeMore = async () => {
         style={{
           textAlign: 'center',
           margin: '1rem auto',
-          backgroundColor: 'blue',
+          backgroundColor: adReady ? 'blue' : 'gray',
           width: 'fit-content',
           padding: '0.5rem 1rem',
           borderRadius: '4px',
-          cursor: 'pointer',
-          userSelect: 'none', // prevent highlighting the whole button
+          cursor: adReady ? 'pointer' : 'not-allowed',
         }}
-        onClick={handleSeeMore}
+        onClick={adReady ? handleSeeMore : undefined}
       >
-        <span style={{ color: 'white', userSelect: 'none' }}>See More</span>
+        <span style={{ color: 'white' }}>
+          {adReady ? 'See More' : 'Loading Ad...'}
+        </span>
       </div>
-
     </div>
   );
 }
