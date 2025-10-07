@@ -58,15 +58,7 @@ export default function RootLayout({ children }) {
       <body>
 
         {children}
-        <script
-          type="text/javascript"
-          src="//cdn.runative-syndicate.com/sdk/v1/bi.js"
-          data-ts-spot="f86939fb1420439eb7534dd80e0b2ccb"
-          data-ts-width="728"
-          data-ts-height="90"
-          async
-          defer
-        ></script>
+      
         
       </body>
     </html>
