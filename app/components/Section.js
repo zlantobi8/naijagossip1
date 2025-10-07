@@ -3,47 +3,49 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import createAdHandler from 'monetag-tg-sdk'; // ✅ Import SDK
 
 export default function Section({ title, id, posts = [] }) {
   const router = useRouter();
-
-  // Your Monetag Rewarded Interstitial Zone ID
-  const REWARDED_ZONE_ID = '10003329';
-
-  // Initialize ad handler
-  const adHandler = createAdHandler(REWARDED_ZONE_ID);
-
   const [adReady, setAdReady] = useState(false);
 
   useEffect(() => {
-    // Preload ad for faster experience
-    adHandler({ type: 'preload', ymid: 'preload-event' })
-      .then(() => setAdReady(true))
-      .catch(() => console.warn('Ad preload failed'));
+    // Wait for the Monetag script to load
+    const checkSDK = setInterval(() => {
+      if (typeof window.show_10003329 === 'function') {
+        clearInterval(checkSDK);
+        setAdReady(true);
+      }
+    }, 500);
 
-    // Initialize Telegram SDK if available
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready();
-    }
+    return () => clearInterval(checkSDK);
   }, []);
 
-  function generateSlug(text) {
+  const generateSlug = (text) => {
     let slug = text.toLowerCase().trim();
     slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     slug = slug.replace(/[^a-z0-9 -]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
     return slug.replace(/^-+|-+$/g, "");
-  }
+  };
 
   const handleSeeMore = async () => {
+    if (!window.show_10003329) {
+      console.error('Ad SDK not loaded yet');
+      router.push(`/category/${generateSlug(title)}`);
+      return;
+    }
+
     try {
-      // Show ad
-      await adHandler({ ymid: 'user-123' });
-      alert('🎉 You have seen an ad!');
+      // Show the Monetag ad first
+      await new Promise((resolve, reject) => {
+        window.show_10003329({
+          onFinish: resolve,
+          onError: reject,
+        });
+      });
     } catch (error) {
-      console.error('Ad failed or was skipped:', error);
+      console.warn('Ad failed or was skipped:', error);
     } finally {
-      // Always navigate after
+      // Navigate after ad completes or fails
       const slug = generateSlug(title);
       router.push(`/category/${slug}`);
     }
