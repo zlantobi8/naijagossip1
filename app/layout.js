@@ -50,7 +50,6 @@ export default function RootLayout({ children }) {
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
 
-      <script src='//libtl.com/sdk.js' data-zone='10003329' data-sdk='show_10003329'></script>
         <link rel="icon" href="/assets/img/favicon.png" />
         {/* You can also add other head elements he */}
         <StructuredData />
