@@ -9,30 +9,45 @@ export default function Section({ title, id, posts = [] }) {
 
 
 
-function generateSlug(text) {
-  // Convert to lowercase and trim leading/trailing whitespace
-  let slug = text.toLowerCase().trim();
+  function generateSlug(text) {
+    // Convert to lowercase and trim leading/trailing whitespace
+    let slug = text.toLowerCase().trim();
 
-  // Replace accented characters with their non-accented equivalents
-  slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    // Replace accented characters with their non-accented equivalents
+    slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-  // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
-  slug = slug.replace(/[^a-z0-9 -]/g, "")
-             .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
-             .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+    // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
+    slug = slug.replace(/[^a-z0-9 -]/g, "")
+      .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
+      .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
 
-  // Remove leading and trailing hyphens
-  slug = slug.replace(/^-+|-+$/g, "");
+    // Remove leading and trailing hyphens
+    slug = slug.replace(/^-+|-+$/g, "");
 
-  return slug;
-}
+    return slug;
+  }
 
 
 
-  const handleSeeMore = () => {
-    const slug = generateSlug(title); // e.g., "politics"
+const handleSeeMore = async () => {
+  try {
+    // Show the rewarded interstitial ad
+    await show_10003329();
+    
+    // Reward the user (optional)
+    alert('You have seen an ad!');
+
+    // Generate the slug and navigate
+    const slug = generateSlug(title);
     router.push(`/category/${slug}`);
-  };
+  } catch (error) {
+    console.error('Ad failed to load or was skipped:', error);
+    // Optionally still allow navigation if ad fails
+    const slug = generateSlug(title);
+    router.push(`/category/${slug}`);
+  }
+};
+
 
   return (
     <div className="bg-sky pd-top-70 pd-bottom-50" id={id}>
