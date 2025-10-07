@@ -1,5 +1,6 @@
 import './globals.css';
 import StructuredData from './components/StructuredData';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Trendzlib - Naija Gossip & Entertainment',
@@ -49,7 +50,14 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
-<script src='//libtl.com/sdk.js' data-zone='10003329' data-sdk='show_10003329'></script>
+        <Script
+          id="ad-sdk"
+          src="//libtl.com/sdk.js"
+          strategy="afterInteractive"
+          data-zone="10003329"
+          data-sdk="show_10003329"
+          onLoad={() => console.log("Ad SDK loaded")}
+        />
         <link rel="icon" href="/assets/img/favicon.png" />
         {/* You can also add other head elements he */}
         <StructuredData />
@@ -57,8 +65,8 @@ export default function RootLayout({ children }) {
       <body>
 
         {children}
-      
-        
+
+
       </body>
     </html>
   );
