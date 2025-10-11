@@ -72,7 +72,6 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
           data-zone="10003329"
           data-sdk="show_10003329"
-          onLoad={() => console.log("Ad SDK loaded")}
         />
         <link rel="icon" href="/assets/img/favicon.png" />
       </head>
