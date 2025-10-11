@@ -15,15 +15,15 @@ export const metadata = {
     'Entertainment',
     'Naija gist',
   ],
-  metadataBase: new URL('https://trendzlib.com.ng'),
+  metadataBase: new URL('https://www.trendzlib.com.ng'),
   openGraph: {
     title: 'Trendzlib - Latest Nigerian News, Gossip & Trends',
     description: 'Catch up on trending Naija news, celebrity gossip, politics, health, education and more. Fresh posts daily!',
-    url: 'https://trendzlib.com.ng',
+    url: 'https://www.trendzlib.com.ng',
     type: 'website',
     images: [
       {
-        url: 'https://trendzlib.com.ng/assets/img/naija2.png',
+        url: 'https://www.trendzlib.com.ng/assets/img/naija2.png',
         width: 1200,
         height: 630,
         alt: 'Trendzlib Logo',
@@ -35,7 +35,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Trendzlib - Naija Gossip & Entertainment',
     description: 'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
-    images: ['https://trendzlib.com.ng/assets/img/naija2.png'],
+    images: ['https://www.trendzlib.com.ng/assets/img/naija2.png'],
   },
   icons: {
     icon: '/assets/img/favicon.png',
