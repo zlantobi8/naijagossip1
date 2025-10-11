@@ -39,7 +39,7 @@ export const metadata = {
   }
 };
 
-// 🔥 FOCUS QUERY: More entertainment, some sport
+// 🔥 FOCUS QUERY: Entertainment + Sport ONLY
 const query = encodeURIComponent(`{
   "healthPost": *[_type == "healthPost"] | order(date desc)[0...16] {
     _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
@@ -47,10 +47,7 @@ const query = encodeURIComponent(`{
   "celebrityPost": *[_type == "celebrityPost"] | order(date desc)[0...16] {
     _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
   },
-  "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...12] {
-    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-  },
-  "mainPost": *[_type == "mainPost"] | order(date desc)[0...8] {
+  "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...16] {
     _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
   }
 }`);
@@ -150,7 +147,7 @@ export default async function Home() {
           <MainPosts posts={mainPosts} />
         </div>
 
-        {/* 🔥 ONLY 2 MAIN SECTIONS */}
+        {/* 🔥 MAIN SECTIONS - Entertainment First, then Sport */}
         <Section 
           title="Entertainment" 
           id="entertainment" 
@@ -161,15 +158,6 @@ export default async function Home() {
           id="sport" 
           posts={categorizedPosts.sportsPost} 
         />
-
-        {/* Optional: Keep "General News" at bottom for flexibility */}
-        {categorizedPosts.mainPost?.length > 0 && (
-          <Section 
-            title="More Stories" 
-            id="general" 
-            posts={categorizedPosts.mainPost} 
-          />
-        )}
 
         <Footer />
 
