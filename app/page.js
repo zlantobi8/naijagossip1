@@ -1,4 +1,4 @@
-// app/page.js - FINAL STRUCTURE (Entertainment + Sport Focus)
+// app/page.js - FINAL VERSION (Entertainment + Sport ONLY)
 
 import Image from 'next/image';
 import BannerAd from './components/BannerAd';
@@ -39,7 +39,7 @@ export const metadata = {
   }
 };
 
-// 🔥 FOCUS QUERY: Entertainment + Sport ONLY
+// 🔥 ONLY FETCH ENTERTAINMENT + SPORT
 const query = encodeURIComponent(`{
   "healthPost": *[_type == "healthPost"] | order(date desc)[0...16] {
     _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
@@ -69,15 +69,15 @@ export default async function Home() {
 
   const getLatest = (posts) => posts?.length ? [...posts].sort((a, b) => new Date(b.date) - new Date(a.date))[0] : null;
 
-  // Combine entertainment posts (healthPost + celebrityPost = all entertainment)
+  // Combine all entertainment posts (healthPost + celebrityPost)
   const allEntertainment = [
     ...(categorizedPosts.healthPost || []),
     ...(categorizedPosts.celebrityPost || [])
   ].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Main banner posts (mix of entertainment + sport)
+  // Main banner posts (mix entertainment + sport)
   const mainPosts = [
-    getLatest(allEntertainment),
+    allEntertainment[0],
     allEntertainment[1],
     getLatest(categorizedPosts.sportsPost),
     allEntertainment[2],
@@ -132,7 +132,7 @@ export default async function Home() {
                 </div>
               </div>
               <div className="col-xl-6 col-lg-7 text-md-right text-center">
-                <p style={{color: 'white', marginTop: '20px'}}>Entertainment & Sport News Daily</p>
+                <p style={{color: 'white', marginTop: '20px', fontSize: '18px'}}>🔥 Entertainment & Sport News Daily</p>
               </div>
             </div>
           </div>
@@ -147,20 +147,23 @@ export default async function Home() {
           <MainPosts posts={mainPosts} />
         </div>
 
-        {/* 🔥 MAIN SECTIONS - Entertainment First, then Sport */}
+        {/* ✅ ONLY 2 SECTIONS - ENTERTAINMENT THEN SPORT */}
         <Section 
           title="Entertainment" 
           id="entertainment" 
           posts={allEntertainment} 
         />
+        
         <Section 
           title="Sport" 
           id="sport" 
-          posts={categorizedPosts.sportsPost} 
+          posts={categorizedPosts.sportsPost || []} 
         />
 
+        {/* Footer */}
         <Footer />
 
+        {/* Back to Top */}
         <div className="back-to-top">
           <span className="back-top"><i className="fa fa-angle-up" /></span>
         </div>
