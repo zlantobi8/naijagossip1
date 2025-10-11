@@ -63,7 +63,7 @@ export default function BannerAd({ slicepost }) {
               }
               <Image
                 src={optimizedUrl}
-                alt="titlq"
+                alt="title"
                 width={480}
                 height={270}
                 priority // 💥 This tells Next.js to load it early
