@@ -147,9 +147,39 @@ export default async function DetailPage({ params }) {
   // ✅ Use smarter inline injection
   const enhancedDescription = injectSmartLinks(post.description, relatedPosts);
 
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": post.title,
+    "image": post.image,
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "author": {
+      "@type": "Person",
+      "name": post.author || "Trendzlib Editorial"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Trendzlib",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://trendzlib.com.ng/assets/img/naija2.png"
+      }
+    },
+    "description": post.description?.slice(0, 150)
+  };
+
+
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <Nav1 />
+
       <div className={styles.wrapper}>
         <h1 className={styles.title}>{post.title}</h1>
         <div className={styles.meta}>

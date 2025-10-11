@@ -19,6 +19,10 @@ export const getAllRoutes = async () => {
     }
   );
 
+  if (!res.ok) {
+    throw new Error(`Failed to fetch routes: ${res.status} ${res.statusText}`);
+  }
+
   const data = await res.json();
   const result = data.result || {};
 
@@ -26,7 +30,7 @@ export const getAllRoutes = async () => {
 
   // Generate SEO slug
   const generateSlug = (text) =>
-    text
+    String(text || "")
       .toLowerCase()
       .replace(/[^\w\s-]/g, "")
       .replace(/\s+/g, "-")
@@ -38,13 +42,16 @@ export const getAllRoutes = async () => {
     const posts = result[category] || [];
 
     posts.forEach((post) => {
+      if (!post.title || !post.date) return; // Skip invalid posts
+
       const date = new Date(post.date);
+      if (isNaN(date.getTime())) return; // Skip invalid dates
+
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
 
       allRoutes.push({
-        // ✅ Match your actual working structure
         slug: `/${year}/${month}/${day}/${generateSlug(post.title)}`,
         lastModified: new Date(post._updatedAt || post.date).toISOString(),
         changefreq: "daily",
@@ -52,14 +59,23 @@ export const getAllRoutes = async () => {
       });
     });
   }
+    const categoryPages = [
+    'sport', 'education', 'politics', 'metro', 'entertainment', 'celebrity', 'general'
+  ].map(slug => ({
+    slug: `/category/${slug}`,
+    lastModified: new Date().toISOString(),
+    changefreq: 'daily',
+    priority: 0.8
+  }));
 
   // Static pages
+  const now = new Date().toISOString();
   const staticPages = [
-    { slug: "/", lastModified: new Date().toISOString(), changefreq: "daily", priority: 1.0 },
-    { slug: "/about", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.7 },
-    { slug: "/contact", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.6 },
-    { slug: "/privacy-policy", lastModified: new Date().toISOString(), changefreq: "monthly", priority: 0.5 },
+    { slug: "/", lastModified: now, changefreq: "daily", priority: 1.0 },
+    { slug: "/about", lastModified: now, changefreq: "monthly", priority: 0.7 },
+    { slug: "/contact", lastModified: now, changefreq: "monthly", priority: 0.6 },
+    { slug: "/privacy-policy", lastModified: now, changefreq: "monthly", priority: 0.5 },
   ];
 
-  return [...staticPages, ...allRoutes];
+  return [...staticPages, ...allRoutes, ...categoryPages];
 };

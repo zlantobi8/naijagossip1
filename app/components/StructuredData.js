@@ -1,30 +1,30 @@
-// components/StructuredData.js
-import Head from 'next/head';
-
 export default function StructuredData() {
+
   const orgData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://trendzlib.com.ng/#organization",
+    "@type": "NewsMediaOrganization",
     "name": "Trendzlib",
-
     "url": "https://trendzlib.com.ng/",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://trendzlib.com.ng/assets/img/favicon.png"
+    "logo": "https://trendzlib.com.ng/assets/img/naija2.png",
+    "sameAs": [
+      "https://www.instagram.com/trendzlib",
+      "https://www.linkedin.com/company/trendzlib",
+      "https://twitter.com/trendzlib",
+      "https://www.facebook.com/officialtrendzlib"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+234-706-104-3812",
+      "contactType": "Customer Service",
+      "email": "newsroom@trendzlib.com"
     }
   };
 
   const webSiteData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://trendzlib.com.ng/#website",
     "name": "Trendzlib",
-      "alternateName": "Trendzlib Nigeria", 
     "url": "https://trendzlib.com.ng/",
-    "publisher": {
-      "@id": "https://trendzlib.com.ng/#organization"
-    },
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://trendzlib.com.ng/search?q={search_term_string}",
@@ -33,9 +33,15 @@ export default function StructuredData() {
   };
 
   return (
-    <Head>
-      <script type="application/ld+json">{JSON.stringify(orgData)}</script>
-      <script type="application/ld+json">{JSON.stringify(webSiteData)}</script>
-    </Head>
+    <>
+      <script 
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgData) }}
+      />
+      <script 
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteData) }}
+      />
+    </>
   );
 }

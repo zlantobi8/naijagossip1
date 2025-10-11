@@ -6,7 +6,45 @@ import MainPosts from './components/Mainposts';
 import Section from './components/Section';
 import Footer from './Footer';
 import Navbar2 from './components/Navbar2';
+import Head from 'next/head';
+const siteTitle = 'Trendzlib - Latest Nigerian News, Gossip & Entertainment';
+const siteDescription = 'Stay updated with the hottest Nigerian gossip, celebrity news, politics, sports, education and entertainment stories. Your #1 source for Naija gist!';
 
+// ...existing code...
+export const metadata = {
+  title: siteTitle,
+  description: siteDescription,
+  keywords: 'Nigeria news, sports, politics, entertainment, education, technology, celebrity, Naija gist, breaking news',
+  alternates: {
+    canonical: 'https://trendzlib.com.ng'
+  },
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: 'https://trendzlib.com.ng',
+    siteName: siteTitle,
+    images: [
+      {
+        url: 'https://trendzlib.com.ng/assets/img/naija.png', // Absolute URL
+        width: 200,
+        height: 60,
+        alt: 'Trendzlib Nigeria News Logo'
+      }
+    ],
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteTitle,
+    description: siteDescription,
+    site: '@trendzlib',
+    images: ['https://trendzlib.com.ng/assets/img/naija.png'] // Absolute URL
+  },
+  robots: 'index, follow',
+  authors: [{ name: 'Trendzlib Team', url: 'https://trendzlib.com.ng/about' }],
+  viewport: 'width=device-width, initial-scale=1',
+};
+// ...existing code...
 
 const query = encodeURIComponent(`{
   "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...8] {
@@ -63,6 +101,7 @@ export default async function Home() {
 
   return (
     <>
+    
       <div className="navbar-area">
 
         {/* 🔵 Topbar */}
@@ -85,8 +124,12 @@ export default async function Home() {
                     <i className="fa fa-calendar"></i> <span>{currentDate}</span>
                   </div>
                   <ul className="social-area social-area-2">
-                    <li><a className="facebook-icon" href="https://www.facebook.com/profile.php?id=61578802011674"><i className="fa fa-facebook"></i></a></li>
-                    <li><a className="twitter-icon" href="#"><i className="fa fa-twitter"></i></a></li>
+
+                    <li>
+                      <a className="facebook-icon" href="https://www.facebook.com/profile.php?id=61578802011674" rel="noopener noreferrer" target="_blank">
+                        <i className="fa fa-facebook"></i>
+                      </a>
+                    </li>
 
                   </ul>
                 </div>
@@ -101,7 +144,9 @@ export default async function Home() {
             <div className="row">
               <div className="col-xl-6 col-lg-5 align-self-center">
                 <div className="logo text-md-left text-center">
-                  <Image src="/assets/img/naija.png" alt="logo" width={200} height={60} />
+
+                  <Image src="/assets/img/naija.png" alt="Trendzlib Nigeria News Logo" width={200} height={60} />
+
                 </div>
               </div>
               <div className="col-xl-6 col-lg-7 text-md-right text-center">
@@ -119,7 +164,7 @@ export default async function Home() {
           <BannerAd slicepost={mainPosts} />
           <MainPosts posts={mainPosts} />
         </div>
-      
+
         {/* 🔵 Sections */}
         <Section title="Entertainment" id="entertainment" posts={categorizedPosts.healthPost} />
         <Section title="Politics" id="politics" posts={categorizedPosts.politicsPost} />
