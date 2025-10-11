@@ -4,8 +4,8 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
     "name": "Trendzlib",
-    "url": "https://trendzlib.com.ng/",
-    "logo": "https://trendzlib.com.ng/assets/img/naija2.png",
+    "url": "https://www.trendzlib.com.ng/",
+    "logo": "https://www.trendzlib.com.ng/assets/img/naija2.png",
     "sameAs": [
       "https://www.instagram.com/trendzlib",
       "https://www.linkedin.com/company/trendzlib",

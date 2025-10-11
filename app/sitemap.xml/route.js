@@ -3,7 +3,7 @@ import { getAllRoutes } from "../lib/route";
 
 export async function GET() {
   const routes = await getAllRoutes();
-  const baseUrl = "https://trendzlib.com.ng";
+const baseUrl = "https://www.trendzlib.com.ng";
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset 

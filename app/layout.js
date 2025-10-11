@@ -4,9 +4,14 @@ import Script from 'next/script';
 
 const siteTitle = 'Trendzlib - Latest Nigerian News, Gossip & Entertainment';
 const siteDescription = 'Stay updated with the hottest Nigerian gossip, celebrity news, politics, sports, education and entertainment stories. Your #1 source for Naija gist!';
-
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5
+}
 export const metadata = {
   title: siteTitle,
+  themeColor: '#10284f',
   description: siteDescription,
   keywords: [
     'Trendzlib',
@@ -46,7 +51,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en-NG">
       <head>
         <meta charSet="utf-8" />
         <meta

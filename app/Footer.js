@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import Logo from './components/Logo';
 
 const Footer = () => {
   return (
@@ -20,7 +19,7 @@ const Footer = () => {
           >
             <Image className='foot1'
               src={'/assets/img/naija.png'}
-              alt={'Main post image'}
+              alt="Trendzlib Nigeria News Logo"
               width={260}
               height={70}
               priority

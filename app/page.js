@@ -16,16 +16,16 @@ export const metadata = {
   description: siteDescription,
   keywords: 'Nigeria news, sports, politics, entertainment, education, technology, celebrity, Naija gist, breaking news',
   alternates: {
-    canonical: 'https://trendzlib.com.ng'
+    canonical: 'https://www.trendzlib.com.ng'
   },
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    url: 'https://trendzlib.com.ng',
+    url: 'https://www.trendzlib.com.ng',
     siteName: siteTitle,
     images: [
       {
-        url: 'https://trendzlib.com.ng/assets/img/naija.png', // Absolute URL
+        url: 'https://www.trendzlib.com.ng/assets/img/naija.png', // Absolute URL
         width: 200,
         height: 60,
         alt: 'Trendzlib Nigeria News Logo'
@@ -38,10 +38,10 @@ export const metadata = {
     title: siteTitle,
     description: siteDescription,
     site: '@trendzlib',
-    images: ['https://trendzlib.com.ng/assets/img/naija.png'] // Absolute URL
+    images: ['https://www.trendzlib.com.ng/assets/img/naija.png'] // Absolute URL
   },
   robots: 'index, follow',
-  authors: [{ name: 'Trendzlib Team', url: 'https://trendzlib.com.ng/about' }],
+  authors: [{ name: 'Trendzlib Team', url: 'https://www.trendzlib.com.ng/about' }],
   viewport: 'width=device-width, initial-scale=1',
 };
 // ...existing code...

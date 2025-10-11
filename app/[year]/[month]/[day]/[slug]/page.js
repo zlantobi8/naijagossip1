@@ -63,7 +63,8 @@ export async function generateMetadata({ params }) {
 
   if (!post) return notFound();
 
-  const postUrl = `https://trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${generateSlug(post.title)}`;
+  const postUrl = `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${generateSlug(post.title)}`;
+  
 
   return {
     title: post.title,
@@ -164,11 +165,37 @@ export default async function DetailPage({ params }) {
       "name": "Trendzlib",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://trendzlib.com.ng/assets/img/naija2.png"
+        "url": "https://www.trendzlib.com.ng/assets/img/naija2.png"
       }
     },
     "description": post.description?.slice(0, 150)
   };
+
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.trendzlib.com.ng"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": post.category,
+      "item": `https://www.trendzlib.com.ng/category/${post.category.toLowerCase()}`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": post.title,
+      "item": `https://www.trendzlib.com.ng${postUrl}`
+    }
+  ]
+};
 
 
 
@@ -178,6 +205,10 @@ export default async function DetailPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
+       <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+    />
       <Nav1 />
 
       <div className={styles.wrapper}>
@@ -205,13 +236,13 @@ export default async function DetailPage({ params }) {
         <p className={styles.author}>Written by {post.author || 'Anonymous'}</p>
 
         <div className={styles.share}>
-          <a href={`https://www.facebook.com/sharer/sharer.php?u=https://trendzlib.com.ng${postUrl}`} target="_blank" rel="noopener noreferrer">
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.trendzlib.com.ng${postUrl}`}>
             <i className="fa fa-facebook"></i>
           </a>
-          <a href={`https://twitter.com/intent/tweet?url=https://trendzlib.com.ng${postUrl}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer">
+          <a href={`https://twitter.com/intent/tweet?url=https://www.trendzlib.com.ng${postUrl}&text=${encodeURIComponent(post.title)}`}>
             <i className="fa fa-twitter"></i>
           </a>
-          <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' https://trendzlib.com.ng' + postUrl)}`} target="_blank" rel="noopener noreferrer">
+          <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' https://www.trendzlib.com.ng' + postUrl)}`}>
             <i className="fa fa-whatsapp"></i>
           </a>
         </div>
