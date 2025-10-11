@@ -15,8 +15,8 @@ function generateSlug(title) {
 
   // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
   slug = slug.replace(/[^a-z0-9 -]/g, "")
-             .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
-             .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+    .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
+    .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
 
   // Remove leading and trailing hyphens
   slug = slug.replace(/^-+|-+$/g, "");
@@ -63,7 +63,7 @@ export default function BannerAd({ slicepost }) {
               }
               <Image
                 src={optimizedUrl}
-                alt="title"
+                alt={ad.title}  // ✅ This uses the actual article title from the ad object
                 width={480}
                 height={270}
                 priority // 💥 This tells Next.js to load it early
