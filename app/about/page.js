@@ -20,13 +20,13 @@ export default function About() {
       <div className="container py-5" style={{ fontSize: "0.95rem", lineHeight: "1.8" }}>
         <h1 className="text-center mb-4">About Us</h1>
 
-        <p><strong>Trendzlib</strong> is Nigeria's premier digital entertainment and sports news platform.</p>
+        <p><strong>Trendzlib</strong> is Nigeria&apos;s premier digital entertainment and sports news platform.</p>
         <p>We deliver the hottest celebrity gossip, Nollywood updates, Afrobeats news, BBNaija exclusives, and breaking football stories to millions of Nigerians daily.</p>
 
         <h4 className="mt-5">What We Cover</h4>
-        <p><strong>Entertainment:</strong> From Davido's latest moves to BBNaija drama, we bring you exclusive celebrity news, relationship gossip, fashion trends, and everything happening in Nigerian entertainment.</p>
+        <p><strong>Entertainment:</strong> From Davido&apos;s latest moves to BBNaija drama, we bring you exclusive celebrity news, relationship gossip, fashion trends, and everything happening in Nigerian entertainment.</p>
         
-        <p><strong>Sports:</strong> Follow Victor Osimhen's transfer saga, Super Eagles updates, Premier League action featuring Nigerian stars, and expert football analysis.</p>
+        <p><strong>Sports:</strong> Follow Victor Osimhen&apos;s transfer saga, Super Eagles updates, Premier League action featuring Nigerian stars, and expert football analysis.</p>
 
         <h4 className="mt-5">Our Mission</h4>
         <p>We keep Nigerians informed and entertained with accurate, timely, and engaging content. Whether it's breaking celebrity news or the latest football transfer rumors, Trendzlib is your go-to source.</p>

@@ -1,6 +1,7 @@
 // app/page.js - FINAL VERSION (Entertainment + Sport ONLY)
 
 import Image from 'next/image';
+import Link from 'next/link';
 import BannerAd from './components/BannerAd';
 import MainPosts from './components/Mainposts';
 import Section from './components/Section';
