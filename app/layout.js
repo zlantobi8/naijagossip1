@@ -2,28 +2,36 @@ import './globals.css';
 import StructuredData from './components/StructuredData';
 import Script from 'next/script';
 
-const siteTitle = 'Trendzlib - Latest Nigerian News, Gossip & Entertainment';
-const siteDescription = 'Stay updated with the hottest Nigerian gossip, celebrity news, politics, sports, education and entertainment stories. Your #1 source for Naija gist!';
+const siteTitle = 'Trendzlib - Nigerian Entertainment & Sports News';
+const siteDescription = 'Get the hottest Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Your #1 source for entertainment & sport!';
+
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5
 }
+
 export const metadata = {
   title: siteTitle,
   themeColor: '#10284f',
   description: siteDescription,
   keywords: [
     'Trendzlib',
-    'Nigerian news',
-    'Celebrity news',
-    'Entertainment',
-    'Naija gist',
+    'Nigerian entertainment news',
+    'Celebrity gossip Nigeria',
+    'Nollywood news',
+    'Afrobeats news',
+    'BBNaija updates',
+    'Nigerian football',
+    'Victor Osimhen news',
+    'Davido news',
+    'Wizkid news',
+    'Super Eagles',
   ],
   metadataBase: new URL('https://www.trendzlib.com.ng'),
   openGraph: {
-    title: 'Trendzlib - Latest Nigerian News, Gossip & Trends',
-    description: 'Catch up on trending Naija news, celebrity gossip, politics, health, education and more. Fresh posts daily!',
+    title: siteTitle,
+    description: siteDescription,
     url: 'https://www.trendzlib.com.ng',
     type: 'website',
     images: [
@@ -31,15 +39,15 @@ export const metadata = {
         url: 'https://www.trendzlib.com.ng/assets/img/naija2.png',
         width: 1200,
         height: 630,
-        alt: 'Trendzlib Logo',
+        alt: 'Trendzlib - Entertainment & Sport News',
       },
     ],
     siteName: 'Trendzlib',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trendzlib - Naija Gossip & Entertainment',
-    description: 'Stay updated with the hottest Nigerian gossip, celebrity news, and entertainment stories. Your #1 source for Naija gist!',
+    title: siteTitle,
+    description: siteDescription,
     images: ['https://www.trendzlib.com.ng/assets/img/naija2.png'],
   },
   icons: {
@@ -67,7 +75,6 @@ export default function RootLayout({ children }) {
           onLoad={() => console.log("Ad SDK loaded")}
         />
         <link rel="icon" href="/assets/img/favicon.png" />
-        {/* You can also add other head elements here */}
       </head>
       <body>
         <StructuredData />

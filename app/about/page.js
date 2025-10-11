@@ -1,23 +1,18 @@
-
-
 import Nav1 from "@/app/components/Nav1";
 import Footer from "@/app/Footer";
 import React from "react";
 
-// ✅ Export metadata BEFORE the component
 export const metadata = {
   title: "About Us | Trendzlib",
-  description: "Learn more about  Trendzlib, our mission, journalism, and values.",
+  description: "Learn more about Trendzlib - Nigeria's leading entertainment and sports news platform.",
   alternates: {
-  canonical: "https://www.trendzlib.com.ng/about",
-}
+    canonical: "https://www.trendzlib.com.ng/about",
+  }
 };
 
 export default function About() {
   return (
     <div className="bg-light text-dark">
- 
-
       <div className="navbar-area" style={{ background: '#10284f' }}>
         <Nav1 />
       </div>
@@ -25,33 +20,39 @@ export default function About() {
       <div className="container py-5" style={{ fontSize: "0.95rem", lineHeight: "1.8" }}>
         <h1 className="text-center mb-4">About Us</h1>
 
-        <p><strong>Trendzlib</strong> is a fully digital media platform powered by  Trendzlib Media.</p>
-        <p>We are committed to delivering authentic, timely, and unbiased news to the Nigerian public and global readers. Our mission is to empower our audience with the facts—nothing more, nothing less.</p>
+        <p><strong>Trendzlib</strong> is Nigeria's premier digital entertainment and sports news platform.</p>
+        <p>We deliver the hottest celebrity gossip, Nollywood updates, Afrobeats news, BBNaija exclusives, and breaking football stories to millions of Nigerians daily.</p>
 
-        <h4 className="mt-5">Our Editorial Values</h4>
-        <p>At Trendzlib, we prioritize truth, accuracy, and clarity in our journalism. We believe that credible reporting builds trust—and trust is the foundation of our relationship with you.</p>
-        <p>We aim to inform, not influence. Rather than pushing opinions, our focus is to present facts and allow our readers to form their own perspectives. Our team works diligently to explain the full context of every story.</p>
+        <h4 className="mt-5">What We Cover</h4>
+        <p><strong>Entertainment:</strong> From Davido's latest moves to BBNaija drama, we bring you exclusive celebrity news, relationship gossip, fashion trends, and everything happening in Nigerian entertainment.</p>
+        
+        <p><strong>Sports:</strong> Follow Victor Osimhen's transfer saga, Super Eagles updates, Premier League action featuring Nigerian stars, and expert football analysis.</p>
 
-        <h4 className="mt-5">Independence & Accountability</h4>
-        <p>We operate independently of any political or commercial influence. Editorial decisions are based solely on public interest and newsworthiness.</p>
-        <p>We also hold ourselves accountable. Mistakes, though rare, are corrected transparently and promptly. Our readers deserve nothing less.</p>
+        <h4 className="mt-5">Our Mission</h4>
+        <p>We keep Nigerians informed and entertained with accurate, timely, and engaging content. Whether it's breaking celebrity news or the latest football transfer rumors, Trendzlib is your go-to source.</p>
 
-        <h4 className="mt-5">Social Responsibility</h4>
-        <p>Beyond reporting, we are committed to making a positive impact. Our newsroom fosters diversity, inclusiveness, and integrity. We treat all individuals—whether staff, sources, or audience—with dignity and respect.</p>
+        <h4 className="mt-5">Why Choose Trendzlib?</h4>
+        <ul>
+          <li>✅ Fresh content published daily</li>
+          <li>✅ Accurate and verified information</li>
+          <li>✅ Breaking news delivered fast</li>
+          <li>✅ Entertainment and sports in one place</li>
+          <li>✅ Mobile-friendly for reading on the go</li>
+        </ul>
 
         <h4 className="mt-5">Get in Touch</h4>
-        <p>Have questions, feedback, or story tips? We’d love to hear from you.</p>
+        <p>Have a story tip, feedback, or partnership inquiry? We'd love to hear from you.</p>
 
-        <p><strong>Email:</strong> <a href="mailto:newsroom@Trendzlib.com">newsroom@Trendzlib.com</a></p>
+        <p><strong>Email:</strong> <a href="mailto:newsroom@trendzlib.com">newsroom@trendzlib.com</a></p>
 
         <p><strong>Address:</strong><br />
           Lagos State, Nigeria<br />
-          Phone: <a href="tel:+2348101234567">+2347061043812</a></p>
+          Phone: <a href="tel:+2347061043812">+2347061043812</a></p>
 
         <p><strong>Connect With Us:</strong><br />
-          Twitter: <a href="https://twitter.com/Trendzlib" target="_blank">@Trendzlib</a> | <a href="https://twitter.com/Trendzlibceo" target="_blank">@Trendzlibceo</a><br />
-          Facebook: <a href="https://www.facebook.com/officialTrendzlib" target="_blank">facebook.com/officialTrendzlib</a><br />
-          WhatsApp: <a href="https://wa.me/2347061043812" target="_blank">+2347061043812</a></p>
+          Twitter: <a href="https://twitter.com/trendzlib" target="_blank" rel="noopener noreferrer">@trendzlib</a> | <a href="https://twitter.com/trendzlibceo" target="_blank" rel="noopener noreferrer">@trendzlibceo</a><br />
+          Facebook: <a href="https://www.facebook.com/officialtrendzlib" target="_blank" rel="noopener noreferrer">facebook.com/officialtrendzlib</a><br />
+          WhatsApp: <a href="https://wa.me/2347061043812" target="_blank" rel="noopener noreferrer">+2347061043812</a></p>
       </div>
 
       <Footer />
