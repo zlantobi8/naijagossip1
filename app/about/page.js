@@ -30,7 +30,7 @@ export default function About() {
         <p><strong>Sports:</strong> Follow Victor Osimhen&apos;s transfer saga, Super Eagles updates, Premier League action featuring Nigerian stars, and expert football analysis.</p>
 
         <h4 className="mt-5">Our Mission</h4>
-        <p>We keep Nigerians informed and entertained with accurate, timely, and engaging content. Whether it's breaking celebrity news or the latest football transfer rumors, Trendzlib is your go-to source.</p>
+       <p>We keep Nigerians informed and entertained with accurate, timely, and engaging content. Whether it&apos;s breaking celebrity news or the latest football transfer rumors, Trendzlib is your go-to source.</p>
 
         <h4 className="mt-5">Why Choose Trendzlib?</h4>
         <ul>
@@ -42,7 +42,7 @@ export default function About() {
         </ul>
 
         <h4 className="mt-5">Get in Touch</h4>
-        <p>Have a story tip, feedback, or partnership inquiry? We'd love to hear from you.</p>
+       <p>Have a story tip, feedback, or partnership inquiry? We&apos;d love to hear from you.</p>
 
         <p><strong>Email:</strong> <Link href="mailto:newsroom@trendzlib.com">newsroom@trendzlib.com</Link></p>
 
