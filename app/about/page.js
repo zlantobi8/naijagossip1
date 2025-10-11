@@ -43,16 +43,16 @@ export default function About() {
         <h4 className="mt-5">Get in Touch</h4>
         <p>Have a story tip, feedback, or partnership inquiry? We'd love to hear from you.</p>
 
-        <p><strong>Email:</strong> <a href="mailto:newsroom@trendzlib.com">newsroom@trendzlib.com</a></p>
+        <p><strong>Email:</strong> <Link href="mailto:newsroom@trendzlib.com">newsroom@trendzlib.com</Link></p>
 
         <p><strong>Address:</strong><br />
           Lagos State, Nigeria<br />
-          Phone: <a href="tel:+2347061043812">+2347061043812</a></p>
+          Phone: <Link href="tel:+2347061043812">+2347061043812</Link></p>
 
         <p><strong>Connect With Us:</strong><br />
-          Twitter: <a href="https://twitter.com/trendzlib" target="_blank" rel="noopener noreferrer">@trendzlib</a> | <a href="https://twitter.com/trendzlibceo" target="_blank" rel="noopener noreferrer">@trendzlibceo</a><br />
-          Facebook: <a href="https://www.facebook.com/officialtrendzlib" target="_blank" rel="noopener noreferrer">facebook.com/officialtrendzlib</a><br />
-          WhatsApp: <a href="https://wa.me/2347061043812" target="_blank" rel="noopener noreferrer">+2347061043812</a></p>
+          Twitter: <Link href="https://twitter.com/trendzlib" target="_blank" rel="noopener noreferrer">@trendzlib</Link> | <Link href="https://twitter.com/trendzlibceo" target="_blank" rel="noopener noreferrer">@trendzlibceo</Link><br />
+          Facebook: <Link href="https://www.facebook.com/officialtrendzlib" target="_blank" rel="noopener noreferrer">facebook.com/officialtrendzlib</Link><br />
+          WhatsApp: <Link href="https://wa.me/2347061043812" target="_blank" rel="noopener noreferrer">+2347061043812</Link></p>
       </div>
 
       <Footer />

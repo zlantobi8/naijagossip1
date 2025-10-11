@@ -99,9 +99,9 @@ export default async function Home() {
               <div className="col-lg-6 col-md-7 align-self-center">
                 <div className="topbar-menu text-md-left text-center">
                   <ul className="align-self-center">
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="/category/sport">Sport</a></li>
+                    <li><Link href="/about">About</Link></li>
+                    <li><Link href="/contact">Contact</Link></li>
+                    <li><Link href="/category/sport">Sport</Link></li>
                   </ul>
                 </div>
               </div>

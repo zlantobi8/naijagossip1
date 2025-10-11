@@ -33,16 +33,16 @@ export default function Contact() {
                         <p>If you have any questions, suggestions, or inquiries, feel free to contact us via any of the channels below.</p>
 
                         <ul className="list-unstyled">
-                            <li><strong>Email:</strong> <a href="mailto:newsroom@trendzlib.com">newsroom@trendzlib.com</a></li>
-                            <li><strong>Phone:</strong> <a href="tel:+2347061043812">+2347061043812</a></li>
-                            <li><strong>WhatsApp:</strong> <a href="https://wa.me/2347061043812" target="_blank" rel="noopener noreferrer">+2347061043812</a></li>
+                            <li><strong>Email:</strong> <Link href="mailto:newsroom@trendzlib.com">newsroom@trendzlib.com</Link></li>
+                            <li><strong>Phone:</strong> <Link href="tel:+2347061043812">+2347061043812</Link></li>
+                            <li><strong>WhatsApp:</strong> <Link href="https://wa.me/2347061043812" target="_blank" rel="noopener noreferrer">+2347061043812</Link></li>
                             <li><strong>Address:</strong> Lagos State, Nigeria</li>
                         </ul>
 
                         <h5 className="mt-4">Follow Us</h5>
                         <p>
-                            <a href="https://twitter.com/trendzlib" target="_blank" rel="noopener noreferrer" className="me-3">Twitter</a>
-                            <a href="https://www.facebook.com/officialtrendzlib" target="_blank" rel="noopener noreferrer">Facebook</a>
+                            <Link href="https://twitter.com/trendzlib" target="_blank" rel="noopener noreferrer" className="me-3">Twitter</Link>
+                            <Link href="https://www.facebook.com/officialtrendzlib" target="_blank" rel="noopener noreferrer">Facebook</Link>
                         </p>
                     </div>
 
