@@ -42,17 +42,17 @@ function generateSlug(text) {
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
   const postType = slugToSanityType[slug] || "mainPost";
-  const displayName = sanityToDisplayName[postType] || slug; // ✅ fallback safe
+  const displayName = sanityToDisplayName[postType] || slug;
 
   const currentPage = parseInt(searchParams?.page || "1");
   const canonicalUrl =
     currentPage === 1
-      ? `https://trendzlib.com.ng/category/${slug}`
-      : `https://trendzlib.com.ng/category/${slug}?page=${currentPage}`;
+      ? `https://www.trendzlib.com.ng/category/${slug}`
+      : `https://www.trendzlib.com.ng/category/${slug}?page=${currentPage}`;
 
   return {
-    title: `Latest in ${displayName} - TrendzLib`,   // ✅ friendly category name
-    description: `Read the latest articles in ${displayName} on TrendzLib.`, // ✅ friendly category name
+    title: `Latest in ${displayName} - TrendzLib`,
+    description: `Read the latest articles in ${displayName} on TrendzLib.`,
     alternates: {
       canonical: canonicalUrl,
     },

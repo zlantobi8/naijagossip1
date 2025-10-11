@@ -1,5 +1,4 @@
 export default function StructuredData() {
-
   const orgData = {
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
@@ -24,10 +23,10 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Trendzlib",
-    "url": "https://trendzlib.com.ng/",
+    "url": "https://www.trendzlib.com.ng/",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://trendzlib.com.ng/search?q={search_term_string}",
+      "target": "https://www.trendzlib.com.ng/search?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };

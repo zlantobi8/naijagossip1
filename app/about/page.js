@@ -8,6 +8,9 @@ import React from "react";
 export const metadata = {
   title: "About Us | Trendzlib",
   description: "Learn more about  Trendzlib, our mission, journalism, and values.",
+  alternates: {
+  canonical: "https://www.trendzlib.com.ng/about",
+}
 };
 
 export default function About() {

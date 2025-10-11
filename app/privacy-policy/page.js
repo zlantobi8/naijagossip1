@@ -5,6 +5,9 @@ import React from "react";
 export const metadata = {
   title: "Privacy Policy |  Trendzlib",
   description: "Read about how  Trendzlib collects and uses your data.",
+  alternates: {
+    canonical: 'https://www.trendzlib.com.ng/privacy-policy'
+  }
 };
 
 export default function Privacy() {
