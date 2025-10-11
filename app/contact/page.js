@@ -1,6 +1,7 @@
 
 import Nav1 from "@/app/components/Nav1";
 import Footer from "@/app/Footer";
+import Link from "next/link";
 import React from "react";
 export const metadata = {
   title: "Contact Us | Trendzlib",
