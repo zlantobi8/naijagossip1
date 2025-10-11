@@ -1,4 +1,4 @@
-// app/page.js
+// app/page.js - FINAL STRUCTURE (Entertainment + Sport Focus)
 
 import Image from 'next/image';
 import BannerAd from './components/BannerAd';
@@ -6,15 +6,14 @@ import MainPosts from './components/Mainposts';
 import Section from './components/Section';
 import Footer from './Footer';
 import Navbar2 from './components/Navbar2';
-import Head from 'next/head';
-const siteTitle = 'Trendzlib - Latest Nigerian News, Gossip & Entertainment';
-const siteDescription = 'Stay updated with the hottest Nigerian gossip, celebrity news, politics, sports, education and entertainment stories. Your #1 source for Naija gist!';
 
-// ...existing code...
+const siteTitle = 'Trendzlib - Nigerian Entertainment & Sports News';
+const siteDescription = 'Your #1 source for Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Fresh entertainment & sport daily!';
+
 export const metadata = {
   title: siteTitle,
   description: siteDescription,
-  keywords: 'Nigeria news, sports, politics, entertainment, education, technology, celebrity, Naija gist, breaking news',
+  keywords: 'Nigerian celebrity news, entertainment gossip, BBNaija, Davido, Wizkid, Nollywood, Victor Osimhen, Super Eagles, Nigerian football, sports news',
   alternates: {
     canonical: 'https://www.trendzlib.com.ng'
   },
@@ -22,15 +21,13 @@ export const metadata = {
     title: siteTitle,
     description: siteDescription,
     url: 'https://www.trendzlib.com.ng',
-    siteName: siteTitle,
-    images: [
-      {
-        url: 'https://www.trendzlib.com.ng/assets/img/naija.png', // Absolute URL
-        width: 200,
-        height: 60,
-        alt: 'Trendzlib Nigeria News Logo'
-      }
-    ],
+    siteName: 'Trendzlib',
+    images: [{
+      url: 'https://www.trendzlib.com.ng/assets/img/naija.png',
+      width: 200,
+      height: 60,
+      alt: 'Trendzlib - Entertainment & Sport News'
+    }],
     type: 'website'
   },
   twitter: {
@@ -38,31 +35,19 @@ export const metadata = {
     title: siteTitle,
     description: siteDescription,
     site: '@trendzlib',
-    images: ['https://www.trendzlib.com.ng/assets/img/naija.png'] // Absolute URL
-  },
-  robots: 'index, follow',
-  authors: [{ name: 'Trendzlib Team', url: 'https://www.trendzlib.com.ng/about' }],
-  viewport: 'width=device-width, initial-scale=1',
+    images: ['https://www.trendzlib.com.ng/assets/img/naija.png']
+  }
 };
-// ...existing code...
 
+// 🔥 FOCUS QUERY: More entertainment, some sport
 const query = encodeURIComponent(`{
-  "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...8] {
+  "healthPost": *[_type == "healthPost"] | order(date desc)[0...16] {
     _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
   },
-  "educationPost": *[_type == "educationPost"] | order(date desc)[0...8] {
+  "celebrityPost": *[_type == "celebrityPost"] | order(date desc)[0...16] {
     _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
   },
-  "politicsPost": *[_type == "politicsPost"] | order(date desc)[0...8] {
-    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-  },
-  "technologyPost": *[_type == "technologyPost"] | order(date desc)[0...8] {
-    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-  },
-  "healthPost": *[_type == "healthPost"] | order(date desc)[0...8] {
-    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-  },
-  "celebrityPost": *[_type == "celebrityPost"] | order(date desc)[0...8] {
+  "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...12] {
     _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
   },
   "mainPost": *[_type == "mainPost"] | order(date desc)[0...8] {
@@ -87,12 +72,19 @@ export default async function Home() {
 
   const getLatest = (posts) => posts?.length ? [...posts].sort((a, b) => new Date(b.date) - new Date(a.date))[0] : null;
 
+  // Combine entertainment posts (healthPost + celebrityPost = all entertainment)
+  const allEntertainment = [
+    ...(categorizedPosts.healthPost || []),
+    ...(categorizedPosts.celebrityPost || [])
+  ].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // Main banner posts (mix of entertainment + sport)
   const mainPosts = [
-    getLatest(categorizedPosts.politicsPost),
+    getLatest(allEntertainment),
+    allEntertainment[1],
     getLatest(categorizedPosts.sportsPost),
-    getLatest(categorizedPosts.technologyPost),
-    getLatest(categorizedPosts.celebrityPost),
-    getLatest(categorizedPosts.healthPost)
+    allEntertainment[2],
+    categorizedPosts.sportsPost?.[1]
   ].filter(Boolean);
 
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -101,36 +93,31 @@ export default async function Home() {
 
   return (
     <>
-    
       <div className="navbar-area">
-
-        {/* 🔵 Topbar */}
+        {/* Topbar */}
         <div className="topbar-area">
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-lg-6 col-md-7 align-self-center">
                 <div className="topbar-menu text-md-left text-center">
                   <ul className="align-self-center">
-                    <li><a href="#">Author</a></li>
-                    <li><a href="#">Advertisment</a></li>
-                    <li><a href="#">Member</a></li>
-
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/category/sport">Sport</a></li>
                   </ul>
                 </div>
               </div>
               <div className="col-lg-6 col-md-5 mt-2 mt-md-0 text-md-right text-center">
                 <div className="topbar-social">
-                  <div className="topbar-date d-none d-lg-inline-block" id="lateDate">
+                  <div className="topbar-date d-none d-lg-inline-block">
                     <i className="fa fa-calendar"></i> <span>{currentDate}</span>
                   </div>
                   <ul className="social-area social-area-2">
-
                     <li>
                       <a className="facebook-icon" href="https://www.facebook.com/profile.php?id=61578802011674" rel="noopener noreferrer" target="_blank">
                         <i className="fa fa-facebook"></i>
                       </a>
                     </li>
-
                   </ul>
                 </div>
               </div>
@@ -138,49 +125,57 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* 🔵 Logo & AdBar */}
+        {/* Logo */}
         <div className="adbar-area bg-black d-none d-lg-block">
           <div className="container">
             <div className="row">
               <div className="col-xl-6 col-lg-5 align-self-center">
                 <div className="logo text-md-left text-center">
-
-                  <Image src="/assets/img/naija.png" alt="Trendzlib Nigeria News Logo" width={200} height={60} />
-
+                  <Image src="/assets/img/naija.png" alt="Trendzlib" width={200} height={60} />
                 </div>
               </div>
               <div className="col-xl-6 col-lg-7 text-md-right text-center">
-                {/* You can add ad banners or text here if needed */}
+                <p style={{color: 'white', marginTop: '20px'}}>Entertainment & Sport News Daily</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 🔵 Navbar */}
+        {/* Navbar */}
         <Navbar2 />
 
-        {/* 🔵 Banner & Main Posts */}
+        {/* Banner */}
         <div className="banner-area banner-inner-1 bg-black" id="banner">
           <BannerAd slicepost={mainPosts} />
           <MainPosts posts={mainPosts} />
         </div>
 
-        {/* 🔵 Sections */}
-        <Section title="Entertainment" id="entertainment" posts={categorizedPosts.healthPost} />
-        <Section title="Politics" id="politics" posts={categorizedPosts.politicsPost} />
-        <Section title="Sport" id="sport" posts={categorizedPosts.sportsPost} />
-        <Section title="Education" id="education" posts={categorizedPosts.educationPost} />
-        <Section title="Metro" id="Metro" posts={categorizedPosts.technologyPost} />
+        {/* 🔥 ONLY 2 MAIN SECTIONS */}
+        <Section 
+          title="Entertainment" 
+          id="entertainment" 
+          posts={allEntertainment} 
+        />
+        <Section 
+          title="Sport" 
+          id="sport" 
+          posts={categorizedPosts.sportsPost} 
+        />
 
+        {/* Optional: Keep "General News" at bottom for flexibility */}
+        {categorizedPosts.mainPost?.length > 0 && (
+          <Section 
+            title="More Stories" 
+            id="general" 
+            posts={categorizedPosts.mainPost} 
+          />
+        )}
 
-        {/* 🔵 Footer */}
         <Footer />
 
-        {/* 🔵 Back to Top */}
         <div className="back-to-top">
           <span className="back-top"><i className="fa fa-angle-up" /></span>
         </div>
-
       </div>
     </>
   );
