@@ -7,24 +7,16 @@ import { notFound } from "next/navigation";
 // Map slugs to Sanity _type
 const slugToSanityType = {
   sport: "sportsPost",
-  education: "educationPost",
-  politics: "politicsPost",
-  metro: "technologyPost",
-  entertainment: "healthPost",  // still healthPost in Sanity
-  celebrity: "celebrityPost",
-  general: "mainPost",
+  entertainment: "healthPost",
 };
 
 const sanityToDisplayName = {
   sportsPost: "Sport",
-  educationPost: "Education",
-  politicsPost: "Politics",
-  technologyPost: "Metro",
-  healthPost: "Entertainment",   // 👈 force correct display
-  celebrityPost: "Celebrity",
-  mainPost: "General",
+  healthPost: "Entertainment",
 };
 
+// ✅ ALLOWED CATEGORIES ONLY
+const allowedCategories = ['sport', 'entertainment'];
 
 const pageSize = 8;
 
@@ -41,7 +33,13 @@ function generateSlug(text) {
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
-  const postType = slugToSanityType[slug] || "mainPost";
+  
+  // ✅ Block old categories
+  if (!allowedCategories.includes(slug)) {
+    return notFound();
+  }
+
+  const postType = slugToSanityType[slug] || "healthPost";
   const displayName = sanityToDisplayName[postType] || slug;
 
   const currentPage = parseInt(searchParams?.page || "1");
@@ -51,18 +49,23 @@ export async function generateMetadata({ params, searchParams }) {
       : `https://www.trendzlib.com.ng/category/${slug}?page=${currentPage}`;
 
   return {
-    title: `Latest in ${displayName} - TrendzLib`,
-    description: `Read the latest articles in ${displayName} on TrendzLib.`,
+    title: `Latest in ${displayName} - Trendzlib`,
+    description: `Read the latest articles in ${displayName} on Trendzlib.`,
     alternates: {
       canonical: canonicalUrl,
     },
   };
 }
 
-
 export default async function AllPosts({ params, searchParams }) {
   const slug = params.slug;
-  const postType = slugToSanityType[slug] || "mainPost";
+  
+  // ✅ Block old categories (404)
+  if (!allowedCategories.includes(slug)) {
+    return notFound();
+  }
+
+  const postType = slugToSanityType[slug] || "healthPost";
   const currentPage = parseInt(searchParams?.page || "1");
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
@@ -135,9 +138,9 @@ export default async function AllPosts({ params, searchParams }) {
                       loading="lazy"
                       className="img-fluid"
                     />
-                    <span className={`tag-base ${post.categoryClass}`}>
+                    <a className={`tag-base ${post.categoryClass}`}>
                       {post.category}
-                    </span>
+                    </a>
                   </div>
                   <div className="details">
                     <h6 className="title">
