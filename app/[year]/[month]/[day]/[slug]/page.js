@@ -163,7 +163,7 @@ export default async function DetailPage({ params }) {
                         unoptimized
                       />
                       <Link
-                        href={`/${slugify(postUrl11)}`}
+                        href={postUrl11}
                         className={`my-related-tag ${related.category || 'bg-secondary'}`}
                       >
                         {related.category}
@@ -171,7 +171,7 @@ export default async function DetailPage({ params }) {
                     </div>
                     <div className="my-related-details mt-2">
                       <h6 className="my-related-title">
-                        <Link href={`/${slugify(postUrl11)}`} className="text-dark">
+                        <Link href={postUrl11} className="text-dark">
                           {related.title}
                         </Link>
                       </h6>
