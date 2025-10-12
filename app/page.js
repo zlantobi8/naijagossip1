@@ -44,7 +44,7 @@ const query = encodeURIComponent(`{
 }`);
 
 async function fetchData() {
-  const res = await fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production?query=${query}`, {
+  const res = await fetch(`https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`, {
     headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_AUTH}` },
     next: { revalidate: 60 },
   });

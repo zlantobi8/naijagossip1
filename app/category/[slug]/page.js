@@ -55,14 +55,14 @@ export default async function AllPosts({ params, searchParams }) {
 
   const [postsRes, countRes] = await Promise.all([
     fetch(
-      `https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`,
+      `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`,
       {
         headers: { Authorization: process.env.NEXT_PUBLIC_API_AUTH },
         next: { revalidate: 30 },
       }
     ),
     fetch(
-      `https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${countQuery}`,
+      `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`,
       {
         headers: { Authorization: process.env.NEXT_PUBLIC_API_AUTH },
         next: { revalidate: 30 },
