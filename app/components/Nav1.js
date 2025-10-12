@@ -46,12 +46,7 @@ const NavBar = () => {
                   <a onClick={() => handleSeeMore('sport')} style={{ cursor: 'pointer' }}>Sport</a>
                 </li>
                 {/* Keep these for legal pages */}
-                <li className="current-menu-item d-none d-lg-block">
-                  <Link href="/about">About</Link>
-                </li>
-                <li className="current-menu-item d-none d-lg-block">
-                  <Link href="/contact">Contact</Link>
-                </li>
+              
               </ul>
             </div>
           </div>
