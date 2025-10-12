@@ -1,4 +1,4 @@
-// app/lib/route.js - FIXED VERSION
+// app/lib/route.js - FIXED VERSION (Updated for correct category names)
 export const getAllRoutes = async () => {
   // ✅ Use correct project ID and dataset
   const query = encodeURIComponent(`*[_type == "news"] | order(publishedAt desc) {

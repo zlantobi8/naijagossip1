@@ -19,8 +19,8 @@ function generateSlug(title) {
 
   // Replace spaces, underscores, and other non-alphanumeric characters (except hyphens) with a single hyphen
   slug = slug.replace(/[^a-z0-9 -]/g, "")
-             .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
-             .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+    .replace(/\s+/g, "-") // Replace multiple spaces with a single hyphen
+    .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
 
   // Remove leading and trailing hyphens
   slug = slug.replace(/^-+|-+$/g, "");
@@ -36,8 +36,8 @@ const MainPosts = ({ posts = [] }) => {
     <div className="container">
       <h1 style={{ color: 'white' }} id="latestNews">Latest News</h1>
       <div className="row" id="postsRow">
-        {visiblePosts.sort((a, b) => new Date(b.date) - new Date(a.date)).map((post, index) => {
-          const dateObj = new Date(post.date);
+        {visiblePosts.sort((a, b) => new Date(b.publishedAt || b.date) - new Date(a.publishedAt || a.date)).map((post, index) => {
+          const dateObj = new Date(post.publishedAt || post.date);
           const year = dateObj.getFullYear();
           const month = String(dateObj.getMonth() + 1).padStart(2, '0');
           const day = String(dateObj.getDate()).padStart(2, '0');

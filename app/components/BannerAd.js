@@ -44,7 +44,7 @@ export default function BannerAd({ slicepost }) {
   if (!slicepost || slicepost.length === 0 || !slicepost[adIndex]) return null;
 
   const ad = slicepost[adIndex];
-  const dateObj = new Date(ad.date);
+ const dateObj = new Date(ad.publishedAt || ad.date);
   const year = dateObj.getFullYear();
   const month = String(dateObj.getMonth() + 1).padStart(2, '0');
   const day = String(dateObj.getDate()).padStart(2, '0');
