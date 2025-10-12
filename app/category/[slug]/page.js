@@ -124,13 +124,13 @@ export default async function CategoryPage({ params, searchParams }) {
                 <div className="single-post-wrap style-white">
                   <div className="thumb">
                     <Image
-                      src={optimizedUrl}
+                      src={`/api/image-proxy?url=${encodeURIComponent(optimizedUrl)}&width=600`}
                       alt={post.title || "Post image"}
                       width={400}
                       height={250}
                       loading="lazy"
                       className="img-fluid"
-                      unoptimized
+                  
                     />
                     <Link href={postUrl} className={`tag-base ${post.categoryClass || "bg-secondary"}`}>
                       {post.category}
