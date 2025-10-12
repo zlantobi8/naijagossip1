@@ -4,43 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-// Map slugs to Sanity _type
-const slugToSanityType = {
-  sport: "sportsPost",
-  entertainment: "healthPost",
-};
-
-const sanityToDisplayName = {
-  sportsPost: "Sport",
-  healthPost: "Entertainment",
-};
-
-// ✅ ALLOWED CATEGORIES ONLY
-const allowedCategories = ['sport', 'entertainment'];
-
+const allowedCategories = ["sport", "entertainment"];
 const pageSize = 8;
 
 function generateSlug(text) {
-  let slug = text.toLowerCase().trim();
-  slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  slug = slug
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9 -]/g, "")
     .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
-  slug = slug.replace(/^-+|-+$/g, "");
-  return slug;
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
-  
-  // ✅ Block old categories
-  if (!allowedCategories.includes(slug)) {
-    return notFound();
-  }
-
-  const postType = slugToSanityType[slug] || "healthPost";
-  const displayName = sanityToDisplayName[postType] || slug;
+  if (!allowedCategories.includes(slug)) return notFound();
 
   const currentPage = parseInt(searchParams?.page || "1");
   const canonicalUrl =
@@ -49,51 +30,41 @@ export async function generateMetadata({ params, searchParams }) {
       : `https://www.trendzlib.com.ng/category/${slug}?page=${currentPage}`;
 
   return {
-    title: `Latest in ${displayName} - Trendzlib`,
-    description: `Read the latest articles in ${displayName} on Trendzlib.`,
-    alternates: {
-      canonical: canonicalUrl,
-    },
+    title: `Latest in ${slug} - Trendzlib`,
+    description: `Read the latest articles in ${slug} on Trendzlib.`,
+    alternates: { canonical: canonicalUrl },
   };
 }
 
 export default async function AllPosts({ params, searchParams }) {
   const slug = params.slug;
-  
-  // ✅ Block old categories (404)
-  if (!allowedCategories.includes(slug)) {
-    return notFound();
-  }
+  if (!allowedCategories.includes(slug)) return notFound();
 
-  const postType = slugToSanityType[slug] || "healthPost";
   const currentPage = parseInt(searchParams?.page || "1");
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
 
   const query = encodeURIComponent(
-    `*[_type == "${postType}"] | order(date desc) [${start}...${end}] {
-      _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+    `*[_type=="news" && category=="${slug}"] | order(publishedAt desc)[${start}...${end}]{
+      _id, title, image, category, categoryClass, content, author, publishedAt
     }`
   );
-
-  const countQuery = encodeURIComponent(`count(*[_type == "${postType}"])`);
+  const countQuery = encodeURIComponent(
+    `count(*[_type=="news" && category=="${slug}"])`
+  );
 
   const [postsRes, countRes] = await Promise.all([
     fetch(
       `https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`,
       {
-        headers: {
-          Authorization: process.env.NEXT_PUBLIC_API_AUTH,
-        },
+        headers: { Authorization: process.env.NEXT_PUBLIC_API_AUTH },
         next: { revalidate: 30 },
       }
     ),
     fetch(
       `https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${countQuery}`,
       {
-        headers: {
-          Authorization: process.env.NEXT_PUBLIC_API_AUTH,
-        },
+        headers: { Authorization: process.env.NEXT_PUBLIC_API_AUTH },
         next: { revalidate: 30 },
       }
     ),
@@ -112,19 +83,17 @@ export default async function AllPosts({ params, searchParams }) {
       <Nav1 />
       <div className="container pt-5" style={{ background: "#10284f" }}>
         <h3 className="section-title text-light">
-          Latest in {sanityToDisplayName[postType] || slug}
+          Latest in {slug.charAt(0).toUpperCase() + slug.slice(1)}
         </h3>
 
         <div className="row">
           {posts.map((post) => {
-            const date = new Date(post.date);
+            const date = new Date(post.publishedAt);
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, "0");
             const day = String(date.getDate()).padStart(2, "0");
-            const postUrl = `/${year}/${month}/${day}/${generateSlug(
-              post.title
-            )}`;
-            const optimizedUrl = post.image + "?w=400&auto=format";
+            const postUrl = `/${year}/${month}/${day}/${generateSlug(post.title)}`;
+            const optimizedUrl = post.image ? post.image + "?w=400&auto=format" : "/assets/img/placeholder.png";
 
             return (
               <div key={post._id} className="col-lg-3 col-sm-6">
@@ -138,7 +107,7 @@ export default async function AllPosts({ params, searchParams }) {
                       loading="lazy"
                       className="img-fluid"
                     />
-                    <a className={`tag-base ${post.categoryClass}`}>
+                    <a className={`tag-base ${post.categoryClass || "bg-secondary"}`}>
                       {post.category}
                     </a>
                   </div>
@@ -163,6 +132,7 @@ export default async function AllPosts({ params, searchParams }) {
           })}
         </div>
 
+        {/* Pagination */}
         <div className="pagination">
           {Array.from({ length: totalPages }, (_, i) => (
             <Link
@@ -170,15 +140,13 @@ export default async function AllPosts({ params, searchParams }) {
               href={`/category/${slug}?page=${i + 1}`}
               className={`page-btn ${currentPage === i + 1 ? "active" : ""}`}
               style={{
-                background: "none",
+                background: currentPage === i + 1 ? "#ff5d00" : "transparent",
                 border: "1px solid #fff",
                 color: "#fff",
                 padding: "6px 12px",
                 margin: "0 4px",
                 cursor: "pointer",
                 borderRadius: "4px",
-                backgroundColor:
-                  currentPage === i + 1 ? "#ff5d00" : "transparent",
                 borderColor: currentPage === i + 1 ? "#ff5d00" : "#fff",
               }}
             >

@@ -1,4 +1,4 @@
-// app/page.js - FINAL VERSION (Entertainment + Sport ONLY)
+// app/page.js - FINAL VERSION (Entertainment + Sport from Sanity)
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,52 +15,39 @@ export const metadata = {
   title: siteTitle,
   description: siteDescription,
   keywords: 'Nigerian celebrity news, entertainment gossip, BBNaija, Davido, Wizkid, Nollywood, Victor Osimhen, Super Eagles, Nigerian football, sports news',
-  alternates: {
-    canonical: 'https://www.trendzlib.com.ng'
-  },
+  alternates: { canonical: 'https://www.trendzlib.com.ng' },
   openGraph: {
     title: siteTitle,
     description: siteDescription,
     url: 'https://www.trendzlib.com.ng',
     siteName: 'Trendzlib',
-    images: [{
-      url: 'https://www.trendzlib.com.ng/assets/img/naija.png',
-      width: 200,
-      height: 60,
-      alt: 'Trendzlib - Entertainment & Sport News'
-    }],
-    type: 'website'
+    images: [{ url: 'https://www.trendzlib.com.ng/assets/img/naija.png', width: 200, height: 60, alt: 'Trendzlib - Entertainment & Sport News' }],
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: siteTitle,
     description: siteDescription,
     site: '@trendzlib',
-    images: ['https://www.trendzlib.com.ng/assets/img/naija.png']
-  }
+    images: ['https://www.trendzlib.com.ng/assets/img/naija.png'],
+  },
 };
 
-// 🔥 ONLY FETCH ENTERTAINMENT + SPORT
+// 🔥 Fetch entertainment + sports from Sanity
 const query = encodeURIComponent(`{
-  "healthPost": *[_type == "healthPost"] | order(date desc)[0...16] {
-    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  "entertainmentPost": *[_type == "news" && category == "entertainment"] | order(publishedAt desc)[0...16] {
+    _id, title, content, category, image, source, link, publishedAt
   },
-  "celebrityPost": *[_type == "celebrityPost"] | order(date desc)[0...16] {
-    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
-  },
-  "sportsPost": *[_type == "sportsPost"] | order(date desc)[0...16] {
-    _id, title, "image": image.asset->url, category, categoryClass, description, author, readingTime, date
+  "sportsPost": *[_type == "news" && category == "sports"] | order(publishedAt desc)[0...16] {
+    _id, title, content, category, image, source, link, publishedAt
   }
 }`);
 
 async function fetchData() {
-  const res = await fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production1?query=${query}`, {
-    headers: {
-      Authorization: process.env.NEXT_PUBLIC_API_AUTH,
-    },
+  const res = await fetch(`https://oja7rnse.api.sanity.io/v2023-01-01/data/query/production?query=${query}`, {
+    headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_AUTH}` },
     next: { revalidate: 60 },
   });
-
   const data = await res.json();
   return data.result || {};
 }
@@ -68,21 +55,15 @@ async function fetchData() {
 export default async function Home() {
   const categorizedPosts = await fetchData();
 
-  const getLatest = (posts) => posts?.length ? [...posts].sort((a, b) => new Date(b.date) - new Date(a.date))[0] : null;
+  const allEntertainment = categorizedPosts.entertainmentPost || [];
+  const allSports = categorizedPosts.sportsPost || [];
 
-  // Combine all entertainment posts (healthPost + celebrityPost)
-  const allEntertainment = [
-    ...(categorizedPosts.healthPost || []),
-    ...(categorizedPosts.celebrityPost || [])
-  ].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  // Main banner posts (mix entertainment + sport)
   const mainPosts = [
     allEntertainment[0],
     allEntertainment[1],
-    getLatest(categorizedPosts.sportsPost),
+    allSports[0],
     allEntertainment[2],
-    categorizedPosts.sportsPost?.[1]
+    allSports[1],
   ].filter(Boolean);
 
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -149,18 +130,9 @@ export default async function Home() {
           <MainPosts posts={mainPosts} />
         </div>
 
-        {/* ✅ ONLY 2 SECTIONS - ENTERTAINMENT THEN SPORT */}
-        <Section 
-          title="Entertainment" 
-          id="entertainment" 
-          posts={allEntertainment} 
-        />
-        
-        <Section 
-          title="Sport" 
-          id="sport" 
-          posts={categorizedPosts.sportsPost || []} 
-        />
+        {/* ✅ Sections */}
+        <Section title="Entertainment" id="entertainment" posts={allEntertainment} />
+        <Section title="Sport" id="sport" posts={allSports} />
 
         {/* Footer */}
         <Footer />
