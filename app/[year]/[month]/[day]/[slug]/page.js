@@ -123,6 +123,7 @@ export default async function DetailPage({ params }) {
           height={450}
           className={styles.hero}
           loading="lazy"
+          unoptimized
         />
 
         <div className={styles.description}>
@@ -152,6 +153,7 @@ export default async function DetailPage({ params }) {
                     height={200}
                     className="card-img-top"
                     loading="lazy"
+                    unoptimized
                   />
                   <Link href={`/${slugify(related.title)}`} className={`my-related-tag ${related.category || 'bg-secondary'}`}>
                     {related.category}

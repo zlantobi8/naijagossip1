@@ -92,6 +92,7 @@ export default function Section({ title, id, posts = [] }) {
                       className="img-fluid"
                       priority={false}
                       loading="lazy"
+                      unoptimized
                     />
                     <p className="btn-date">
                       <i className="fa fa-clock-o"></i> {formattedDate}
