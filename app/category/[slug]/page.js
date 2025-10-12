@@ -130,7 +130,7 @@ export default async function CategoryPage({ params, searchParams }) {
                       height={250}
                       loading="lazy"
                       className="img-fluid"
-                      unoptimized
+                  
                     />
                     <Link href={postUrl} className={`tag-base ${post.categoryClass || "bg-secondary"}`}>
                       {post.category}
