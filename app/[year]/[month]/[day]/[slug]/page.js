@@ -147,7 +147,7 @@ export default async function DetailPage({ params }) {
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, "0");
             const day = String(date.getDate()).padStart(2, "0");
-            const postUrl11 = `/${year}/${month}/${day}/${generateSlug(related.title)}`;
+            const postUrl11 = `/${year}/${month}/${day}/${slugify(related.title)}`;
             return (
               <>
                 <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
