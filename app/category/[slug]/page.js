@@ -135,9 +135,9 @@ export default async function AllPosts({ params, searchParams }) {
                       loading="lazy"
                       className="img-fluid"
                     />
-                    <Link className={`tag-base ${post.categoryClass}`}>
+                    <span className={`tag-base ${post.categoryClass}`}>
                       {post.category}
-                    </Link>
+                    </span>
                   </div>
                   <div className="details">
                     <h6 className="title">
