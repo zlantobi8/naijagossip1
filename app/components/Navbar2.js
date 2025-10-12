@@ -33,8 +33,7 @@ export default function Navbar2() {
             <li><Link href="/category/entertainment">Entertainment</Link></li>
             <li><Link href="/category/sport">Sport</Link></li>
             {/* Optional: Keep these hidden or remove */}
-            <li className="d-none d-lg-block"><Link href="/about">About</Link></li>
-            <li className="d-none d-lg-block"><Link href="/contact">Contact</Link></li>
+          
           </ul>
         </div>
       </div>

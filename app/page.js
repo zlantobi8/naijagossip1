@@ -102,6 +102,7 @@ export default async function Home() {
                     <li><Link href="/about">About</Link></li>
                     <li><Link href="/contact">Contact</Link></li>
                     <li><Link href="/category/sport">Sport</Link></li>
+                    <li><Link href="/category/entertainment">Entertainment</Link></li>
                   </ul>
                 </div>
               </div>
