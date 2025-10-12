@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const allowedCategories = ["sport", "entertainment"];
+const allowedCategories = ["sports", "entertainment"];
 const pageSize = 8;
 
 function generateSlug(text) {
@@ -60,14 +60,14 @@ export default async function CategoryPage({ params, searchParams }) {
     fetch(
       `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`,
       {
-        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_AUTH}` },
+       
         next: { revalidate: 30 },
       }
     ),
     fetch(
       `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${countQuery}`,
       {
-        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_AUTH}` },
+       
         next: { revalidate: 30 },
       }
     ),

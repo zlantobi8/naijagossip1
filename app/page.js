@@ -1,4 +1,4 @@
-// app/page.js - FINAL VERSION (Entertainment + Sport from Sanity)
+// app/page.js - WORKS WITHOUT TOKEN (Public Sanity API)
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,23 +33,35 @@ export const metadata = {
   },
 };
 
-// 🔥 Fetch entertainment + sports from Sanity
-const query = encodeURIComponent(`{
-  "entertainmentPost": *[_type == "news" && category == "entertainment"] | order(publishedAt desc)[0...16] {
-    _id, title, content, category, image, source, link, publishedAt
-  },
-  "sportsPost": *[_type == "news" && category == "sport"] | order(publishedAt desc)[0...16] {
-    _id, title, content, category, image, source, link, publishedAt
-  }
-}`);
-
+// 🔥 Fetch entertainment + sports from Sanity (NO TOKEN NEEDED)
 async function fetchData() {
-  const res = await fetch(`https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`, {
-    headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_AUTH}` },
-    next: { revalidate: 60 },
-  });
-  const data = await res.json();
-  return data.result || {};
+  const query = encodeURIComponent(`{
+    "entertainmentPost": *[_type == "news" && category == "entertainment"] | order(publishedAt desc)[0...16] {
+      _id, title, content, category, categoryClass, image, source, link, publishedAt, author
+    },
+    "sportsPost": *[_type == "news" && category == "sport"] | order(publishedAt desc)[0...16] {
+      _id, title, content, category, categoryClass, image, source, link, publishedAt, author
+    }
+  }`);
+
+  const url = `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`;
+
+  try {
+    const res = await fetch(url, {
+      next: { revalidate: 60 }, // Revalidate every 60 seconds
+    });
+
+    if (!res.ok) {
+      console.error('❌ Fetch failed:', res.status, res.statusText);
+      return { entertainmentPost: [], sportsPost: [] };
+    }
+
+    const data = await res.json();
+    return data.result || { entertainmentPost: [], sportsPost: [] };
+  } catch (error) {
+    console.error('❌ Error fetching data:', error.message);
+    return { entertainmentPost: [], sportsPost: [] };
+  }
 }
 
 export default async function Home() {
@@ -130,7 +142,7 @@ export default async function Home() {
           <MainPosts posts={mainPosts} />
         </div>
 
-        {/* ✅ Sections */}
+        {/* Sections */}
         <Section title="Entertainment" id="entertainment" posts={allEntertainment} />
         <Section title="Sport" id="sport" posts={allSports} />
 
@@ -145,5 +157,3 @@ export default async function Home() {
     </>
   );
 }
-
-

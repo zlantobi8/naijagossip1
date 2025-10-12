@@ -31,7 +31,7 @@ const fetchAllPosts = async () => {
   const url = `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`;
 
   const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_AUTH}` },
+ 
     next: { revalidate: 60 },
   });
 
