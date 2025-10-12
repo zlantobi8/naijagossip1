@@ -140,48 +140,48 @@ export default async function DetailPage({ params }) {
           <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' https://www.trendzlib.com.ng/' + slug)}`}><i className="fa fa-whatsapp"></i></a>
         </div>
 
-        <h4>Related Posts</h4>
-        <div className="row">
-          {relatedPosts.map((related) =>{  
-            const date = new Date(related.publishedAt);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, "0");
-            const day = String(date.getDate()).padStart(2, "0");
-            const postUrl = `/${year}/${month}/${day}/${generateSlug(related.title)}`;
-          
-            return(
-            <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
-              <div className="my-related-card p-2" style={{ cursor: 'pointer' }}>
-                <div className="my-related-thumb position-relative">
-                  <Image
-                    src={related.image || '/assets/img/placeholder.png'}
-                    alt={related.title}
-                    width={400}
-                    height={200}
-                    className="card-img-top"
-                    loading="lazy"
-                    unoptimized
-                  />
-                  <Link href={`/${slugify(related.title)}`} className={`my-related-tag ${related.category || 'bg-secondary'}`}>
-                    {related.category}
-                  </Link>
-                </div>
-                <div className="my-related-details mt-2">
-                  <h6 className="my-related-title">
-                    <Link href={`/${slugify(related.title)}`} className="text-dark">{related.title}</Link>
-                  </h6>
-                  <div className="my-related-meta">
-                    <ul className="list-unstyled mb-0">
-                      <li><i className="fa fa-clock-o me-1"></i>{formatDate(related.publishedAt)}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )
-        }
-          )}
+     <h4>Related Posts</h4>
+<div className="row">
+  {relatedPosts.map((related) => (
+    <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
+      <div className="my-related-card p-2" style={{ cursor: 'pointer' }}>
+        <div className="my-related-thumb position-relative">
+          <Image
+            src={related.image || '/assets/img/placeholder.png'}
+            alt={related.title}
+            width={400}
+            height={200}
+            className="card-img-top"
+            loading="lazy"
+            unoptimized
+          />
+          <Link
+            href={`/${slugify(related.title)}`}
+            className={`my-related-tag ${related.category || 'bg-secondary'}`}
+          >
+            {related.category}
+          </Link>
         </div>
+        <div className="my-related-details mt-2">
+          <h6 className="my-related-title">
+            <Link href={`/${slugify(related.title)}`} className="text-dark">
+              {related.title}
+            </Link>
+          </h6>
+          <div className="my-related-meta">
+            <ul className="list-unstyled mb-0">
+              <li>
+                <i className="fa fa-clock-o me-1"></i>
+                {formatDate(related.publishedAt)}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
 
         <Script src="/assets/js/vendor.js" />
       </div>
