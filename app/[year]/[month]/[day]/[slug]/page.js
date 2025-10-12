@@ -142,7 +142,14 @@ export default async function DetailPage({ params }) {
 
         <h4>Related Posts</h4>
         <div className="row">
-          {relatedPosts.map((related) => (
+          {relatedPosts.map((related) =>{  
+            const date = new Date(related.publishedAt);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            const postUrl = `/${year}/${month}/${day}/${generateSlug(related.title)}`;
+          
+            return(
             <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
               <div className="my-related-card p-2" style={{ cursor: 'pointer' }}>
                 <div className="my-related-thumb position-relative">
@@ -171,7 +178,9 @@ export default async function DetailPage({ params }) {
                 </div>
               </div>
             </div>
-          ))}
+          )
+        }
+          )}
         </div>
 
         <Script src="/assets/js/vendor.js" />
