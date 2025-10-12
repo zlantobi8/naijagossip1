@@ -1,10 +1,13 @@
+// app/category/[slug]/page.js - FIXED (sport not sports)
+
 import Footer from "@/app/Footer";
 import Nav1 from "@/app/components/Nav1";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const allowedCategories = ["sports", "entertainment"];
+// ✅ FIXED: Changed "sports" to "sport" to match Sanity data
+const allowedCategories = ["sport", "entertainment"];
 const pageSize = 8;
 
 function generateSlug(text) {
@@ -29,9 +32,12 @@ export async function generateMetadata({ params, searchParams }) {
       ? `https://www.trendzlib.com.ng/category/${slug}`
       : `https://www.trendzlib.com.ng/category/${slug}?page=${currentPage}`;
 
+  // ✅ Better title for "sport" category
+  const categoryTitle = slug === "sport" ? "Sport" : slug.charAt(0).toUpperCase() + slug.slice(1);
+
   return {
-    title: `Latest in ${slug.charAt(0).toUpperCase() + slug.slice(1)} - Trendzlib`,
-    description: `Read the latest articles in ${slug} on Trendzlib.`,
+    title: `Latest in ${categoryTitle} - Trendzlib`,
+    description: `Read the latest ${categoryTitle.toLowerCase()} articles on Trendzlib.`,
     alternates: { canonical: canonicalUrl },
   };
 }
@@ -60,14 +66,12 @@ export default async function CategoryPage({ params, searchParams }) {
     fetch(
       `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`,
       {
-       
         next: { revalidate: 30 },
       }
     ),
     fetch(
       `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${countQuery}`,
       {
-       
         next: { revalidate: 30 },
       }
     ),
@@ -80,12 +84,15 @@ export default async function CategoryPage({ params, searchParams }) {
   const totalPosts = countData.result || 0;
   const totalPages = Math.ceil(totalPosts / pageSize);
 
+  // ✅ Better display name
+  const displayName = slug === "sport" ? "Sport" : slug.charAt(0).toUpperCase() + slug.slice(1);
+
   if (!posts.length && currentPage === 1) {
     return (
       <div className="navbar-area" style={{ background: "#10284f" }}>
         <Nav1 />
         <div className="container pt-5 text-center text-light">
-          <h3>No posts found in {slug}</h3>
+          <h3>No posts found in {displayName}</h3>
           <p>Check back later for updates!</p>
         </div>
         <Footer />
@@ -100,7 +107,7 @@ export default async function CategoryPage({ params, searchParams }) {
       <Nav1 />
       <div className="container pt-5" style={{ background: "#10284f" }}>
         <h3 className="section-title text-light">
-          Latest in {slug.charAt(0).toUpperCase() + slug.slice(1)}
+          Latest in {displayName}
         </h3>
 
         <div className="row">
