@@ -38,7 +38,7 @@ const query = encodeURIComponent(`{
   "entertainmentPost": *[_type == "news" && category == "entertainment"] | order(publishedAt desc)[0...16] {
     _id, title, content, category, image, source, link, publishedAt
   },
-  "sportsPost": *[_type == "news" && category == "sports"] | order(publishedAt desc)[0...16] {
+  "sportsPost": *[_type == "news" && category == "sport"] | order(publishedAt desc)[0...16] {
     _id, title, content, category, image, source, link, publishedAt
   }
 }`);
