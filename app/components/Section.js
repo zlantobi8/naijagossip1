@@ -9,45 +9,48 @@ export default function Section({ title, id, posts = [] }) {
   const [adReady, setAdReady] = useState(false);
 
   useEffect(() => {
-    // Wait for the Monetag script to load
     const checkSDK = setInterval(() => {
       if (typeof window.show_10003329 === 'function') {
         clearInterval(checkSDK);
         setAdReady(true);
       }
     }, 500);
-
     return () => clearInterval(checkSDK);
   }, []);
 
   const generateSlug = (text) => {
-    let slug = text.toLowerCase().trim();
-    slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    slug = slug.replace(/[^a-z0-9 -]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
-    return slug.replace(/^-+|-+$/g, "");
+    return text
+      .toLowerCase()
+      .trim()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9 -]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '');
   };
 
   const handleSeeMore = async () => {
+    const slug = generateSlug(title);
+    const categoryUrl = `/category/${slug}`;
+
     if (!window.show_10003329) {
-      console.error('Ad SDK not loaded yet');
-      router.push(`/category/${generateSlug(title)}`);
+      console.warn('Ad SDK not ready, redirecting directly...');
+      router.push(categoryUrl);
       return;
     }
 
     try {
-      // Show the Monetag ad first
-      await new Promise((resolve, reject) => {
-        window.show_10003329({
-          onFinish: resolve,
-          onError: reject,
-        });
-      });
+      // Attempt to show ad
+      window.show_10003329();
+
+      // Wait 2–3 seconds max before redirecting
+      await new Promise((resolve) => setTimeout(resolve, 2500));
+
+      router.push(categoryUrl);
     } catch (error) {
-      console.warn('Ad failed or was skipped:', error);
-    } finally {
-      // Navigate after ad completes or fails
-      const slug = generateSlug(title);
-      router.push(`/category/${slug}`);
+      console.error('Error showing ad:', error);
+      router.push(categoryUrl);
     }
   };
 
@@ -72,6 +75,7 @@ export default function Section({ title, id, posts = [] }) {
             const formattedDate = `${day}-${month}-${year}`;
             const postUrl = `/${year}/${month}/${day}/${slug}`;
             const optimizedUrl = post.image + '?w=400&auto=format';
+
             return (
               <div className="col-lg-3 col-sm-6 mb-4" key={index}>
                 <div
