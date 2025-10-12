@@ -1,12 +1,9 @@
-// lib/route.js
+// app/lib/route.js - Updated for Entertainment + Sport focus
 export const getAllRoutes = async () => {
   const query = encodeURIComponent(`{
-    "sportsPost": *[_type == "sportsPost"]{title, date, _updatedAt},
-    "educationPost": *[_type == "educationPost"]{title, date, _updatedAt},
-    "politicsPost": *[_type == "politicsPost"]{title, date, _updatedAt},
-    "technologyPost": *[_type == "technologyPost"]{title, date, _updatedAt},
     "healthPost": *[_type == "healthPost"]{title, date, _updatedAt},
-    "celebrityPost": *[_type == "celebrityPost"]{title, date, _updatedAt}
+    "celebrityPost": *[_type == "celebrityPost"]{title, date, _updatedAt},
+    "sportsPost": *[_type == "sportsPost"]{title, date, _updatedAt}
   }`);
 
   const res = await fetch(
@@ -59,8 +56,11 @@ export const getAllRoutes = async () => {
       });
     });
   }
-    const categoryPages = [
-    'sport', 'education', 'politics', 'metro', 'entertainment', 'celebrity', 'general'
+
+  // Category pages - ONLY Entertainment + Sport
+  const categoryPages = [
+    'entertainment', 
+    'sport'
   ].map(slug => ({
     slug: `/category/${slug}`,
     lastModified: new Date().toISOString(),
