@@ -47,7 +47,7 @@ const MainPosts = ({ posts = [] }) => {
                       height={250}
                       priority
                       className="img-fluid"
-                      unoptimized
+                      loading="lazy"
                     />
                     <Link href="#" className={`tag-base ${post.categoryClass || 'bg-primary'}`}>
                       {post.category}

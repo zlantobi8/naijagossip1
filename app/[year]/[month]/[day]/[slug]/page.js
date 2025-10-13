@@ -80,12 +80,23 @@ function injectSmartLinks(content, relatedPosts) {
 
   let enhanced = content;
   relatedPosts.forEach((rel) => {
+
+
+    const date = new Date(rel.publishedAt);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const postUrl20 = `/${year}/${month}/${day}/${slugify(rel.title)}`;
+
+
+
+
     const keyword = rel.title.split(" ")[0];
     const regex = new RegExp(`\\b${keyword}\\b`, "i");
     if (regex.test(enhanced)) {
       enhanced = enhanced.replace(
         regex,
-        `${keyword} (👉 [Read also: ${rel.title}](/${slugify(rel.title)}))`
+        `${keyword} (👉 [Read also: ${rel.title}](/${postUrl20}))`
       );
     }
   });
@@ -123,7 +134,7 @@ export default async function DetailPage({ params }) {
           height={450}
           className={styles.hero}
           loading="lazy"
-          unoptimized
+
         />
 
         <div className={styles.description}>
@@ -160,7 +171,7 @@ export default async function DetailPage({ params }) {
                         height={200}
                         className="card-img-top"
                         loading="lazy"
-                        unoptimized
+
                       />
                       <Link
                         href={postUrl11}
