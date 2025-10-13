@@ -1,15 +1,19 @@
 // app/lib/route.js - FIXED VERSION (Updated for correct category names)
 export const getAllRoutes = async () => {
   // ✅ Use correct project ID and dataset
-  const query = encodeURIComponent(`*[_type == "news"] | order(publishedAt desc) {
-    title, publishedAt, _updatedAt, category
+  const query = encodeURIComponent(`{
+    "entertainmentPost": *[_type == "news" && category == "entertainment"] | order(publishedAt desc)[0...16] {
+      _id, title, content, category, categoryClass, image, source, link, publishedAt, author
+    },
+    "sportsPost": *[_type == "news" && category == "sport"] | order(publishedAt desc)[0...16] {
+      _id, title, content, category, categoryClass, image, source, link, publishedAt, author
+    }
   }`);
 
   const url = `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`;
 
   const res = await fetch(url, {
     headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_AUTH || ""}`,
     },
     next: { revalidate: 21600 }, // 6 hours
   });
