@@ -6,17 +6,7 @@ import { useEffect, useState } from 'react';
 
 export default function Section({ title, id, posts = [] }) {
   const router = useRouter();
-  const [adReady, setAdReady] = useState(false);
 
-  useEffect(() => {
-    const checkSDK = setInterval(() => {
-      if (typeof window.show_10003329 === 'function') {
-        clearInterval(checkSDK);
-        setAdReady(true);
-      }
-    }, 500);
-    return () => clearInterval(checkSDK);
-  }, []);
 
   const generateSlug = (text) => {
     return text
@@ -33,25 +23,10 @@ export default function Section({ title, id, posts = [] }) {
   const handleSeeMore = async () => {
     const slug = generateSlug(title);
     const categoryUrl = `/category/${slug}`;
-
-    if (!window.show_10003329) {
-      console.warn('Ad SDK not ready, redirecting directly...');
       router.push(categoryUrl);
-      return;
-    }
+    
 
-    try {
-      // Attempt to show ad
-      window.show_10003329();
-
-      // Wait 2–3 seconds max before redirecting
-      await new Promise((resolve) => setTimeout(resolve, 2500));
-
-      router.push(categoryUrl);
-    } catch (error) {
-      console.error('Error showing ad:', error);
-      router.push(categoryUrl);
-    }
+   
   };
 
   return (
@@ -116,16 +91,16 @@ export default function Section({ title, id, posts = [] }) {
         style={{
           textAlign: 'center',
           margin: '1rem auto',
-          backgroundColor: adReady ? 'blue' : 'gray',
+          backgroundColor:'blue',
           width: 'fit-content',
           padding: '0.5rem 1rem',
           borderRadius: '4px',
-          cursor: adReady ? 'pointer' : 'not-allowed',
+          cursor:'pointer' ,
         }}
-        onClick={adReady ? handleSeeMore : undefined}
+        onClick={ handleSeeMore}
       >
         <span style={{ color: 'white' }}>
-          {adReady ? 'See More' : 'Loading Ad...'}
+          {'See More'}
         </span>
       </div>
     </div>

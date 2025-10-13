@@ -66,13 +66,7 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
-        <Script
-          id="ad-sdk"
-          src="https://libtl.com/sdk.js"
-          strategy="afterInteractive"
-          data-zone="10003329"
-          data-sdk="show_10003329"
-        />
+      
         <link rel="icon" href="/assets/img/favicon.png" />
       </head>
       <body>
