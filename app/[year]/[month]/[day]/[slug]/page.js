@@ -74,34 +74,32 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// ✅ Inject related posts links
 function injectSmartLinks(content, relatedPosts) {
   if (!relatedPosts.length) return content;
 
   let enhanced = content;
+
   relatedPosts.forEach((rel) => {
-
-
     const date = new Date(rel.publishedAt);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-    const postUrl20 = `/${year}/${month}/${day}/${slugify(rel.title)}`;
-
-
-
+    const postUrl = `/${year}/${month}/${day}/${slugify(rel.title)}`;
 
     const keyword = rel.title.split(" ")[0];
     const regex = new RegExp(`\\b${keyword}\\b`, "i");
+
     if (regex.test(enhanced)) {
       enhanced = enhanced.replace(
         regex,
-        `${keyword} (👉 [Read also: ${rel.title}](/${postUrl20}))`
+        `${keyword} (👉 [Read also: ${rel.title}](${postUrl}))`
       );
     }
   });
+
   return enhanced;
 }
+
 
 export default async function DetailPage({ params }) {
   const { slug } = params;
@@ -134,7 +132,7 @@ export default async function DetailPage({ params }) {
           height={450}
           className={styles.hero}
           loading="lazy"
-
+        
         />
 
         <div className={styles.description}>
@@ -171,7 +169,7 @@ export default async function DetailPage({ params }) {
                         height={200}
                         className="card-img-top"
                         loading="lazy"
-
+                       
                       />
                       <Link
                         href={postUrl11}
