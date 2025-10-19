@@ -3,13 +3,14 @@ import StructuredData from './components/StructuredData';
 import Script from 'next/script';
 
 const siteTitle = 'Trendzlib - Nigerian Entertainment & Sports News';
-const siteDescription = 'Get the hottest Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Your #1 source for entertainment & sport!';
+const siteDescription =
+  'Get the hottest Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Your #1 source for entertainment & sport!';
 
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5
-}
+  maximumScale: 5,
+};
 
 export const metadata = {
   title: siteTitle,
@@ -36,7 +37,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.trendzlib.com.ng/assets/img/naija2.png',
+        url: '/assets/img/naija2.png',
         width: 1200,
         height: 630,
         alt: 'Trendzlib - Entertainment & Sport News',
@@ -48,13 +49,13 @@ export const metadata = {
     card: 'summary_large_image',
     title: siteTitle,
     description: siteDescription,
-    images: ['https://www.trendzlib.com.ng/assets/img/naija2.png'],
+    images: ['/assets/img/naija2.png'],
   },
   icons: {
     icon: '/assets/img/favicon.png',
     shortcut: '/assets/img/favicon.png',
     apple: '/assets/img/favicon.png',
-  }
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -66,15 +67,30 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
-      
         <link rel="icon" href="/assets/img/favicon.png" />
-
       </head>
       <body>
         <StructuredData />
         {children}
-        <script src="https://fpyf8.com/88/tag.min.js" data-zone="175844" async data-cfasync="false"></script>
-        
+
+        {/* ✅ Use Next.js Script for safe and async loading */}
+        <Script
+          src="https://fpyf8.com/88/tag.min.js"
+          data-zone="175844"
+          strategy="afterInteractive"
+          async
+        />
+        <Script id="custom-vignette" strategy="afterInteractive">
+          {`
+            (function(s){
+              s.dataset.zone='10061699';
+              s.src='https://groleegni.net/vignette.min.js';
+            })([document.documentElement, document.body]
+              .filter(Boolean)
+              .pop()
+              .appendChild(document.createElement('script')));
+          `}
+        </Script>
       </body>
     </html>
   );
