@@ -68,10 +68,13 @@ export default function RootLayout({ children }) {
         />
       
         <link rel="icon" href="/assets/img/favicon.png" />
+
       </head>
       <body>
         <StructuredData />
         {children}
+        <script src="https://fpyf8.com/88/tag.min.js" data-zone="175844" async data-cfasync="false"></script>
+        
       </body>
     </html>
   );
