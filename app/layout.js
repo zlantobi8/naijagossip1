@@ -71,7 +71,6 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <StructuredData />
-        
         {children}
 
         {/* ✅ Use Next.js Script for safe and async loading */}
