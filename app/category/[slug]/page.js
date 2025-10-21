@@ -1,6 +1,7 @@
 // app/category/[slug]/page.js - FIXED (sport not sports)
 
 import Footer from "@/app/Footer";
+import AdContainer from "@/app/components/Adcontainer";
 import Nav1 from "@/app/components/Nav1";
 import Image from "next/image";
 import Link from "next/link";
@@ -109,7 +110,7 @@ export default async function CategoryPage({ params, searchParams }) {
         <h3 className="section-title text-light">
           Latest in {displayName}
         </h3>
-
+  <AdContainer />
         <div className="row">
           {posts.map((post) => {
             const date = new Date(post.publishedAt);
