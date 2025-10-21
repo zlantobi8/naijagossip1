@@ -139,7 +139,11 @@ export default async function Home() {
         {/* Banner */}
         <div className="banner-area banner-inner-1 bg-black" id="banner">
           <BannerAd slicepost={mainPosts} />
-          <script type='text/javascript' src='//pl27893927.effectivegatecpm.com/fc/3b/1d/fc3b1dc9dd3dee3a280b36642734e59b.js'></script>
+             <Script
+        id="effectivegatecpm-ad"
+        src="//pl27893927.effectivegatecpm.com/fc/3b/1d/fc3b1dc9dd3dee3a280b36642734e59b.js"
+        strategy="afterInteractive"
+      />
           <MainPosts posts={mainPosts} />
         </div>
 
