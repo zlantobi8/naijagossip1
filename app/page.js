@@ -139,6 +139,7 @@ export default async function Home() {
         {/* Banner */}
         <div className="banner-area banner-inner-1 bg-black" id="banner">
           <BannerAd slicepost={mainPosts} />
+          
           <MainPosts posts={mainPosts} />
         </div>
 

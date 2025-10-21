@@ -71,26 +71,28 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <StructuredData />
+        
+        <Script id="ad-config" strategy="beforeInteractive">
+          {`
+            window.atOptions = {
+              key: '52e47102b98925911d653ff91fac6906',
+              format: 'iframe',
+              height: 60,
+              width: 468,
+              params: {}
+            };
+          `}
+        </Script>
+
+        <Script
+          id="highperformanceformat-script"
+          src="//www.highperformanceformat.com/52e47102b98925911d653ff91fac6906/invoke.js"
+          strategy="afterInteractive"
+        />
         {children}
 
         {/* ✅ Use Next.js Script for safe and async loading */}
-        <Script
-          src="https://fpyf8.com/88/tag.min.js"
-          data-zone="175844"
-          strategy="afterInteractive"
-          async
-        />
-        <Script id="custom-vignette" strategy="afterInteractive">
-          {`
-            (function(s){
-              s.dataset.zone='10061699';
-              s.src='https://groleegni.net/vignette.min.js';
-            })([document.documentElement, document.body]
-              .filter(Boolean)
-              .pop()
-              .appendChild(document.createElement('script')));
-          `}
-        </Script>
+     
       </body>
     </html>
   );
