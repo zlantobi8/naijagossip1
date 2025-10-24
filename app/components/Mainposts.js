@@ -45,7 +45,6 @@ const MainPosts = ({ posts = [] }) => {
                       alt={post.title || 'Main post image'}
                       width={400}
                       height={250}
-                      priority
                       className="img-fluid"
                       loading="lazy"
                     />
