@@ -2669,4 +2669,4 @@ zmaticoo.com, 113149, RESELLER
 zmaticoo.com, 5135004, RESELLER
 zmaticoo.com, 5135082, RESELLER
 zoklent.com, zok-1000, RESELLER
-axis-marketplace.com, 192, RESELLERaxtionms.com  NetworkCode DIRECT
+axis-marketplace.com, 192, RESELLER axtionms.com  NetworkCode DIRECT
