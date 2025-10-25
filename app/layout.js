@@ -67,6 +67,7 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
+        <meta name="ppck-ver" content="bc09b5ba333835f69797f4f15cc4818e" />
         <link rel="icon" href="/assets/img/favicon.png" />
       </head>
       <body>
