@@ -71,11 +71,24 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/assets/img/favicon.png" />
       </head>
       <body>
+        {/* ✅ PopCash script (runs safely after page load) */}
+        <Script id="popcash" strategy="afterInteractive">
+          {`
+            var uid = '354536';
+            var wid = '747700';
+            var pop_tag = document.createElement('script');
+            pop_tag.src = '//cdn.popcash.net/show.js';
+            document.body.appendChild(pop_tag);
+            pop_tag.onerror = function() {
+              pop_tag = document.createElement('script');
+              pop_tag.src = '//cdn2.popcash.net/show.js';
+              document.body.appendChild(pop_tag);
+            };
+          `}
+        </Script>
+
         <StructuredData />
         {children}
-
-        {/* ✅ Use Next.js Script for safe and async loading */}
-     
       </body>
     </html>
   );
