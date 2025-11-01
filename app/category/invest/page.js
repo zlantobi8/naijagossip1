@@ -5,7 +5,7 @@ import Nav1 from "@/app/components/Nav1";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import '../side-hustle/category-styles.css';
+import './category-styles.css';
 
 const pageSize = 12;
 
