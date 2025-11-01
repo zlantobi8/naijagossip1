@@ -1,10 +1,11 @@
-// app/category/invest/page.js
+// app/category/invest/page.js - FIXED (NO styled-jsx)
 
 import Footer from "@/app/Footer";
 import Nav1 from "@/app/components/Nav1";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import '../category-styles.css';
 
 const pageSize = 12;
 
@@ -28,8 +29,8 @@ export async function generateMetadata({ searchParams }) {
       : `https://www.trendzlib.com.ng/category/invest?page=${currentPage}`;
 
   return {
-    title: `Smart Investment Guides for Nigerians - Trendzlib (Page ${currentPage > 1 ? currentPage : ''})`,
-    description: `Learn about cryptocurrency, stocks, savings apps, and investment strategies for Nigerians. Page ${currentPage}.`,
+    title: `Smart Investment Guides for Nigerians - Trendzlib ${currentPage > 1 ? `(Page ${currentPage})` : ''}`,
+    description: `Learn about cryptocurrency, stocks, savings apps, and investment strategies for Nigerians.`,
     alternates: { canonical: canonicalUrl },
   };
 }
@@ -83,11 +84,10 @@ export default async function InvestCategory({ searchParams }) {
   if (!posts.length && currentPage > 1) return notFound();
 
   return (
-    <div style={{ background: "#1a1a2e", minHeight: "100vh" }}>
+    <div style={{ background: "#1a1a2e", minHeight: "100vh" }} className="category-invest">
       <Nav1 />
       
       <div className="container pt-5 pb-5">
-        {/* Header */}
         <div className="text-center mb-5">
           <div className="mb-3" style={{ fontSize: "3rem" }}>📈</div>
           <h1 className="text-light display-4 fw-bold mb-3">Invest Smart</h1>
@@ -96,7 +96,6 @@ export default async function InvestCategory({ searchParams }) {
           </p>
         </div>
 
-        {/* Posts Grid */}
         <div className="row g-4">
           {posts.map((post) => {
             const date = new Date(post.publishedAt);
@@ -142,7 +141,6 @@ export default async function InvestCategory({ searchParams }) {
           })}
         </div>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="d-flex justify-content-center gap-2 mt-5">
             {Array.from({ length: totalPages }, (_, i) => (
@@ -159,76 +157,6 @@ export default async function InvestCategory({ searchParams }) {
       </div>
       
       <Footer />
-
-      <style jsx>{`
-        .finance-card {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 1rem;
-          overflow: hidden;
-          transition: all 0.3s ease;
-        }
-
-        .finance-card:hover {
-          transform: translateY(-8px);
-          border-color: rgba(59, 130, 246, 0.5);
-          box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
-        }
-
-        .finance-card-image {
-          position: relative;
-          overflow: hidden;
-          height: 200px;
-        }
-
-        .finance-card-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.3s ease;
-        }
-
-        .finance-card:hover .finance-card-image img {
-          transform: scale(1.1);
-        }
-
-        .finance-badge {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          padding: 0.35rem 0.85rem;
-          border-radius: 50px;
-          font-size: 0.75rem;
-          font-weight: 600;
-        }
-
-        .badge-primary {
-          background: #3b82f6;
-          color: white;
-        }
-
-        .page-btn {
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #fff;
-          padding: 0.5rem 1rem;
-          border-radius: 0.5rem;
-          text-decoration: none;
-          transition: all 0.3s ease;
-          font-weight: 500;
-        }
-
-        .page-btn:hover {
-          border-color: #3b82f6;
-          color: #3b82f6;
-        }
-
-        .page-btn.active {
-          background: #3b82f6;
-          border-color: #3b82f6;
-          color: white;
-        }
-      `}</style>
     </div>
   );
 }
