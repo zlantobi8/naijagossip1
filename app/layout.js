@@ -2,7 +2,7 @@ import './globals.css';
 import StructuredData from './components/StructuredData';
 import TelegramAds from './components/TelegramAds';
 
-const siteTitle = 'Trendzlib - Nigerian Entertainment & Sports News';
+const siteTitle = 'Trendzlib - Ni1gerian Entertainment & Sports News';
 const siteDescription =
   'Get the hottest Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Your #1 source for entertainment & sport!';
 
