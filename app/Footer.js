@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import './footer-styles.css';
 
 const Footer = () => {
   return (
@@ -17,7 +18,7 @@ const Footer = () => {
             <Image
               className="foot1"
               src="/assets/img/naija.png"
-              alt="Trendzlib Nigeria News Logo"
+              alt="Trendzlib Financial Freedom Logo"
               width={260}
               height={70}
               priority
@@ -28,45 +29,21 @@ const Footer = () => {
           <div className="footer-bottom text-center">
             <ul className="list-inline mb-3">
               <li className="list-inline-item mx-2">
-                <Link href="/about" className="text-white text-decoration-none">About</Link>
+                <Link href="/about" className="text-white text-decoration-none footer-link">About</Link>
               </li>
               <li className="list-inline-item mx-2">
-                <Link href="/privacy-policy" className="text-white text-decoration-none">Privacy Policy</Link>
+                <Link href="/privacy-policy" className="text-white text-decoration-none footer-link">Privacy Policy</Link>
               </li>
               <li className="list-inline-item mx-2">
-                <Link href="/contact" className="text-white text-decoration-none">Contact</Link>
+                <Link href="/contact" className="text-white text-decoration-none footer-link">Contact</Link>
               </li>
             </ul>
 
             <p className="m-0">
-              © {new Date().getFullYear()} <a href="#" className="text-white text-decoration-none">Trendzlib</a>
+              © {new Date().getFullYear()} <Link href="/" className="text-white text-decoration-none">Trendzlib</Link> - Making Money Accessible for All Nigerians
             </p>
           </div>
         </div>
-
-        {/* Scoped Styles */}
-        <style jsx>{`
-          .footer-area {
-            padding-bottom: 1.5rem;
-          }
-
-          .foot1 {
-            width: 260px;
-            height: 70px;
-            object-fit: contain;
-          }
-
-          @media (max-width: 768px) {
-            .foot1 {
-              width: 200px;
-              height: 55px;
-            }
-          }
-
-          .list-inline-item a:hover {
-            color: #ffcc00;
-          }
-        `}</style>
       </div>
     </>
   );
