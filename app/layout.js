@@ -1,6 +1,6 @@
 import './globals.css';
 import StructuredData from './components/StructuredData';
-import TelegramAds from './components/TelegramAds';
+// ✅ REMOVED TelegramAds - not needed for finance site
 
 const siteTitle = 'Trendzlib - Smart Money Moves for Nigerians';
 const siteDescription =
@@ -66,7 +66,6 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <StructuredData />
-        <TelegramAds />
         {children}
       </body>
     </html>
