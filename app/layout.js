@@ -1,21 +1,15 @@
 import './globals.css';
 import StructuredData from './components/StructuredData';
-import Script from 'next/script';
+import TelegramAds from './components/TelegramAds';
 
 const siteTitle = 'Trendzlib - Nigerian Entertainment & Sports News';
 const siteDescription =
   'Get the hottest Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Your #1 source for entertainment & sport!';
 
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-};
-
 export const metadata = {
   title: siteTitle,
-  themeColor: '#10284f',
   description: siteDescription,
+  themeColor: '#10284f',
   keywords: [
     'Trendzlib',
     'Nigerian entertainment news',
@@ -29,12 +23,10 @@ export const metadata = {
     'Wizkid news',
     'Super Eagles',
   ],
-  metadataBase: new URL('https://www.trendzlib.com.ng'),
   openGraph: {
     title: siteTitle,
     description: siteDescription,
     url: 'https://www.trendzlib.com.ng',
-    type: 'website',
     images: [
       {
         url: '/assets/img/naija2.png',
@@ -43,7 +35,6 @@ export const metadata = {
         alt: 'Trendzlib - Entertainment & Sport News',
       },
     ],
-    siteName: 'Trendzlib',
   },
   twitter: {
     card: 'summary_large_image',
@@ -70,30 +61,9 @@ export default function RootLayout({ children }) {
         <meta name="ppck-ver" content="bc09b5ba333835f69797f4f15cc4818e" />
         <link rel="icon" href="/assets/img/favicon.png" />
       </head>
-
       <body>
-        {/* Telegram Ads Script */}
-    <Script
-  src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"
-  strategy="afterInteractive"
-  onLoad={() => {
-    if (typeof window !== 'undefined') {
-      const initTelegramAds = () => {
-        if (window.TelegramAdsController) {
-          window.TelegramAdsController = new window.TelegramAdsController();
-          window.TelegramAdsController.initialize({
-            pubId: '991655',
-            appId: '4323',
-          });
-        }
-      };
-      initTelegramAds();
-    }
-  }}
-/>
-
-
         <StructuredData />
+        <TelegramAds />
         {children}
       </body>
     </html>
