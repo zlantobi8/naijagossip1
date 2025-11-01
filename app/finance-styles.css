@@ -1,0 +1,167 @@
+/* app/finance-styles.css */
+
+.finance-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  min-height: 80vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.finance-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+  animation: pulse 15s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  color: #22c55e;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 800;
+  color: white;
+  line-height: 1.2;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: #d1d5db;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.trust-badges {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.trust-badges span {
+  padding: 0.5rem 1rem;
+}
+
+.category-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+.category-icon {
+  font-size: 3rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.finance-post-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.finance-post-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.post-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.post-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.finance-post-card:hover .post-image {
+  transform: scale(1.1);
+}
+
+.post-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background: #22c55e;
+  color: white;
+}
+
+.badge-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.badge-warning {
+  background: #f59e0b;
+  color: white;
+}
+
+.post-content h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  min-height: 2.8rem;
+}
+
+.post-meta {
+  font-size: 0.85rem;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+@media (max-width: 768px) {
+  .finance-hero {
+    min-height: 100vh;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .category-icon {
+    font-size: 2.5rem;
+  }
+}

@@ -2,26 +2,29 @@ import './globals.css';
 import StructuredData from './components/StructuredData';
 import TelegramAds from './components/TelegramAds';
 
-const siteTitle = 'Trendzlib - Ni1gerian Entertainment & Sports News';
+const siteTitle = 'Trendzlib - Smart Money Moves for Nigerians';
 const siteDescription =
-  'Get the hottest Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Your #1 source for entertainment & sport!';
+  'Learn how Nigerians make ₦200k-₦500k monthly through freelancing, cryptocurrency, side hustles & smart investing. Free guides, proven strategies, real results.';
 
 export const metadata = {
   title: siteTitle,
   description: siteDescription,
-  themeColor: '#10284f',
+  themeColor: '#22c55e',
   keywords: [
-    'Trendzlib',
-    'Nigerian entertainment news',
-    'Celebrity gossip Nigeria',
-    'Nollywood news',
-    'Afrobeats news',
-    'BBNaija updates',
-    'Nigerian football',
-    'Victor Osimhen news',
-    'Davido news',
-    'Wizkid news',
-    'Super Eagles',
+    'make money online Nigeria',
+    'freelancing Nigeria',
+    'cryptocurrency Nigeria',
+    'Binance Nigeria',
+    'side hustles Nigeria',
+    'investment Nigeria',
+    'remote jobs Nigeria',
+    'passive income Nigeria',
+    'how to make money in Nigeria',
+    'online business Nigeria',
+    'Piggyvest',
+    'Risevest',
+    'Upwork Nigeria',
+    'Fiverr Nigeria',
   ],
   openGraph: {
     title: siteTitle,
@@ -32,7 +35,7 @@ export const metadata = {
         url: '/assets/img/naija2.png',
         width: 1200,
         height: 630,
-        alt: 'Trendzlib - Entertainment & Sport News',
+        alt: 'Trendzlib - Financial Freedom for Nigerians',
       },
     ],
   },
