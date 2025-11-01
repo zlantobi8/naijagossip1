@@ -73,19 +73,25 @@ export default function RootLayout({ children }) {
 
       <body>
         {/* Telegram Ads Script */}
-        <Script
-          src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"
-          strategy="afterInteractive"
-          onLoad={() => {
-            if (typeof window !== 'undefined' && window.TelegramAdsController) {
-              window.TelegramAdsController = new window.TelegramAdsController();
-              window.TelegramAdsController.initialize({
-                pubId: '991655',
-                appId: '4323',
-              });
-            }
-          }}
-        />
+    <Script
+  src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"
+  strategy="afterInteractive"
+  onLoad={() => {
+    if (typeof window !== 'undefined') {
+      const initTelegramAds = () => {
+        if (window.TelegramAdsController) {
+          window.TelegramAdsController = new window.TelegramAdsController();
+          window.TelegramAdsController.initialize({
+            pubId: '991655',
+            appId: '4323',
+          });
+        }
+      };
+      initTelegramAds();
+    }
+  }}
+/>
+
 
         <StructuredData />
         {children}
