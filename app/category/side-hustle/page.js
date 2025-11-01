@@ -1,5 +1,5 @@
 // app/category/side-hustle/page.js
-
+'use client';
 import Footer from "@/app/Footer";
 import Nav1 from "@/app/components/Nav1";
 import Image from "next/image";
