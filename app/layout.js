@@ -70,22 +70,22 @@ export default function RootLayout({ children }) {
         <meta name="ppck-ver" content="bc09b5ba333835f69797f4f15cc4818e" />
         <link rel="icon" href="/assets/img/favicon.png" />
       </head>
+
       <body>
-        {/* ✅ PopCash script (runs safely after page load) */}
-        <Script id="popcash" strategy="afterInteractive">
-          {`
-            var uid = '354536';
-            var wid = '747700';
-            var pop_tag = document.createElement('script');
-            pop_tag.src = '//cdn.popcash.net/show.js';
-            document.body.appendChild(pop_tag);
-            pop_tag.onerror = function() {
-              pop_tag = document.createElement('script');
-              pop_tag.src = '//cdn2.popcash.net/show.js';
-              document.body.appendChild(pop_tag);
-            };
-          `}
-        </Script>
+        {/* Telegram Ads Script */}
+        <Script
+          src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"
+          strategy="afterInteractive"
+          onLoad={() => {
+            if (typeof window !== 'undefined' && window.TelegramAdsController) {
+              window.TelegramAdsController = new window.TelegramAdsController();
+              window.TelegramAdsController.initialize({
+                pubId: '991655',
+                appId: '4323',
+              });
+            }
+          }}
+        />
 
         <StructuredData />
         {children}
