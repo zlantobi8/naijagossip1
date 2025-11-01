@@ -1,4 +1,5 @@
 import './globals.css';
+import './category-styles.css';
 import StructuredData from './components/StructuredData';
 // ✅ REMOVED TelegramAds - not needed for finance site
 
