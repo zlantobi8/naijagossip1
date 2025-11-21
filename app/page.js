@@ -33,7 +33,7 @@ export const metadata = {
   },
 };
 
-// 🔥 Fetch entertainment + sports from Sanity (NO TOKEN NEEDED)
+//  Fetch entertainment + sports from Sanity (NO TOKEN NEEDED)
 async function fetchData() {
   const query = encodeURIComponent(`{
     "entertainmentPost": *[_type == "news" && category == "entertainment"] | order(publishedAt desc)[0...16] {
