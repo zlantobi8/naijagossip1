@@ -18,7 +18,7 @@ export default function Contact() {
             {/* Logo (Hidden on mobile) */}
          
 
-            {/* Navbar */}
+            {/* Nav */}
             <div className="navbar-area" style={{ background: '#10284f' }}>
                 <Nav1 />
             </div>
