@@ -1,3 +1,5 @@
+// app/[year]/[month]/[day]/[slug]/page.js - WITH PROPER NEWS ARTICLE SCHEMA
+
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Footer from '@/app/Footer';
@@ -9,7 +11,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
 
-// ✅ Slugify function (consistent with newsUpdater)
 function slugify(text) {
   return text
     .toLowerCase()
@@ -22,7 +23,6 @@ function slugify(text) {
     .replace(/^-+|-+$/g, "");
 }
 
-// ✅ Fetch all news posts from Sanity
 const fetchAllPosts = async () => {
   const query = encodeURIComponent(`*[_type == "news"] | order(publishedAt desc) {
     _id, title, "image": image, category, content, source, link, publishedAt, author
@@ -31,7 +31,6 @@ const fetchAllPosts = async () => {
   const url = `https://4smg0h02.api.sanity.io/v2023-01-01/data/query/trendzlib?query=${query}`;
 
   const res = await fetch(url, {
-
     next: { revalidate: 60 },
   });
 
@@ -39,37 +38,85 @@ const fetchAllPosts = async () => {
   return data.result || [];
 };
 
-// ✅ Format date
 function formatDate(dateString) {
   const date = new Date(dateString);
   return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
 }
 
-// ✅ Generate metadata
+// Generate NewsArticle structured data
+function generateArticleSchema(post, postUrl) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": post.title,
+    "description": post.content?.slice(0, 150),
+    "image": post.image || "https://www.trendzlib.com.ng/assets/img/placeholder.png",
+    "datePublished": new Date(post.publishedAt).toISOString(),
+    "dateModified": new Date(post.publishedAt).toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": post.author || "Trendzlib Editorial"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Trendzlib",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.trendzlib.com.ng/assets/img/naija2.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": postUrl
+    },
+    "articleSection": post.category,
+    "inLanguage": "en-NG"
+  };
+}
+
 export async function generateMetadata({ params }) {
   const allPosts = await fetchAllPosts();
   const post = allPosts.find((p) => slugify(p.title) === params.slug);
 
   if (!post) return notFound();
 
-  const postUrl = `https://www.trendzlib.com.ng/${params.slug}`;
+  const postUrl = `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`;
 
   return {
-    title: post.title,
-    description: post.content?.slice(0, 150),
+    title: `${post.title} | Trendzlib`,
+    description: post.content?.slice(0, 160),
     alternates: { canonical: postUrl },
+    keywords: `${post.title}, ${post.category}, Nigerian news, Trendzlib`,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.content?.slice(0, 150),
       images: [post.image || '/default-thumbnail.jpg'],
       type: 'article',
       url: postUrl,
+      siteName: 'Trendzlib',
+      locale: 'en_NG',
+      publishedTime: new Date(post.publishedAt).toISOString(),
+      authors: [post.author || 'Trendzlib Editorial'],
+      section: post.category,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.content?.slice(0, 150),
       images: [post.image || '/default-thumbnail.jpg'],
+      site: '@trendzlib',
+      creator: '@trendzlib',
     },
   };
 }
@@ -100,7 +147,6 @@ function injectSmartLinks(content, relatedPosts) {
   return enhanced;
 }
 
-
 export default async function DetailPage({ params }) {
   const { slug } = params;
   const allPosts = await fetchAllPosts();
@@ -113,17 +159,30 @@ export default async function DetailPage({ params }) {
     .slice(0, 6);
 
   const enhancedContent = injectSmartLinks(post.content, relatedPosts);
+  
+  const postUrl = `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`;
+  const articleSchema = generateArticleSchema(post, postUrl);
 
   return (
     <>
+      <Script
+        id="article-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+
       <Nav1 />
 
-      <div className={styles.wrapper}>
-        <h1 className={styles.title}>{post.title}</h1>
-        <div className={styles.meta}>
-          <span><i className="fa fa-user"></i> {post.author || 'Trendzlib Editorial'}</span>
-          <span><i className="fa fa-calendar"></i> {formatDate(post.publishedAt)}</span>
-        </div>
+      <article className={styles.wrapper}>
+        <header>
+          <h1 className={styles.title}>{post.title}</h1>
+          <div className={styles.meta}>
+            <span><i className="fa fa-user"></i> {post.author || 'Trendzlib Editorial'}</span>
+            <time dateTime={new Date(post.publishedAt).toISOString()}>
+              <i className="fa fa-calendar"></i> {formatDate(post.publishedAt)}
+            </time>
+          </div>
+        </header>
 
         <Image
           src={post.image || '/assets/img/placeholder.png'}
@@ -131,8 +190,7 @@ export default async function DetailPage({ params }) {
           width={800}
           height={450}
           className={styles.hero}
-          loading="lazy"
-        
+          priority
         />
 
         <div className={styles.description}>
@@ -143,24 +201,46 @@ export default async function DetailPage({ params }) {
 
         <p className={styles.author}>Written by {post.author || 'Trendzlib Editorial'}</p>
 
-        <div className={styles.share}>
-          <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.trendzlib.com.ng/${slug}`}><i className="fa fa-facebook"></i></a>
-          <a href={`https://twitter.com/intent/tweet?url=https://www.trendzlib.com.ng/${slug}&text=${encodeURIComponent(post.title)}`}><i className="fa fa-twitter"></i></a>
-          <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' https://www.trendzlib.com.ng/' + slug)}`}><i className="fa fa-whatsapp"></i></a>
+        <div className={styles.share} aria-label="Share article">
+          <a 
+            href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
+            aria-label="Share on Facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-facebook"></i>
+          </a>
+          <a 
+            href={`https://twitter.com/intent/tweet?url=${postUrl}&text=${encodeURIComponent(post.title)}`}
+            aria-label="Share on Twitter"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-twitter"></i>
+          </a>
+          <a 
+            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' ' + postUrl)}`}
+            aria-label="Share on WhatsApp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-whatsapp"></i>
+          </a>
         </div>
 
-        <h4>Related Posts</h4>
-        <div className="row">
-          {relatedPosts.map((related) => {
-            const date = new Date(related.publishedAt);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, "0");
-            const day = String(date.getDate()).padStart(2, "0");
-            const postUrl11 = `/${year}/${month}/${day}/${slugify(related.title)}`;
-            return (
-              <>
+        <section aria-labelledby="related-posts-heading">
+          <h4 id="related-posts-heading">Related Posts</h4>
+          <div className="row">
+            {relatedPosts.map((related) => {
+              const date = new Date(related.publishedAt);
+              const year = date.getFullYear();
+              const month = String(date.getMonth() + 1).padStart(2, "0");
+              const day = String(date.getDate()).padStart(2, "0");
+              const postUrl11 = `/${year}/${month}/${day}/${slugify(related.title)}`;
+              
+              return (
                 <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
-                  <div className="my-related-card p-2" style={{ cursor: 'pointer' }}>
+                  <article className="my-related-card p-2" style={{ cursor: 'pointer' }}>
                     <div className="my-related-thumb position-relative">
                       <Image
                         src={related.image || '/assets/img/placeholder.png'}
@@ -169,7 +249,6 @@ export default async function DetailPage({ params }) {
                         height={200}
                         className="card-img-top"
                         loading="lazy"
-                       
                       />
                       <Link
                         href={postUrl11}
@@ -193,17 +272,15 @@ export default async function DetailPage({ params }) {
                         </ul>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </div>
-              </>
-            )
-          }
-          )}
-        </div>
-
+              );
+            })}
+          </div>
+        </section>
 
         <Script src="/assets/js/vendor.js" />
-      </div>
+      </article>
 
       <Footer />
     </>
