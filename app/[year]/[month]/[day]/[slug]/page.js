@@ -1,4 +1,4 @@
-// app/[year]/[month]/[day]/[slug]/page.js - WITH PROPER NEWS ARTICLE SCHEMA
+// app/[year]/[month]/[day]/[slug]/page.js - FINAL VERSION WITH ALL SEO
 
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -43,26 +43,57 @@ function formatDate(dateString) {
   return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
 }
 
-// Generate NewsArticle structured data
+// Breadcrumb Schema
+function generateBreadcrumbSchema(post, params) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.trendzlib.com.ng"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": post.category.charAt(0).toUpperCase() + post.category.slice(1),
+        "item": `https://www.trendzlib.com.ng/category/${post.category}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.title,
+        "item": `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`
+      }
+    ]
+  };
+}
+
+// Article Schema
 function generateArticleSchema(post, postUrl) {
   return {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     "headline": post.title,
-    "description": post.content?.slice(0, 150),
-    "image": post.image || "https://www.trendzlib.com.ng/assets/img/placeholder.png",
+    "description": post.content?.slice(0, 160),
+    "image": [post.image || "https://www.trendzlib.com.ng/assets/img/placeholder.png"],
     "datePublished": new Date(post.publishedAt).toISOString(),
     "dateModified": new Date(post.publishedAt).toISOString(),
     "author": {
-      "@type": "Person",
-      "name": post.author || "Trendzlib Editorial"
+      "@type": "Organization",
+      "name": "Trendzlib",
+      "url": "https://www.trendzlib.com.ng"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Trendzlib",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.trendzlib.com.ng/assets/img/naija2.png"
+        "url": "https://www.trendzlib.com.ng/assets/img/naija2.png",
+        "width": 200,
+        "height": 60
       }
     },
     "mainEntityOfPage": {
@@ -70,7 +101,8 @@ function generateArticleSchema(post, postUrl) {
       "@id": postUrl
     },
     "articleSection": post.category,
-    "inLanguage": "en-NG"
+    "inLanguage": "en-NG",
+    "keywords": `${post.title}, ${post.category}, Nigerian news, Trendzlib`
   };
 }
 
@@ -81,12 +113,15 @@ export async function generateMetadata({ params }) {
   if (!post) return notFound();
 
   const postUrl = `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`;
+  
+  // Extract key phrases from title for keywords
+  const titleWords = post.title.split(' ').slice(0, 10).join(', ');
 
   return {
-    title: `${post.title} | Trendzlib`,
-    description: post.content?.slice(0, 160),
+    title: `${post.title} - Latest News | Trendzlib`,
+    description: post.content?.slice(0, 160) || `Read the latest about ${post.title} on Trendzlib - Nigeria's top entertainment and sports news platform.`,
     alternates: { canonical: postUrl },
-    keywords: `${post.title}, ${post.category}, Nigerian news, Trendzlib`,
+    keywords: `${titleWords}, ${post.category} news, Nigerian ${post.category}, Trendzlib, latest ${post.category} updates 2024`,
     robots: {
       index: true,
       follow: true,
@@ -101,13 +136,18 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: post.title,
       description: post.content?.slice(0, 150),
-      images: [post.image || '/default-thumbnail.jpg'],
+      images: [{
+        url: post.image || '/default-thumbnail.jpg',
+        width: 1200,
+        height: 630,
+        alt: post.title
+      }],
       type: 'article',
       url: postUrl,
       siteName: 'Trendzlib',
       locale: 'en_NG',
       publishedTime: new Date(post.publishedAt).toISOString(),
-      authors: [post.author || 'Trendzlib Editorial'],
+      authors: ['Trendzlib Editorial Team'],
       section: post.category,
     },
     twitter: {
@@ -119,6 +159,21 @@ export async function generateMetadata({ params }) {
       creator: '@trendzlib',
     },
   };
+}
+
+// Generate static paths for better indexing
+export async function generateStaticParams() {
+  const allPosts = await fetchAllPosts();
+  
+  return allPosts.slice(0, 100).map((post) => {
+    const date = new Date(post.publishedAt);
+    return {
+      year: String(date.getFullYear()),
+      month: String(date.getMonth() + 1).padStart(2, '0'),
+      day: String(date.getDate()).padStart(2, '0'),
+      slug: slugify(post.title),
+    };
+  });
 }
 
 function injectSmartLinks(content, relatedPosts) {
@@ -162,6 +217,7 @@ export default async function DetailPage({ params }) {
   
   const postUrl = `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`;
   const articleSchema = generateArticleSchema(post, postUrl);
+  const breadcrumbSchema = generateBreadcrumbSchema(post, params);
 
   return (
     <>
@@ -169,37 +225,111 @@ export default async function DetailPage({ params }) {
         id="article-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        strategy="beforeInteractive"
+      />
+      
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        strategy="beforeInteractive"
       />
 
       <Nav1 />
 
-      <article className={styles.wrapper}>
+      <article className={styles.wrapper} itemScope itemType="https://schema.org/NewsArticle">
+        {/* Breadcrumbs */}
+        <nav aria-label="Breadcrumb" style={{ padding: '1rem 0', fontSize: '0.9rem', color: '#666' }}>
+          <ol style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0, gap: '0.5rem', flexWrap: 'wrap' }}>
+            <li>
+              <Link href="/" style={{ color: '#0070f3', textDecoration: 'none' }}>Home</Link>
+            </li>
+            <li>/</li>
+            <li>
+              <Link href={`/category/${post.category}`} style={{ color: '#0070f3', textDecoration: 'none' }}>
+                {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
+              </Link>
+            </li>
+            <li>/</li>
+            <li style={{ color: '#333' }}>{post.title.slice(0, 50)}...</li>
+          </ol>
+        </nav>
+
         <header>
-          <h1 className={styles.title}>{post.title}</h1>
+          <h1 className={styles.title} itemProp="headline">{post.title}</h1>
           <div className={styles.meta}>
-            <span><i className="fa fa-user"></i> {post.author || 'Trendzlib Editorial'}</span>
-            <time dateTime={new Date(post.publishedAt).toISOString()}>
+            <span itemProp="author" itemScope itemType="https://schema.org/Organization">
+              <i className="fa fa-user"></i> 
+              <span itemProp="name">{post.author || 'Trendzlib Editorial'}</span>
+            </span>
+            <time dateTime={new Date(post.publishedAt).toISOString()} itemProp="datePublished">
               <i className="fa fa-calendar"></i> {formatDate(post.publishedAt)}
             </time>
           </div>
         </header>
 
-        <Image
-          src={post.image || '/assets/img/placeholder.png'}
-          alt={post.title}
-          width={800}
-          height={450}
-          className={styles.hero}
-          priority
-        />
+        <figure>
+          <Image
+            src={post.image || '/assets/img/placeholder.png'}
+            alt={post.title}
+            width={800}
+            height={450}
+            className={styles.hero}
+            priority
+            itemProp="image"
+          />
+        </figure>
 
-        <div className={styles.description}>
+        <div className={styles.description} itemProp="articleBody">
           <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>
             {enhancedContent}
           </ReactMarkdown>
         </div>
 
-        <p className={styles.author}>Written by {post.author || 'Trendzlib Editorial'}</p>
+        {/* Internal Links Section */}
+        <aside style={{
+          background: '#f9f9f9',
+          padding: '1.5rem',
+          borderRadius: '8px',
+          margin: '2rem 0',
+          border: '1px solid #e0e0e0'
+        }}>
+          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: '#333' }}>
+            📰 More {post.category.charAt(0).toUpperCase() + post.category.slice(1)} News
+          </h3>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            {relatedPosts.slice(0, 5).map((related) => {
+              const date = new Date(related.publishedAt);
+              const year = date.getFullYear();
+              const month = String(date.getMonth() + 1).padStart(2, '0');
+              const day = String(date.getDate()).padStart(2, '0');
+              const relatedUrl = `/${year}/${month}/${day}/${slugify(related.title)}`;
+              
+              return (
+                <li key={related._id} style={{ marginBottom: '0.8rem' }}>
+                  <Link 
+                    href={relatedUrl}
+                    style={{ 
+                      color: '#0070f3', 
+                      textDecoration: 'none',
+                      fontSize: '0.95rem',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '0.5rem'
+                    }}
+                  >
+                    <span>→</span>
+                    <span>{related.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </aside>
+
+        <p className={styles.author}>
+          Written by <span itemProp="author">{post.author || 'Trendzlib Editorial'}</span>
+        </p>
 
         <div className={styles.share} aria-label="Share article">
           <a 
@@ -229,18 +359,20 @@ export default async function DetailPage({ params }) {
         </div>
 
         <section aria-labelledby="related-posts-heading">
-          <h4 id="related-posts-heading">Related Posts</h4>
+          <h2 id="related-posts-heading" style={{ fontSize: '1.5rem', marginTop: '3rem', marginBottom: '1.5rem' }}>
+            Related Articles
+          </h2>
           <div className="row">
             {relatedPosts.map((related) => {
               const date = new Date(related.publishedAt);
               const year = date.getFullYear();
-              const month = String(date.getMonth() + 1).padStart(2, "0");
-              const day = String(date.getDate()).padStart(2, "0");
+              const month = String(date.getMonth() + 1).padStart(2, '0');
+              const day = String(date.getDate()).padStart(2, '0');
               const postUrl11 = `/${year}/${month}/${day}/${slugify(related.title)}`;
               
               return (
                 <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
-                  <article className="my-related-card p-2" style={{ cursor: 'pointer' }}>
+                  <article className="my-related-card p-2" style={{ cursor: 'pointer', height: '100%' }}>
                     <div className="my-related-thumb position-relative">
                       <Image
                         src={related.image || '/assets/img/placeholder.png'}
@@ -249,6 +381,7 @@ export default async function DetailPage({ params }) {
                         height={200}
                         className="card-img-top"
                         loading="lazy"
+                        style={{ borderRadius: '8px 8px 0 0' }}
                       />
                       <Link
                         href={postUrl11}
@@ -258,11 +391,11 @@ export default async function DetailPage({ params }) {
                       </Link>
                     </div>
                     <div className="my-related-details mt-2">
-                      <h6 className="my-related-title">
+                      <h3 className="my-related-title" style={{ fontSize: '1rem' }}>
                         <Link href={postUrl11} className="text-dark">
                           {related.title}
                         </Link>
-                      </h6>
+                      </h3>
                       <div className="my-related-meta">
                         <ul className="list-unstyled mb-0">
                           <li>
