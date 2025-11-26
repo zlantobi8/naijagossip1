@@ -23,25 +23,23 @@ function generateSlug(text) {
 }
 
 export async function generateMetadata({ params, searchParams }) {
-  const currentPage = parseInt(searchParams?.page || "1");
   const slug = params.slug;
-  
-  const metadata = {
-    title: `Latest in ${categoryTitle} - Page ${currentPage > 1 ? currentPage : ''} | Trendzlib`,
-    alternates: { 
-      canonical: `https://www.trendzlib.com.ng/category/${slug}${currentPage > 1 ? `?page=${currentPage}` : ''}`
-    }
+  if (!allowedCategories.includes(slug)) return notFound();
+
+  const currentPage = parseInt(searchParams?.page || "1");
+  const canonicalUrl =
+    currentPage === 1
+      ? `https://www.trendzlib.com.ng/category/${slug}`
+      : `https://www.trendzlib.com.ng/category/${slug}?page=${currentPage}`;
+
+  // ✅ Better title for "sport" category
+  const categoryTitle = slug === "sport" ? "Sport" : slug.charAt(0).toUpperCase() + slug.slice(1);
+
+  return {
+    title: `Latest in ${categoryTitle} - Trendzlib`,
+    description: `Read the latest ${categoryTitle.toLowerCase()} articles on Trendzlib.`,
+    alternates: { canonical: canonicalUrl },
   };
-  
-  // Add prev/next for pagination
-  if (currentPage > 1) {
-    metadata.alternates.prev = `https://www.trendzlib.com.ng/category/${slug}?page=${currentPage - 1}`;
-  }
-  if (currentPage < totalPages) {
-    metadata.alternates.next = `https://www.trendzlib.com.ng/category/${slug}?page=${currentPage + 1}`;
-  }
-  
-  return metadata;
 }
 
 export default async function CategoryPage({ params, searchParams }) {
