@@ -75,7 +75,7 @@ export default function RootLayout({ children }) {
 
         {children}
 
-        {/* 🔥 PO*/}
+        
   <Script
   id="popunder-ad"
   strategy="afterInteractive"
