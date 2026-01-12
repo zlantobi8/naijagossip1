@@ -74,7 +74,12 @@ export default function RootLayout({ children }) {
           src="https://kit.fontawesome.com/36253d02c7.js"
           crossOrigin="anonymous"
         ></script>
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+        {/* Load Adcash library globally */}
+        <Script
+          id="aclib"
+          src="//acscdn.com/script/aclib.js"
+          strategy="beforeInteractive"
+        />
 
 
       </head>
