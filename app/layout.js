@@ -1,6 +1,6 @@
 import './globals.css';
 import StructuredData from './components/StructuredData';
-import Script from 'next/script';
+
 
 const siteTitle = 'Trendzlib - Nigerian Entertainment & Sports News';
 const siteDescription =
@@ -68,6 +68,11 @@ export default function RootLayout({ children }) {
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
         <link rel="icon" href="/assets/img/favicon.png" />
+        <link
+          rel="stylesheet"
+          href="cdnjs.cloudflare.com"
+        />
+
       </head>
 
       <body>
@@ -75,7 +80,7 @@ export default function RootLayout({ children }) {
 
         {children}
 
-        
+
 
 
       </body>
