@@ -1,37 +1,36 @@
-import { useEffect, useRef } from 'react';
-import Script from 'next/script';
+// components/Bannerj.js
+"use client"; // must be client component
 
-export default function AdBanner() {
+import { useEffect, useRef } from "react";
+import Script from "next/script";
+
+export default function Bannerj() {
   const bannerRef = useRef(null);
 
   useEffect(() => {
-    // Make sure aclib exists
-    if (window.aclib) {
-      // Run auto tag
-      window.aclib.runAutoTag({
-        zoneId: 'nwdd8udvjv',
+    // make sure window.aclib exists
+    if (typeof window !== "undefined" && window.aclib) {
+      window.aclib.runBanner({
+        zoneId: "10799786",
+        container: bannerRef.current, // render inside this div
       });
-
-      // Run banner inside the div
-      if (bannerRef.current) {
-        window.aclib.runBanner({
-          zoneId: '10799786',
-          container: bannerRef.current,
-        });
-      }
     }
   }, []);
 
   return (
     <>
-      {/* Load the aclib library first */}
+      {/* Step 1: Load ACLib library */}
       <Script
-        src="https://example.com/aclib.js" // <-- Replace with actual aclib JS URL
+        id="aclib"
+        src="//acscdn.com/script/aclib.js"
         strategy="beforeInteractive"
       />
 
-      {/* Banner container */}
-      <div ref={bannerRef}></div>
+      {/* Step 2: Banner container */}
+      <div
+        ref={bannerRef}
+        style={{ width: "300px", height: "100px", margin: "2rem auto" }}
+      ></div>
     </>
   );
 }
