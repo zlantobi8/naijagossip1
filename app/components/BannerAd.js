@@ -54,7 +54,7 @@ export default function BannerAd({ slicepost }) {
                 alt={ad.title}
                 width={480}
                 height={270}
-                priority
+           
                 className="img-fluid"
                 loading="lazy"
               />

@@ -43,8 +43,7 @@ function formatDate(dateString) {
   return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
 }
 
-// Breadcrumb Schema
-function generateBreadcrumbSchema(post, params) {
+function generateBreadcrumbSchema(post, { year, month, day, slug }) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -65,11 +64,12 @@ function generateBreadcrumbSchema(post, params) {
         "@type": "ListItem",
         "position": 3,
         "name": post.title,
-        "item": `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`
+        "item": `https://www.trendzlib.com.ng/${year}/${month}/${day}/${slug}`
       }
     ]
   };
 }
+
 
 // Article Schema
 function generateArticleSchema(post, postUrl) {
@@ -107,59 +107,42 @@ function generateArticleSchema(post, postUrl) {
 }
 
 export async function generateMetadata({ params }) {
+  const { year, month, day, slug } = await params; // ✅ unwrap
+
   const allPosts = await fetchAllPosts();
-  const post = allPosts.find((p) => slugify(p.title) === params.slug);
+  const post = allPosts.find((p) => slugify(p.title) === slug);
 
   if (!post) return notFound();
 
-  const postUrl = `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`;
-  
-  // Extract key phrases from title for keywords
+  const postUrl = `https://www.trendzlib.com.ng/${year}/${month}/${day}/${slug}`;
+
   const titleWords = post.title.split(' ').slice(0, 10).join(', ');
 
   return {
     title: `${post.title} - Latest News | Trendzlib`,
-    description: post.content?.slice(0, 160) || `Read the latest about ${post.title} on Trendzlib - Nigeria's top entertainment and sports news platform.`,
+    description:
+      post.content?.slice(0, 160) ||
+      `Read the latest about ${post.title} on Trendzlib.`,
     alternates: { canonical: postUrl },
-    keywords: `${titleWords}, ${post.category} news, Nigerian ${post.category}, Trendzlib, latest ${post.category} updates 2024`,
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
+    keywords: `${titleWords}, ${post.category} news, Nigerian ${post.category}`,
     openGraph: {
       title: post.title,
       description: post.content?.slice(0, 150),
-      images: [{
-        url: post.image || '/default-thumbnail.jpg',
-        width: 1200,
-        height: 630,
-        alt: post.title
-      }],
+      images: [{ url: post.image }],
       type: 'article',
       url: postUrl,
       siteName: 'Trendzlib',
       locale: 'en_NG',
-      publishedTime: new Date(post.publishedAt).toISOString(),
-      authors: ['Trendzlib Editorial Team'],
-      section: post.category,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.content?.slice(0, 150),
-      images: [post.image || '/default-thumbnail.jpg'],
-      site: '@trendzlib',
-      creator: '@trendzlib',
+      images: [post.image],
     },
   };
 }
+
 
 // Generate static paths for better indexing
 export async function generateStaticParams() {
@@ -203,21 +186,36 @@ function injectSmartLinks(content, relatedPosts) {
 }
 
 export default async function DetailPage({ params }) {
-  const { slug } = params;
+  // 1️⃣ Unwrap params ONCE
+  const resolvedParams = await params;
+  const { year, month, day, slug } = resolvedParams;
+
+  // 2️⃣ Fetch posts
   const allPosts = await fetchAllPosts();
   const post = allPosts.find((p) => slugify(p.title) === slug);
 
   if (!post) return notFound();
 
+  // 3️⃣ Related posts
   const relatedPosts = allPosts
     .filter((p) => slugify(p.title) !== slug && p.category === post.category)
     .slice(0, 6);
 
-  const enhancedContent = injectSmartLinks(post.content, relatedPosts);
-  
-  const postUrl = `https://www.trendzlib.com.ng/${params.year}/${params.month}/${params.day}/${params.slug}`;
+  // 4️⃣ DEFINE enhancedContent (🔥 THIS WAS MISSING)
+  const enhancedContent = injectSmartLinks(
+    post.content || '',
+    relatedPosts
+  );
+
+  // 5️⃣ URLs + schemas
+  const postUrl = `https://www.trendzlib.com.ng/${year}/${month}/${day}/${slug}`;
   const articleSchema = generateArticleSchema(post, postUrl);
-  const breadcrumbSchema = generateBreadcrumbSchema(post, params);
+  const breadcrumbSchema = generateBreadcrumbSchema(post, {
+    year,
+    month,
+    day,
+    slug,
+  });
 
   return (
     <>

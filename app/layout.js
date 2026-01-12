@@ -68,9 +68,12 @@ export default function RootLayout({ children }) {
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
         <link rel="icon" href="/assets/img/favicon.png" />
-        <link
+      <link
           rel="stylesheet"
-          href="cdnjs.cloudflare.com"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha512-Sfcbg+2k0wQ2pQ0L9r+O3G+7Xw1Yp+ZVtVQ4XK7uH6rL4Kp9gY5l1Y4qR9zKp1cV4Ue8P+9kRk5w=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
         />
 
       </head>

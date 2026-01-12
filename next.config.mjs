@@ -8,22 +8,20 @@ const nextConfig = {
       },
     ],
   },
-  // Add this transpile block for vendor libraries
+
   transpilePackages: ['owl.carousel', 'slick-carousel', 'line-awesome'],
-  
+
   webpack: (config) => {
     config.module.rules.forEach((rule) => {
       if (rule.oneOf) {
         rule.oneOf.forEach((oneOf) => {
-          // Look for CSS loaders
           if (oneOf.test && oneOf.test.toString().includes('css')) {
             if (oneOf.use && Array.isArray(oneOf.use)) {
               oneOf.use.forEach((loader) => {
-                // Disable url() resolving to ignore missing vendor assets
                 if (loader.loader && loader.loader.includes('css-loader')) {
-                  loader.options = { 
-                    ...loader.options, 
-                    url: false 
+                  loader.options = {
+                    ...loader.options,
+                    url: false, // keep this so vendor assets don't break
                   };
                 }
               });
