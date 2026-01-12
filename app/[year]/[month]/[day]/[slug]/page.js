@@ -10,7 +10,7 @@ import Script from 'next/script';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
-
+import Bannerj from '@/app/components/Bannerj';
 function slugify(text) {
   return text
     .toLowerCase()
@@ -247,6 +247,7 @@ export default async function DetailPage({ params }) {
               <Link href={`/category/${post.category}`} style={{ color: '#0070f3', textDecoration: 'none' }}>
                 {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
               </Link>
+              <Bannerj/>
             </li>
             <li>/</li>
             <li style={{ color: '#333' }}>{post.title.slice(0, 50)}...</li>
@@ -295,6 +296,7 @@ export default async function DetailPage({ params }) {
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: '#333' }}>
             📰 More {post.category.charAt(0).toUpperCase() + post.category.slice(1)} News
           </h3>
+          
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {relatedPosts.slice(0, 5).map((related) => {
               const date = new Date(related.publishedAt);
@@ -318,6 +320,7 @@ export default async function DetailPage({ params }) {
                   >
                     <span>→</span>
                     <span>{related.title}</span>
+                    
                   </Link>
                 </li>
               );
@@ -344,6 +347,8 @@ export default async function DetailPage({ params }) {
             target="_blank"
             rel="noopener noreferrer"
           >
+
+            
             <i className="fa fa-twitter"></i>
           </a>
           <a 

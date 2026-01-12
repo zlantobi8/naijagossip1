@@ -74,14 +74,8 @@ export default function RootLayout({ children }) {
           src="https://kit.fontawesome.com/36253d02c7.js"
           crossOrigin="anonymous"
         ></script>
+<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 
-        <Script id="aclib-script" strategy="afterInteractive">
-          {`
-          aclib.runAutoTag({
-              zoneId: 'nwdd8udvjv',
-          });
-        `}
-        </Script>
 
       </head>
 
