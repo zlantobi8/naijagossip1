@@ -1,6 +1,7 @@
 @import './styles/vendor.css';
 @import './styles/style.css';
 @import './styles/responsive.css';
+@import '~font-awesome/css/font-awesome.min.css';
 
 
 :root {
