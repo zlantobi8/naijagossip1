@@ -119,7 +119,7 @@ export default async function CategoryPage({ params, searchParams }) {
         <h3 className="section-title text-light">
           Latest in {displayName}
         </h3>
-        <Bannerj>
+   <Bannerj />
         <div className="row">
           {posts.map((post) => {
             const date = new Date(post.publishedAt);
