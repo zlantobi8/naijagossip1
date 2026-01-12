@@ -1,5 +1,6 @@
 import './globals.css';
 import StructuredData from './components/StructuredData';
+import Script from 'next/script';
 
 
 
@@ -69,11 +70,18 @@ export default function RootLayout({ children }) {
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
         <link rel="icon" href="/assets/img/favicon.png" />
-    <script
-  src="https://kit.fontawesome.com/36253d02c7.js"
-  crossOrigin="anonymous"
-></script>
+        <script
+          src="https://kit.fontawesome.com/36253d02c7.js"
+          crossOrigin="anonymous"
+        ></script>
 
+        <Script id="aclib-script" strategy="afterInteractive">
+          {`
+          aclib.runAutoTag({
+              zoneId: 'nwdd8udvjv',
+          });
+        `}
+        </Script>
 
       </head>
 
