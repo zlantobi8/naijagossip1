@@ -3,7 +3,7 @@ import Nav1 from "@/app/components/Nav1";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-
+import Bannerj from "@/app/components/Bannerj";
 // Allowed categories (must match Sanity exactly)
 const allowedCategories = ["sport", "entertainment"];
 const pageSize = 8;
@@ -119,7 +119,7 @@ export default async function CategoryPage({ params, searchParams }) {
         <h3 className="section-title text-light">
           Latest in {displayName}
         </h3>
-
+        <Bannerj>
         <div className="row">
           {posts.map((post) => {
             const date = new Date(post.publishedAt);
