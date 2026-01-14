@@ -74,13 +74,7 @@ export default function RootLayout({ children }) {
           src="https://kit.fontawesome.com/36253d02c7.js"
           crossOrigin="anonymous"
         ></script>
-        {/* Load Adcash library globally */}
-        <Script
-          id="aclib"
-          src="//acscdn.com/script/aclib.js"
-          strategy="beforeInteractive"
-        />
-
+      
 
       </head>
 
@@ -89,7 +83,33 @@ export default function RootLayout({ children }) {
 
         {children}
 
+  {/* Push SDK script */}
+        <Script
+          id="push-sdk"
+          strategy="afterInteractive"
+        >
+          {`
+            (function() {
+              const url = new URL(window.location.href);
+              const clickID = url.searchParams.get("click_id");
+              const sourceID = url.searchParams.get("source_id");
 
+              const s = document.createElement("script");
+              s.dataset.cfasync = "false";
+              s.src = "https://push-sdk.com/f/sdk.js?z=2426942";
+              s.onload = (opts) => {
+                opts.zoneID = 2426942;
+                opts.extClickID = clickID;
+                opts.subID1 = sourceID;
+                opts.actions.onPermissionGranted = () => {};
+                opts.actions.onPermissionDenied = () => {};
+                opts.actions.onAlreadySubscribed = () => {};
+                opts.actions.onError = () => {};
+              };
+              document.head.appendChild(s);
+            })();
+          `}
+        </Script>
 
 
       </body>
