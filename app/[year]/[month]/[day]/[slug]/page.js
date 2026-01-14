@@ -11,6 +11,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
 import Banner from '@/app/components/Banner';
+import ReadMore from '@/app/components/Readmore';
 function slugify(text) {
   return text
     .toLowerCase()
@@ -147,7 +148,7 @@ export async function generateMetadata({ params }) {
 // Generate static paths for better indexing
 export async function generateStaticParams() {
   const allPosts = await fetchAllPosts();
-  
+
   return allPosts.slice(0, 100).map((post) => {
     const date = new Date(post.publishedAt);
     return {
@@ -225,7 +226,7 @@ export default async function DetailPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
         strategy="beforeInteractive"
       />
-      
+
       <Script
         id="breadcrumb-schema"
         type="application/ld+json"
@@ -247,7 +248,7 @@ export default async function DetailPage({ params }) {
               <Link href={`/category/${post.category}`} style={{ color: '#0070f3', textDecoration: 'none' }}>
                 {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
               </Link>
-     
+
             </li>
             <li>/</li>
             <li style={{ color: '#333' }}>{post.title.slice(0, 50)}...</li>
@@ -258,7 +259,7 @@ export default async function DetailPage({ params }) {
           <h1 className={styles.title} itemProp="headline">{post.title}</h1>
           <div className={styles.meta}>
             <span itemProp="author" itemScope itemType="https://schema.org/Organization">
-              <i className="fa fa-user"></i> 
+              <i className="fa fa-user"></i>
               <span itemProp="name">{post.author || 'Trendzlib Editorial'}</span>
             </span>
             <time dateTime={new Date(post.publishedAt).toISOString()} itemProp="datePublished">
@@ -280,11 +281,12 @@ export default async function DetailPage({ params }) {
         </figure>
 
         <div className={styles.description} itemProp="articleBody">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>
-            {enhancedContent}
-          </ReactMarkdown>
+          <ReadMore limit={100}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>
+              {enhancedContent}
+            </ReactMarkdown>
+          </ReadMore>
         </div>
-
         {/* Internal Links Section */}
         <aside style={{
           background: '#f9f9f9',
@@ -296,7 +298,7 @@ export default async function DetailPage({ params }) {
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: '#333' }}>
             📰 More {post.category.charAt(0).toUpperCase() + post.category.slice(1)} News
           </h3>
-          
+
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {relatedPosts.slice(0, 5).map((related) => {
               const date = new Date(related.publishedAt);
@@ -304,13 +306,13 @@ export default async function DetailPage({ params }) {
               const month = String(date.getMonth() + 1).padStart(2, '0');
               const day = String(date.getDate()).padStart(2, '0');
               const relatedUrl = `/${year}/${month}/${day}/${slugify(related.title)}`;
-              
+
               return (
                 <li key={related._id} style={{ marginBottom: '0.8rem' }}>
-                  <Link 
+                  <Link
                     href={relatedUrl}
-                    style={{ 
-                      color: '#0070f3', 
+                    style={{
+                      color: '#0070f3',
                       textDecoration: 'none',
                       fontSize: '0.95rem',
                       display: 'flex',
@@ -320,7 +322,7 @@ export default async function DetailPage({ params }) {
                   >
                     <span>→</span>
                     <span>{related.title}</span>
-                    
+
                   </Link>
                 </li>
               );
@@ -333,7 +335,7 @@ export default async function DetailPage({ params }) {
         </p>
 
         <div className={styles.share} aria-label="Share article">
-          <a 
+          <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
             aria-label="Share on Facebook"
             target="_blank"
@@ -341,17 +343,17 @@ export default async function DetailPage({ params }) {
           >
             <i className="fa fa-facebook"></i>
           </a>
-          <a 
+          <a
             href={`https://twitter.com/intent/tweet?url=${postUrl}&text=${encodeURIComponent(post.title)}`}
             aria-label="Share on Twitter"
             target="_blank"
             rel="noopener noreferrer"
           >
 
-            
+
             <i className="fa fa-twitter"></i>
           </a>
-          <a 
+          <a
             href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' ' + postUrl)}`}
             aria-label="Share on WhatsApp"
             target="_blank"
@@ -360,7 +362,7 @@ export default async function DetailPage({ params }) {
             <i className="fa fa-whatsapp"></i>
           </a>
         </div>
-<Banner/>
+        <Banner />
         <section aria-labelledby="related-posts-heading">
           <h2 id="related-posts-heading" style={{ fontSize: '1.5rem', marginTop: '3rem', marginBottom: '1.5rem' }}>
             Related Articles
@@ -372,7 +374,7 @@ export default async function DetailPage({ params }) {
               const month = String(date.getMonth() + 1).padStart(2, '0');
               const day = String(date.getDate()).padStart(2, '0');
               const postUrl11 = `/${year}/${month}/${day}/${slugify(related.title)}`;
-              
+
               return (
                 <div className="col-lg-4 col-md-6 col-12 mb-4" key={related._id}>
                   <article className="my-related-card p-2" style={{ cursor: 'pointer', height: '100%' }}>
