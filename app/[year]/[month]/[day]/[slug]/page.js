@@ -10,7 +10,7 @@ import Script from 'next/script';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
-import Bannerj from '@/app/components/Bannerj';
+import Banner from '@/app/components/Banner';
 function slugify(text) {
   return text
     .toLowerCase()
@@ -247,7 +247,7 @@ export default async function DetailPage({ params }) {
               <Link href={`/category/${post.category}`} style={{ color: '#0070f3', textDecoration: 'none' }}>
                 {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
               </Link>
-              <Bannerj/>
+     
             </li>
             <li>/</li>
             <li style={{ color: '#333' }}>{post.title.slice(0, 50)}...</li>
@@ -360,7 +360,7 @@ export default async function DetailPage({ params }) {
             <i className="fa fa-whatsapp"></i>
           </a>
         </div>
-
+<Banner/>
         <section aria-labelledby="related-posts-heading">
           <h2 id="related-posts-heading" style={{ fontSize: '1.5rem', marginTop: '3rem', marginBottom: '1.5rem' }}>
             Related Articles
