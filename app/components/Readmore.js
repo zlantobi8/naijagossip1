@@ -1,15 +1,20 @@
 "use client";
 import { useState } from "react";
 
-export default function ReadMore({ children, limit = 100 }) {
+export default function ReadMore({ children, collapsedHeight = 150 }) {
   const [expanded, setExpanded] = useState(false);
-  const isLong = children.length > limit;
-
-  if (!isLong) return <p>{children}</p>;
 
   return (
-    <p>
-      {expanded ? children : `${children.slice(0, limit)}... `}
+    <div>
+      <div
+        style={{
+          maxHeight: expanded ? "none" : `${collapsedHeight}px`,
+          overflow: "hidden",
+          transition: "max-height 0.3s ease",
+        }}
+      >
+        {children}
+      </div>
       <button
         onClick={() => setExpanded(!expanded)}
         style={{
@@ -18,12 +23,12 @@ export default function ReadMore({ children, limit = 100 }) {
           color: "#0070f3",
           cursor: "pointer",
           padding: 0,
-          margin: 0,
+          marginTop: "0.5rem",
           fontWeight: "bold",
         }}
       >
-        {expanded ? "Read Less" : "Read More"}
+        {expanded ? "Leer menos" : "Leer más"}
       </button>
-    </p>
+    </div>
   );
 }

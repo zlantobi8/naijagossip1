@@ -12,6 +12,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
 import Banner from '@/app/components/Banner';
 import ReadMore from '@/app/components/Readmore';
+
 function slugify(text) {
   return text
     .toLowerCase()
@@ -279,14 +280,17 @@ export default async function DetailPage({ params }) {
             itemProp="image"
           />
         </figure>
-
         <div className={styles.description} itemProp="articleBody">
-          <ReadMore limit={100}>
-            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>
+          <ReadMore collapsedHeight={120}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeSanitize]}
+            >
               {enhancedContent}
             </ReactMarkdown>
           </ReadMore>
         </div>
+
         {/* Internal Links Section */}
         <aside style={{
           background: '#f9f9f9',
