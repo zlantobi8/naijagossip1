@@ -82,7 +82,7 @@ export default function RootLayout({ children }) {
         <StructuredData />
 
         {children}
-
+<script async type="text/javascript" src="https://s0-greate.net/p/2426943"></script>
   {/* Push SDK script */}
         <Script
           id="push-sdk"
