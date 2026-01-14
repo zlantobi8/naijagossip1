@@ -281,7 +281,10 @@ export default async function DetailPage({ params }) {
           />
         </figure>
         <div className={styles.description} itemProp="articleBody">
-          <ReadMore collapsedHeight={120}>
+          <ReadMore
+            collapsedHeight={200}
+            smartlink="https://bonuscaf.com/go/2426943"
+          >
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeSanitize]}
@@ -290,6 +293,7 @@ export default async function DetailPage({ params }) {
             </ReactMarkdown>
           </ReadMore>
         </div>
+
 
         {/* Internal Links Section */}
         <aside style={{
