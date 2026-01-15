@@ -95,7 +95,7 @@ export default function Welcome() {
           </button>
         </div>
       )}
-
+<iframe src="//a.magsrv.com/iframe.php?idzone=5829820&size=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
       {/* Thank you message */}
       {subscribed && (
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: "#fff", textAlign: "center", fontSize: "18px" }}>
