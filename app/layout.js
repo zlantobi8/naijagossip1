@@ -74,7 +74,7 @@ export default function RootLayout({ children }) {
           src="https://kit.fontawesome.com/36253d02c7.js"
           crossOrigin="anonymous"
         ></script>
-      
+      <meta name="juicyads-site-verification" content="0bb974242fe866cf3a887e7b0d5f9c65"></meta>
 <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="991655" data-siteid="385068" async data-cfasync="false"></script>
       </head>
 
