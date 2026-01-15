@@ -45,56 +45,8 @@ export default function Welcome() {
         }}
       />
 
-      {/* Pre-prompt modal */}
-      {!subscribed && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "rgba(30,30,30,0.5)", // semi-transparent
-            color: "#fff",
-            maxWidth: "320px",
-            width: "85%",
-            padding: "25px 20px",
-            borderRadius: "15px",
-            textAlign: "center",
-            boxShadow: "0 8px 25px rgba(0,0,0,0.6)",
-          }}
-        >
-          <div style={{ fontSize: "50px", marginBottom: "12px" }}>🔞</div>
-          <h1 style={{ fontSize: "22px", marginBottom: "12px" }}>Contenido Adulto Exclusivo 🔥</h1>
-          <p style={{ fontSize: "16px", marginBottom: "18px", color: "#f7f0f0", lineHeight: "1.4" }}>
-            Solo mayores de 18 años.<br />
-            Toca "PERMITIR" en la próxima ventana para desbloquear el contenido privado.<br />
-            ¡Rápido! Contenido limitado solo para los que permiten notificaciones.
-          </p>
-
-          {/* Progress bar */}
-          <div style={{ width: "100%", background: "rgba(255,255,255,0.2)", borderRadius: "8px", overflow: "hidden", height: "12px", marginBottom: "10px" }}>
-            <div style={{ width: `${progress}%`, height: "100%", background: "#e50914", transition: "width 0.2s" }} />
-          </div>
-
-          <button
-            onClick={handleSubscribe}
-            style={{
-              fontSize: "18px",
-              padding: "14px 25px",
-              background: "#e50914",
-              color: "#fff",
-              border: "none",
-              borderRadius: "10px",
-              cursor: "pointer",
-              transition: "transform 0.3s ease-in-out",
-            }}
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03) translateY(-2px)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1) translateY(0)"}
-          >
-            PERMITIR Y VER AHORA ▶️
-          </button>
-        </div>
-      )}
+   
+        
       <iframe
         data-aa="2424319"
         src="//acceptable.a-ads.com/2424319/?size=Adaptive"
@@ -110,12 +62,7 @@ export default function Welcome() {
       ></iframe>
 
 
-      {/* Thank you message */}
-      {subscribed && (
-        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: "#fff", textAlign: "center", fontSize: "18px" }}>
-          ¡Gracias! Tu suscripción ha sido registrada. Disfruta del contenido 🔥
-        </div>
-      )}
+   
     </div>
   );
 }
