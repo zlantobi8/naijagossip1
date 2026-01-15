@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
+import Banner from "../components/Banner";
 
 export default function Welcome() {
   const [subscribed, setSubscribed] = useState(false);
@@ -62,6 +63,7 @@ export default function Welcome() {
       ></iframe>
 
 
+        <Banner/>
    
     </div>
   );

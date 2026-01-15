@@ -1,19 +1,31 @@
-// components/Bannerj.js
-"use client";
+'use client'; // ensures this runs only on the client
 
-import Script from "next/script";
+import { useEffect } from 'react';
+import Script from 'next/script';
 
-export default function Bannerj() {
+export default function Banner() {
+  useEffect(() => {
+    // Make sure AdProvider exists, then push the serve command
+    if (window.AdProvider) {
+      window.AdProvider.push({ serve: {} });
+    }
+  }, []);
+
   return (
-    <div>
-      {/* Run the banner */}
-      <Script id="banner-run" strategy="afterInteractive">
-        {`
-          if(window.aclib){
-            aclib.runBanner({ zoneId: '10799786' });
+    <>
+      {/* Load ad provider script asynchronously */}
+      <Script
+        src="https://a.magsrv.com/ad-provider.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          if (window.AdProvider) {
+            window.AdProvider.push({ serve: {} });
           }
-        `}
-      </Script>
-    </div>
+        }}
+      />
+
+      {/* Ad container */}
+      <ins className="eas6a97888e14" data-zoneid="5829954"></ins>
+    </>
   );
 }
