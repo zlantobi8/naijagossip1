@@ -2,8 +2,6 @@ import './globals.css';
 import StructuredData from './components/StructuredData';
 import Script from 'next/script';
 
-
-
 const siteTitle = 'Trendzlib - Nigerian Entertainment & Sports News';
 const siteDescription =
   'Get the hottest Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Your #1 source for entertainment & sport!';
@@ -74,21 +72,29 @@ export default function RootLayout({ children }) {
           src="https://kit.fontawesome.com/36253d02c7.js"
           crossOrigin="anonymous"
         ></script>
-      <meta name="juicyads-site-verification" content="0bb974242fe866cf3a887e7b0d5f9c65"></meta>
-      <meta name="6a97888e-site-verification" content="820479814b0b307565ef6fd233fbf733"></meta>
-<script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="991655" data-siteid="385068" async data-cfasync="false"></script>
+        <meta
+          name="juicyads-site-verification"
+          content="0bb974242fe866cf3a887e7b0d5f9c65"
+        />
+        <meta
+          name="6a97888e-site-verification"
+          content="820479814b0b307565ef6fd233fbf733"
+        />
+        <script
+          src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js"
+          data-pubid="991655"
+          data-siteid="385068"
+          async
+          data-cfasync="false"
+        ></script>
       </head>
 
       <body>
         <StructuredData />
-
         {children}
 
-  {/* Push SDK script */}
-        <Script
-          id="push-sdk"
-          strategy="afterInteractive"
-        >
+        {/* Push SDK */}
+        <Script id="push-sdk" strategy="afterInteractive">
           {`
             (function() {
               const url = new URL(window.location.href);
@@ -98,21 +104,35 @@ export default function RootLayout({ children }) {
               const s = document.createElement("script");
               s.dataset.cfasync = "false";
               s.src = "https://push-sdk.com/f/sdk.js?z=2426942";
-              s.onload = (opts) => {
-                opts.zoneID = 2426942;
-                opts.extClickID = clickID;
-                opts.subID1 = sourceID;
-                opts.actions.onPermissionGranted = () => {};
-                opts.actions.onPermissionDenied = () => {};
-                opts.actions.onAlreadySubscribed = () => {};
-                opts.actions.onError = () => {};
+              s.onload = () => {
+                if (window.PushSDK) {
+                  window.PushSDK.init({
+                    zoneID: 2426942,
+                    extClickID: clickID,
+                    subID1: sourceID,
+                    actions: {
+                      onPermissionGranted: () => {},
+                      onPermissionDenied: () => {},
+                      onAlreadySubscribed: () => {},
+                      onError: () => {},
+                    },
+                  });
+                }
               };
               document.head.appendChild(s);
             })();
           `}
         </Script>
 
-
+        {/* Ad Provider */}
+        <ins className="eas6a97888e33" data-zoneid="5829818"></ins>
+        <Script
+          src="https://a.pemsrv.com/ad-provider.js"
+          strategy="afterInteractive"
+          onLoad={() => {
+            (window.AdProvider = window.AdProvider || []).push({ serve: {} });
+          }}
+        />
       </body>
     </html>
   );
