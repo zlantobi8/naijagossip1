@@ -293,7 +293,7 @@ export default async function DetailPage({ params }) {
             </ReactMarkdown>
           </ReadMore>
         </div>
-
+<iframe src="//a.magsrv.com/iframe.php?idzone=5829820&size=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 
         {/* Internal Links Section */}
         <aside style={{
@@ -370,7 +370,7 @@ export default async function DetailPage({ params }) {
             <i className="fa fa-whatsapp"></i>
           </a>
         </div>
-        <Banner />
+       <iframe src="//a.magsrv.com/iframe.php?idzone=5829820&size=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
         <section aria-labelledby="related-posts-heading">
           <h2 id="related-posts-heading" style={{ fontSize: '1.5rem', marginTop: '3rem', marginBottom: '1.5rem' }}>
             Related Articles
@@ -409,6 +409,7 @@ export default async function DetailPage({ params }) {
                           {related.title}
                         </Link>
                       </h3>
+                      <iframe src="//a.magsrv.com/iframe.php?idzone=5829820&size=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
                       <div className="my-related-meta">
                         <ul className="list-unstyled mb-0">
                           <li>
