@@ -28,7 +28,7 @@ export default function Welcome() {
 
   return (
     <div style={{ position: "relative", height: "100vh", fontFamily: "Arial, sans-serif", overflow: "hidden" }}>
-      
+
       {/* Blurred image background */}
       <div
         style={{
@@ -66,8 +66,8 @@ export default function Welcome() {
           <div style={{ fontSize: "50px", marginBottom: "12px" }}>🔞</div>
           <h1 style={{ fontSize: "22px", marginBottom: "12px" }}>Contenido Adulto Exclusivo 🔥</h1>
           <p style={{ fontSize: "16px", marginBottom: "18px", color: "#f7f0f0", lineHeight: "1.4" }}>
-            Solo mayores de 18 años.<br/>
-            Toca "PERMITIR" en la próxima ventana para desbloquear el contenido privado.<br/>
+            Solo mayores de 18 años.<br />
+            Toca "PERMITIR" en la próxima ventana para desbloquear el contenido privado.<br />
             ¡Rápido! Contenido limitado solo para los que permiten notificaciones.
           </p>
 
@@ -95,7 +95,21 @@ export default function Welcome() {
           </button>
         </div>
       )}
-<iframe src="//a.magsrv.com/iframe.php?idzone=5829820&size=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+      <iframe
+        data-aa="2424319"
+        src="//acceptable.a-ads.com/2424319/?size=Adaptive"
+        style={{
+          border: 0,
+          padding: 0,
+          width: "70%",
+          height: "auto",
+          overflow: "hidden",
+          display: "block",
+          margin: "auto",
+        }}
+      ></iframe>
+
+
       {/* Thank you message */}
       {subscribed && (
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: "#fff", textAlign: "center", fontSize: "18px" }}>
