@@ -75,7 +75,7 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         ></script>
       
-
+<script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="991655" data-siteid="385068" async data-cfasync="false"></script>
       </head>
 
       <body>
