@@ -4,7 +4,7 @@ import { Bell, X, Gift, Sparkles } from 'lucide-react';
 
 export default function ModalNotificationPrompt() {
   const [isVisible, setIsVisible] = useState(false);
-  const [sdkReady, setSdkReady] = useState(false);
+  const [sdkReady, setSdkReady] = useState(true);
 const STORAGE_KEY = 'push_prompt_state';
 
  useEffect(() => {
