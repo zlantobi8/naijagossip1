@@ -1,7 +1,7 @@
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import NotificationPrompt from "./components/NotificationPrompt";
+import ContentGatePushModal from "./components/NotificationPrompt";
 import Script from "next/script";
 
 export const metadata = {
@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
         <Footer />
 
         {/* Notification Prompt Component */}
-        <NotificationPrompt />
+        <ContentGatePushModal />
 
         {/* DELAYED Push SDK with proper loading */}
         <Script
