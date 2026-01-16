@@ -1,4 +1,5 @@
 "use client";
+import Script from "next/script";
 import { useState } from "react";
 
 export default function Header() {
@@ -29,7 +30,34 @@ export default function Header() {
 
   return (
     <header>
-      <script src="https://pl28491043.effectivegatecpm.com/90/95/82/909582b2f14a5136c777a88be56866b9.js"></script>
+
+  
+<Script
+  id="mediapalmtree-script"
+  strategy="afterInteractive"
+  dangerouslySetInnerHTML={{
+    __html: `
+      ((d)=>{
+        ((o,s)=>{
+          s.src='//mediapalmtree.com/pu_script.js?t=1768561796';
+          s.async=!0;
+          s.dataset.config=JSON.stringify(o);
+          d.addEventListener('click',(e)=>{
+            try{window['gch'+o.token](e);}catch(e){}
+          },!0);
+          d.head.appendChild(s);
+        })({
+          token:'6932db9da5b5afc0152945f46d4be433ee1d2ebd',
+          d:'interminescrunchycharoseth.forum',
+          s1:'{SOURCE_ID}',
+          s2:'{SOURCE_SUB_ID}',
+          s3:'{CLICK_ID}',
+          q:'{QUERY}'
+        },d.createElement('script'));
+      })(document);
+    `,
+  }}
+/>
       <div className="top">
         <a href="/" className="logo" style={{ textDecoration: 'none' }}>Trendzlib</a>
         <div className="search-container">
