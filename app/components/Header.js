@@ -1,14 +1,18 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function Header() {
-  const router = useRouter();
   const [query, setQuery] = useState("");
 
-  const search = (e) => {
-    if (e.key === "Enter" && query.trim() !== "") {
-      router.push(`/category/search?q=${encodeURIComponent(query)}`);
+  const handleSearch = () => {
+    if (query.trim() !== "") {
+      window.location.href = `/category/search?q=${encodeURIComponent(query)}`;
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
     }
   };
 
@@ -19,21 +23,33 @@ export default function Header() {
     { name: "Popular", order: "popular" },
   ];
 
+  const handleCategoryClick = (order) => {
+    window.location.href = `/?order=${order}`;
+  };
+
   return (
     <header>
       <div className="top">
-        <div className="logo">Trendzlib</div>
-        <input
-          type="text"
-          placeholder="Search videos..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={search}
-        />
+        <a href="/" className="logo" style={{ textDecoration: 'none' }}>Trendzlib</a>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search videos..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <button className="search-btn" onClick={handleSearch}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+        </div>
       </div>
       <div className="categories">
         {categories.map((cat) => (
-          <div key={cat.order} onClick={() => router.push(`/?order=${cat.order}`)}>
+          <div key={cat.order} onClick={() => handleCategoryClick(cat.order)}>
             {cat.name}
           </div>
         ))}

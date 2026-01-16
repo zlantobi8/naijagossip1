@@ -1,7 +1,6 @@
 import { getVideos } from "./lib/eporner";
 import Header from "./components/Header";
 import VideoGrid from "./components/VideoGrid";
-import Link from "next/link";
 
 export default async function HomePage({ searchParams }) {
   const params = await searchParams;
@@ -21,15 +20,15 @@ export default async function HomePage({ searchParams }) {
 
       <div className="pagination">
         {prevPage && (
-          <Link href={`/?order=${order}&page=${prevPage}`} className="page-btn">
+          <a href={`/?order=${order}&page=${prevPage}`} className="page-btn">
             ← Previous
-          </Link>
+          </a>
         )}
         <span className="current-page">Page {page}</span>
         {nextPage && (
-          <Link href={`/?order=${order}&page=${nextPage}`} className="page-btn">
+          <a href={`/?order=${order}&page=${nextPage}`} className="page-btn">
             Next →
-          </Link>
+          </a>
         )}
       </div>
     </main>

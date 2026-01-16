@@ -1,7 +1,7 @@
 const BASE = "https://www.eporner.com/api/v2/video/search/";
 
 export async function getVideos(params = {}) {
-  const page = params.page || 1; // default to page 1
+  const page = params.page || 1;
   const query = new URLSearchParams({
     per_page: "24",
     thumbsize: "big",
@@ -11,8 +11,12 @@ export async function getVideos(params = {}) {
   });
 
   const res = await fetch(`${BASE}?${query}`, {
-    next: { revalidate: 3600 }, // cache for SEO & speed
+    next: { revalidate: 3600 },
   });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch videos: ${res.status}`);
+  }
 
   return res.json();
 }
@@ -22,5 +26,15 @@ export async function getVideoById(id) {
     `https://www.eporner.com/api/v2/video/id/?id=${id}&format=json`,
     { next: { revalidate: 86400 } }
   );
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch video: ${res.status}`);
+  }
+
+  const contentType = res.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    throw new Error("Invalid response format - expected JSON");
+  }
+
   return res.json();
 }
