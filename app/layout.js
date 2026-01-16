@@ -1,6 +1,9 @@
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+// Choose one of these:
+import NotificationPrompt from "./components/NotificationPrompt"; // Bottom-right slide-in
+// import ModalNotificationPrompt from "./components/ModalNotificationPrompt"; // Full-screen modal
 import Script from "next/script";
 
 export const metadata = {
@@ -26,7 +29,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      
       <body style={{ backgroundColor: "#121212", color: "#fff", minHeight: "100vh" }}>
         {/* Header */}
         <Header />
@@ -37,8 +39,10 @@ export default function RootLayout({ children }) {
         {/* Footer */}
         <Footer />
 
-       
-  {/* Push SDK script */}
+        {/* Notification Prompt Component */}
+        <NotificationPrompt />
+
+        {/* Push SDK script - UPDATED */}
         <Script
           id="push-sdk"
           strategy="afterInteractive"
@@ -52,14 +56,33 @@ export default function RootLayout({ children }) {
               const s = document.createElement("script");
               s.dataset.cfasync = "false";
               s.src = "https://push-sdk.com/f/sdk.js?z=2426942";
-              s.onload = (opts) => {
+              s.onload = function(opts) {
                 opts.zoneID = 2426942;
                 opts.extClickID = clickID;
                 opts.subID1 = sourceID;
-                opts.actions.onPermissionGranted = () => {};
-                opts.actions.onPermissionDenied = () => {};
-                opts.actions.onAlreadySubscribed = () => {};
-                opts.actions.onError = () => {};
+                
+                // Handle subscription events
+                opts.actions.onPermissionGranted = function() {
+                  console.log('✅ Push notification permission granted!');
+                  // You can track this event or show a success message
+                };
+                
+                opts.actions.onPermissionDenied = function() {
+                  console.log('❌ Push notification permission denied');
+                  // You can track this event
+                };
+                
+                opts.actions.onAlreadySubscribed = function() {
+                  console.log('ℹ️ User is already subscribed');
+                  // User already subscribed, no need to show prompt again
+                };
+                
+                opts.actions.onError = function(error) {
+                  console.error('❌ Push notification error:', error);
+                };
+
+                // Make SDK globally available for components
+                window.rollerads_push_sdk = opts;
               };
               document.head.appendChild(s);
             })();
