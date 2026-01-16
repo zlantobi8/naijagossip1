@@ -14,7 +14,7 @@ export default async function HomePage({ searchParams }) {
 
   return (
     <main>
-      <Header />
+
       <h2 className="section-title">Videos</h2>
       <VideoGrid videos={data.videos} />
 
