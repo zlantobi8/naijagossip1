@@ -17,14 +17,14 @@ export default function Header() {
   };
 
   const categories = [
-    { name: "Trending", order: "top-weekly" },
-    { name: "Latest", order: "latest" },
-    { name: "Top Today", order: "top-today" },
-    { name: "Popular", order: "popular" },
+    { name: "Home", path: "/" },           // <-- changed
+    { name: "Latest", path: "/?order=latest" },
+    { name: "Top Today", path: "/?order=top-today" },
+    { name: "Popular", path: "/?order=popular" },
   ];
 
-  const handleCategoryClick = (order) => {
-    window.location.href = `/?order=${order}`;
+  const handleCategoryClick = (path) => {
+    window.location.href = path;
   };
 
   return (
@@ -49,7 +49,7 @@ export default function Header() {
       </div>
       <div className="categories">
         {categories.map((cat) => (
-          <div key={cat.order} onClick={() => handleCategoryClick(cat.order)}>
+          <div key={cat.name} onClick={() => handleCategoryClick(cat.path)}>
             {cat.name}
           </div>
         ))}

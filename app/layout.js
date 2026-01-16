@@ -1,6 +1,7 @@
 import "./globals.css";
 import Header from "./components/Header";
 import Script from "next/script";
+import Footer from "./components/Footer";
 
 export const metadata = {
   title: "Hot Trending porn Videos",
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
         {/* Header will be inside pages if you want, but you can add here globally too */}
         <Header />
         <main>{children}</main>
-
+<Footer/>
         {/* Push SDK Script */}
         <Script
           id="push-sdk"

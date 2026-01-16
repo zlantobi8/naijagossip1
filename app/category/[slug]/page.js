@@ -16,7 +16,7 @@ export default async function CategoryPage({ params, searchParams }) {
 
   return (
     <main>
-      <Header />
+  
       <h2 className="section-title">
         {q ? `Search results for "${q}"` : slug}
       </h2>

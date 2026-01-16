@@ -38,7 +38,7 @@ export default async function VideoPage({ params }) {
     console.error("Error fetching video:", error);
     return (
       <main>
-        <Header />
+      
         <div className="video-page-container">
           <h1 className="video-title">Video not found</h1>
           <p style={{ color: 'rgba(255, 255, 255, 0.7)', marginTop: '16px' }}>
@@ -61,7 +61,7 @@ export default async function VideoPage({ params }) {
   if (!v || !v.embed) {
     return (
       <main>
-        <Header />
+    
         <div className="video-page-container">
           <h1 className="video-title">Video not found</h1>
           <p style={{ color: 'rgba(255, 255, 255, 0.7)', marginTop: '16px' }}>
@@ -74,7 +74,7 @@ export default async function VideoPage({ params }) {
 
   return (
     <main>
-      <Header />
+  
       <div className="video-page-container">
         <div className="video-player-section">
           <div className="player-wrapper">
