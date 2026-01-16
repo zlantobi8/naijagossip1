@@ -1,8 +1,8 @@
 import { getVideos } from "./lib/eporner";
-import Header from "./components/Header";
 import VideoGrid from "./components/VideoGrid";
 
 export default async function HomePage({ searchParams }) {
+  // unwrap the promise
   const params = await searchParams;
   const order = params?.order || "top-weekly";
   const page = parseInt(params?.page || "1");
@@ -10,11 +10,10 @@ export default async function HomePage({ searchParams }) {
   const data = await getVideos({ order, page });
 
   const prevPage = page > 1 ? page - 1 : null;
-  const nextPage = data.videos.length > 0 ? page + 1 : null;
+  const nextPage = data.videos.length === 24 ? page + 1 : null;
 
   return (
     <main>
-
       <h2 className="section-title">Videos</h2>
       <VideoGrid videos={data.videos} />
 
