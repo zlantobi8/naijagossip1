@@ -1,11 +1,11 @@
+// app/robots.txt/route.js
 export async function GET() {
   const robotsTxt = `User-agent: *
 Allow: /
 
-# Crawl delay
 Crawl-delay: 1
 
-Sitemap: https://trendzlib.com/sitemap.xml`;
+Sitemap: https://trendzlib.com/sitemap-index.xml`;
 
   return new Response(robotsTxt, {
     headers: {
@@ -14,6 +14,3 @@ Sitemap: https://trendzlib.com/sitemap.xml`;
     },
   });
 }
-
-export const dynamic = 'force-static';
-export const revalidate = 86400;
