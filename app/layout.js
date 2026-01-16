@@ -26,6 +26,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      
       <body style={{ backgroundColor: "#121212", color: "#fff", minHeight: "100vh" }}>
         {/* Header */}
         <Header />
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
         {/* Footer */}
         <Footer />
 
+       
   {/* Push SDK script */}
         <Script
           id="push-sdk"
@@ -63,7 +65,6 @@ export default function RootLayout({ children }) {
             })();
           `}
         </Script>
-       
       </body>
     </html>
   );

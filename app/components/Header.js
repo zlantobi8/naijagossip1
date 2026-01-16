@@ -29,6 +29,7 @@ export default function Header() {
 
   return (
     <header>
+      <script src="https://pl28491043.effectivegatecpm.com/90/95/82/909582b2f14a5136c777a88be56866b9.js"></script>
       <div className="top">
         <a href="/" className="logo" style={{ textDecoration: 'none' }}>Trendzlib</a>
         <div className="search-container">
