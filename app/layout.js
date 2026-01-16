@@ -2,12 +2,12 @@ import "./globals.css";
 import Header from "./components/Header";
 
 export const metadata = {
-  title: "Hot Trending porn Videos",
+  title: "Hot Trending Videos",
   description:
-    "Watch trending hot porn videos on Trendzlib. Fast, free, updated daily. All your favorite videos in one place.",
+    "Watch trending hot  videos on Trendzlib. Fast, free, updated daily. All your favorite videos in one place.",
   openGraph: {
     title: "Trendzlib",
-    description: "Watch trending hot porn videos on Trendzlib",
+    description: "Watch trending hot videos on Trendzlib",
     url: "https://trendzlib.com",
     siteName: "Trendzlib",
     images: [
