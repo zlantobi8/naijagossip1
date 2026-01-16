@@ -5,36 +5,33 @@ const CATEGORIES = ["top-weekly", "top-today", "latest", "popular"];
 const PER_PAGE = 100;
 const MAX_PAGES = 5;
 
-export default async function sitemap() {
+export async function GET() {
   const urls = [];
   const baseUrl = "https://trendzlib.com";
 
   // Add homepage
-  urls.push({
-    url: baseUrl,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 1.0,
-  });
+  urls.push(`  <url>
+    <loc>${baseUrl}/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>`);
 
   // Add static pages
   STATIC_PAGES.forEach((page) => {
-    urls.push({
-      url: `${baseUrl}/${page}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    });
+    urls.push(`  <url>
+    <loc>${baseUrl}/${page}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>`);
   });
 
   // Add category pages
   CATEGORIES.forEach((cat) => {
-    urls.push({
-      url: `${baseUrl}/?order=${cat}`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.8,
-    });
+    urls.push(`  <url>
+    <loc>${baseUrl}/?order=${cat}</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>`);
   });
 
   // Fetch videos dynamically (paginated)
@@ -45,12 +42,11 @@ export default async function sitemap() {
       if (videos.length === 0) break;
 
       videos.forEach((v) => {
-        urls.push({
-          url: `${baseUrl}/video/${v.id}`,
-          lastModified: new Date(),
-          changeFrequency: 'weekly',
-          priority: 0.6,
-        });
+        urls.push(`  <url>
+    <loc>${baseUrl}/video/${v.id}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>`);
       });
     } catch (err) {
       console.warn(`Failed to fetch videos for sitemap page ${page}:`, err);
@@ -58,8 +54,17 @@ export default async function sitemap() {
     }
   }
 
-  return urls;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join("\n")}
+</urlset>`;
+
+  return new Response(xml, {
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600",
+    },
+  });
 }
 
-// Optional: Set revalidation time
-export const revalidate = 3600; // Revalidate every hour
+export const dynamic = 'force-dynamic';
