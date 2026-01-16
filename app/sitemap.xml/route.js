@@ -1,33 +1,15 @@
-// app/sitemap/route.js
-import { getAllRoutes } from "../lib/route";
+import { getVideos } from "../lib/eporner";
 
-export async function GET() {
-  const routes = await getAllRoutes();
-const baseUrl = "https://www.trendzlib.com.ng";
+export default async function sitemap() {
+  const data = await getVideos({ order: "top-weekly" });
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset 
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
-                      http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  const videos = data.videos.map(v => ({
+    url: `https://trendzlib.com/video/${v.id}`,
+    lastModified: new Date(),
+  }));
 
-${routes
-  .map(
-    ({ slug, lastModified, changefreq, priority }) => `  <url>
-    <loc>${baseUrl}${slug}</loc>
-    <lastmod>${new Date(lastModified).toISOString()}</lastmod>
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
-  </url>`
-  )
-  .join("\n")}
-</urlset>`;
-
-  return new Response(xml, {
-    headers: {
-      "Content-Type": "application/xml",
-      "Cache-Control": "s-maxage=21600, stale-while-revalidate", // 6h cache
-    },
-  });
+  return [
+    { url: "https://trendzlib.com", lastModified: new Date() },
+    ...videos,
+  ];
 }
