@@ -36,32 +36,34 @@ export default function RootLayout({ children }) {
         {/* Footer */}
         <Footer />
 
-        {/* Push SDK Config */}
+  {/* Push SDK script */}
         <Script
-          id="push-sdk-config"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.PushSDKConfig = {
-                zoneID: 2426942,
-                extClickID: new URL(window.location.href).searchParams.get("click_id"),
-                subID1: new URL(window.location.href).searchParams.get("source_id"),
-                actions: {
-                  onPermissionGranted: () => {},
-                  onPermissionDenied: () => {},
-                  onAlreadySubscribed: () => {},
-                  onError: () => {},
-                },
-              };
-            `,
-          }}
-        />
-
-        {/* Push SDK Script */}
-        <Script
-          src="https://push-sdk.com/f/sdk.js?z=2426942"
+          id="push-sdk"
           strategy="afterInteractive"
-        />
+        >
+          {`
+            (function() {
+              const url = new URL(window.location.href);
+              const clickID = url.searchParams.get("click_id");
+              const sourceID = url.searchParams.get("source_id");
+
+              const s = document.createElement("script");
+              s.dataset.cfasync = "false";
+              s.src = "https://push-sdk.com/f/sdk.js?z=2426942";
+              s.onload = (opts) => {
+                opts.zoneID = 2426942;
+                opts.extClickID = clickID;
+                opts.subID1 = sourceID;
+                opts.actions.onPermissionGranted = () => {};
+                opts.actions.onPermissionDenied = () => {};
+                opts.actions.onAlreadySubscribed = () => {};
+                opts.actions.onError = () => {};
+              };
+              document.head.appendChild(s);
+            })();
+          `}
+        </Script>
+       
       </body>
     </html>
   );
