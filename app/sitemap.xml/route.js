@@ -11,10 +11,7 @@ export async function GET() {
   // Add homepage
   urls.push(`<url><loc>https://trendzlib.com/</loc></url>`);
 
-  // Add static pages
-  STATIC_PAGES.forEach((page) => {
-    urls.push(`<url><loc>https://trendzlib.com/${page}</loc></url>`);
-  });
+
 
   // Add category pages
   CATEGORIES.forEach((cat) => {
