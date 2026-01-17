@@ -1,4 +1,3 @@
-// app/robots.txt/route.js
 export async function GET() {
   const robotsTxt = `User-agent: *
 Allow: /
