@@ -30,6 +30,7 @@ export default function Header() {
 
   return (
     <header>
+      <meta name="tubecorporate_com_verify.html" content="c3945ca3fdd4aad0f7703cf22414b04c"/>
       <div className="top">
         <a href="/" className="logo" style={{ textDecoration: 'none' }}>Trendzlib</a>
         <div className="search-container">
@@ -55,6 +56,7 @@ export default function Header() {
           </div>
         ))}
       </div>
+      
     </header>
   );
 }

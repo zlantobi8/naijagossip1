@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
         <Footer />
 
         {/* Notification Prompt Component */}
-        <ContentGatePushModal />
+        {/* <ContentGatePushModal /> */}
 
         {/* DELAYED Push SDK with proper loading */}
         <Script
