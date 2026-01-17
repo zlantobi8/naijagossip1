@@ -3,10 +3,8 @@
 // Sitemap index that references all sitemaps
 // ===========================================
 export async function GET(request) {
-  // Get the actual host from the request - this ensures correct URLs
-  const host = request.headers.get('host') || 'trendzlib.com.ng';
-  const protocol = request.headers.get('x-forwarded-proto') || 'https';
-  const baseUrl = `${protocol}://${host}`;
+
+  const baseUrl = 'https://trendzlib.com.ng'
   
   const currentDate = new Date().toISOString();
   
