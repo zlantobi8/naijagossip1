@@ -5,7 +5,7 @@
 import { getVideos } from '../lib/eporner';
 
 export async function GET() {
-  const baseUrl = 'https://trendzlib.com';
+  const baseUrl = 'https://trendzlib.com.ng';
   const currentDate = new Date().toISOString().split('T')[0];
   
   let videoUrls = [];

@@ -3,7 +3,7 @@
 // Sitemap index that references all sitemaps
 // ===========================================
 export async function GET() {
-  const baseUrl = 'https://trendzlib.com';
+  const baseUrl = 'https://trendzlib.com.ng';
   const currentDate = new Date().toISOString();
   
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>

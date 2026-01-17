@@ -4,7 +4,7 @@ Allow: /
 
 Crawl-delay: 1
 
-Sitemap: https://trendzlib.com/sitemap-index.xml`;
+Sitemap: https://trendzlib.com.ng/sitemap-index.xml`;
 
   return new Response(robotsTxt, {
     headers: {
