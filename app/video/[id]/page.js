@@ -1,6 +1,7 @@
+// app/video/[id]/page.js
 import { getVideoById, getVideos } from "./../../lib/eporner";
-import Header from "./../../components/Header";
 import VideoGrid from "./../../components/VideoGrid";
+import VideoPlayer from "./../../components/VideoPlayer";
 
 export async function generateMetadata({ params }) {
   const p = await params;
@@ -8,6 +9,7 @@ export async function generateMetadata({ params }) {
   try {
     const data = await getVideoById(p.id);
     const v = data.video || data;
+    const thumbnailUrl = v.default_thumb?.src || v.thumbs?.[0]?.src || v.thumb || '/pics.jpg';
 
     return {
       title: v.title + " | Trendzlib",
@@ -15,9 +17,15 @@ export async function generateMetadata({ params }) {
       openGraph: {
         title: v.title,
         description: v.title,
-        images: [{ url: v.default_thumb?.src || v.thumbs?.[0]?.src || '' }],
+        images: [{ url: thumbnailUrl }],
         siteName: "Trendzlib",
         type: "video.other",
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: v.title,
+        description: v.title,
+        images: [thumbnailUrl],
       },
     };
   } catch (error) {
@@ -31,14 +39,17 @@ export async function generateMetadata({ params }) {
 export default async function VideoPage({ params }) {
   const p = await params;
   
-  let data;
-  try {
-    data = await getVideoById(p.id);
-  } catch (error) {
-    console.error("Error fetching video:", error);
+  // Parallel data fetching for faster loading
+  const [videoResult, relatedResult] = await Promise.allSettled([
+    getVideoById(p.id),
+    getVideos({ order: "top-weekly", per_page: 12 })
+  ]);
+  
+  // Handle video fetch error
+  if (videoResult.status === 'rejected') {
+    console.error("Error fetching video:", videoResult.reason);
     return (
       <main>
-      
         <div className="video-page-container">
           <h1 className="video-title">Video not found</h1>
           <p style={{ color: 'rgba(255, 255, 255, 0.7)', marginTop: '16px' }}>
@@ -52,16 +63,19 @@ export default async function VideoPage({ params }) {
     );
   }
   
+  const data = videoResult.value;
   const v = data.video || data;
+  const thumbnailUrl = v.default_thumb?.src || v.thumbs?.[0]?.src || v.thumb || '/pics.jpg';
   
-  // Get related videos
-  const relatedData = await getVideos({ order: "top-weekly", per_page: 12 });
+  // Get related videos (fallback to empty array if failed)
+  const relatedData = relatedResult.status === 'fulfilled' 
+    ? relatedResult.value 
+    : { videos: [] };
 
   // Handle missing data gracefully
   if (!v || !v.embed) {
     return (
       <main>
-    
         <div className="video-page-container">
           <h1 className="video-title">Video not found</h1>
           <p style={{ color: 'rgba(255, 255, 255, 0.7)', marginTop: '16px' }}>
@@ -74,12 +88,9 @@ export default async function VideoPage({ params }) {
 
   return (
     <main>
-  
       <div className="video-page-container">
         <div className="video-player-section">
-          <div className="player-wrapper">
-            <iframe src={v.embed} allowFullScreen />
-          </div>
+          <VideoPlayer embedUrl={v.embed} thumbnailUrl={thumbnailUrl} title={v.title} />
           <div className="video-info">
             <h1 className="video-title">{v.title}</h1>
             <div className="video-meta">
