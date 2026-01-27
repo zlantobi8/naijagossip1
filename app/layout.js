@@ -89,35 +89,48 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* RichInfo Ads */}
-        <Script
-          src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js"
-          data-pubid="991655"
-          data-siteid="385068"
-          async
-          data-cfasync="false"
-          strategy="afterInteractive"
-        />
-
-        {/* CPP Ads */}
-        <Script id="cpp-ads" strategy="afterInteractive">
-          {`
-            var _cpp = _cpp || [];
-            _cpp['source_id'] = '105502';
-            _cpp['pop_type'] = '10';
-            _cpp['onePer'] = '0';
-            _cpp['freq'] = '0';
-            _cpp['fb'] = '01';
-            (function() {
-              var hs = document.createElement('script');
-              hs.type = 'text/javascript';
-              hs.async = true;
-              hs.src = '//cdn1.adcdnx.com/s/adp1v3.js';
-              var cs = document.getElementsByTagName('script')[0];
-              cs.parentNode.insertBefore(hs, cs);
-            })();
-          `}
-        </Script>
+      <Script
+  id="intelligence-ads"
+  strategy="lazyOnload"
+  dangerouslySetInnerHTML={{
+    __html: `
+(function(){
+  var a=window,
+  q="dbf7f1a4e7f933586fb8573ab5e33727",
+  m=[
+    ["siteId",5267553],
+    ["minBid",0],
+    ["popundersPerIP","0"],
+    ["delayBetween",0],
+    ["default",false],
+    ["defaultPerDay",0],
+    ["topmostLayer","auto"]
+  ],
+  t=[
+    "d3d3LmludGVsbGlnZW5jZWFkeC5jb20vT2RGYVZ6L3plcG9jaC5taW4uanM=",
+    "ZDJrbHg4N2Jnem5nY2UuY2xvdWRmcm9udC5uZXQvc2xOWlZxL2lqRy9xbmctcHJldHR5anNvbi5taW4uY3Nz"
+  ],
+  u=-1,d,p,k=function(){
+    clearTimeout(p);
+    u++;
+    if(t[u]){
+      d=a.document.createElement("script");
+      d.type="text/javascript";
+      d.async=true;
+      var r=a.document.getElementsByTagName("script")[0];
+      d.src="https://"+atob(t[u]);
+      d.crossOrigin="anonymous";
+      d.onerror=k;
+      d.onload=function(){clearTimeout(p)};
+      p=setTimeout(k,5000);
+      r.parentNode.insertBefore(d,r);
+    }
+  };
+  k();
+})();
+    `,
+  }}
+/>
 
       
       </body>
