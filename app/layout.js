@@ -2,8 +2,6 @@ import './globals.css';
 import StructuredData from './components/StructuredData';
 import Script from 'next/script';
 
-
-
 const siteTitle = 'Trendzlib - Nigerian Entertainment & Sports News';
 const siteDescription =
   'Get the hottest Nigerian celebrity gossip, Nollywood gist, Afrobeats news, BBNaija updates & football stories. Your #1 source for entertainment & sport!';
@@ -69,50 +67,59 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="lCDah4iYAgPHYOH9uos6V9W7iTHIQRymXpVT3drRGWQ"
         />
+        <meta
+          name="juicyads-site-verification"
+          content="0bb974242fe866cf3a887e7b0d5f9c65"
+        />
+        <meta
+          name="6a97888e-site-verification"
+          content="820479814b0b307565ef6fd233fbf733"
+        />
         <link rel="icon" href="/assets/img/favicon.png" />
-        <script
-          src="https://kit.fontawesome.com/36253d02c7.js"
-          crossOrigin="anonymous"
-        ></script>
-      <meta name="juicyads-site-verification" content="0bb974242fe866cf3a887e7b0d5f9c65"></meta>
-      <meta name="6a97888e-site-verification" content="820479814b0b307565ef6fd233fbf733"></meta>
-<script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="991655" data-siteid="385068" async data-cfasync="false"></script>
       </head>
 
       <body>
         <StructuredData />
-
         {children}
 
-  {/* Push SDK script */}
+        {/* FontAwesome */}
         <Script
-          id="push-sdk"
+          src="https://kit.fontawesome.com/36253d02c7.js"
+          crossOrigin="anonymous"
           strategy="afterInteractive"
-        >
-          {`
-            (function() {
-              const url = new URL(window.location.href);
-              const clickID = url.searchParams.get("click_id");
-              const sourceID = url.searchParams.get("source_id");
+        />
 
-              const s = document.createElement("script");
-              s.dataset.cfasync = "false";
-              s.src = "https://push-sdk.com/f/sdk.js?z=2426942";
-              s.onload = (opts) => {
-                opts.zoneID = 2426942;
-                opts.extClickID = clickID;
-                opts.subID1 = sourceID;
-                opts.actions.onPermissionGranted = () => {};
-                opts.actions.onPermissionDenied = () => {};
-                opts.actions.onAlreadySubscribed = () => {};
-                opts.actions.onError = () => {};
-              };
-              document.head.appendChild(s);
+        {/* RichInfo Ads */}
+        <Script
+          src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js"
+          data-pubid="991655"
+          data-siteid="385068"
+          async
+          data-cfasync="false"
+          strategy="afterInteractive"
+        />
+
+        {/* CPP Ads */}
+        <Script id="cpp-ads" strategy="afterInteractive">
+          {`
+            var _cpp = _cpp || [];
+            _cpp['source_id'] = '105502';
+            _cpp['pop_type'] = '10';
+            _cpp['onePer'] = '0';
+            _cpp['freq'] = '0';
+            _cpp['fb'] = '01';
+            (function() {
+              var hs = document.createElement('script');
+              hs.type = 'text/javascript';
+              hs.async = true;
+              hs.src = '//cdn1.adcdnx.com/s/adp1v3.js';
+              var cs = document.getElementsByTagName('script')[0];
+              cs.parentNode.insertBefore(hs, cs);
             })();
           `}
         </Script>
 
-
+      
       </body>
     </html>
   );
