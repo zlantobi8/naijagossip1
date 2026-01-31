@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /_next/
-Disallow: /api/
-Sitemap: https://naijagossip.vercel.app/sitemap.xml

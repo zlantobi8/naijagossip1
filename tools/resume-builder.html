@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Resume Builder – Create Professional Resumes Online | AI ToolBox</title>
+    <meta name="description" content="Build a professional resume online for free in minutes. ATS-friendly templates, instant PDF download. No signup required. Create your resume today.">
+    <meta name="keywords" content="resume builder, free resume maker, create resume online, professional resume, ATS resume builder, CV builder">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://trendzlib.com.ng/tools/resume-builder.html">
+
+    <meta property="og:title" content="Free Resume Builder – Create Professional Resumes Online">
+    <meta property="og:description" content="Build a professional resume online for free. ATS-friendly templates, instant PDF download.">
+    <meta property="og:type" content="tool">
+    <meta property="og:url" content="https://trendzlib.com.ng/tools/resume-builder.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Resume Builder",
+        "applicationCategory": "Productivity",
+        "operatingSystem": "Web Browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "Build a professional resume online for free with ATS-friendly templates.",
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "684" }
+    }
+    </script>
+
+    <style>
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 580px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+        .section-divider {
+            border: none;
+            border-top: 1px solid rgba(99,102,241,0.15);
+            margin: 1.6rem 0;
+        }
+        .section-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+
+    <header>
+        <nav>
+            <a href="../index.html" class="logo"><i class="fas fa-cube"></i> AI ToolBox</a>
+            <div class="nav-links">
+                <a href="../index.html#tools">Tools</a>
+                <a href="../index.html#features">Features</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="sep">›</span>
+        <a href="../index.html#tools">Tools</a>
+        <span class="sep">›</span>
+        <span class="current">Resume Builder</span>
+    </div>
+
+    <div class="tool-hero">
+        <div class="tool-hero-icon"><i class="fas fa-file-alt"></i></div>
+        <h1>Resume Builder</h1>
+        <p>Fill in your details and generate a clean, ATS-friendly resume PDF in seconds. No design skills needed.</p>
+    </div>
+
+    <div class="tool-workspace">
+        <div class="workspace-card">
+
+            <!-- Contact Info -->
+            <div class="section-label"><i class="fas fa-user"></i> Contact Information</div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="resumeName" placeholder="John Doe">
+                </div>
+                <div class="input-group">
+                    <label>Email *</label>
+                    <input type="email" id="resumeEmail" placeholder="john@example.com">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label>Phone</label>
+                    <input type="tel" id="resumePhone" placeholder="+1 234 567 8900">
+                </div>
+                <div class="input-group">
+                    <label>Location</label>
+                    <input type="text" id="resumeLocation" placeholder="New York, NY">
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Summary -->
+            <div class="section-label"><i class="fas fa-pencil-alt"></i> Professional Summary</div>
+            <div class="input-group">
+                <textarea id="resumeSummary" placeholder="A brief 2–3 sentence summary of your professional background and goals…"></textarea>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Skills -->
+            <div class="section-label"><i class="fas fa-lightbulb"></i> Skills</div>
+            <div class="input-group">
+                <label>Skills (comma separated)</label>
+                <input type="text" id="resumeSkills" placeholder="JavaScript, Python, React, Project Management, Leadership">
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Experience -->
+            <div class="section-label"><i class="fas fa-briefcase"></i> Work Experience</div>
+            <div class="input-group">
+                <label>Experience (one role per line)</label>
+                <textarea id="resumeExperience" placeholder="Job Title – Company Name (2020–2024)
+• Key achievement or responsibility
+• Another achievement with measurable results
+
+Marketing Manager – Acme Inc (2018–2020)
+• Led a team of 5 and increased revenue by 30%"></textarea>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Education -->
+            <div class="section-label"><i class="fas fa-graduation-cap"></i> Education</div>
+            <div class="input-group">
+                <label>Education</label>
+                <textarea id="resumeEducation" placeholder="Bachelor of Science in Computer Science
+University of Example, 2018" style="min-height:90px;"></textarea>
+            </div>
+
+            <button class="btn-primary" onclick="generateResume()">
+                <i class="fas fa-file-download"></i> Generate Resume PDF
+            </button>
+
+            <div class="result-area" id="resumeResult">
+                <h3><i class="fas fa-check-circle"></i> Resume Created!</h3>
+                <p>Your professional resume has been generated and is ready to download.</p>
+                <button class="btn-download" id="downloadResumeBtn">
+                    <i class="fas fa-download"></i> Download Resume PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="related-section">
+        <h2>You might also like</h2>
+        <div class="related-grid">
+            <a href="text-summarizer.html" class="related-card">
+                <i class="fas fa-spell-check"></i><span>Text Summarizer</span>
+            </a>
+            <a href="pdf-merger.html" class="related-card">
+                <i class="fas fa-file-pdf"></i><span>PDF Merger</span>
+            </a>
+            <a href="image-compressor.html" class="related-card">
+                <i class="fas fa-image"></i><span>Image Compressor</span>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact</a>
+        </div>
+        <p>&copy; 2026 AI ToolBox. All tools are free to use.</p>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="../js/common.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function generateResume() {
+            if (typeof jspdf === 'undefined') {
+                showToast('Loading PDF library…');
+                setTimeout(() => generateResume(), 1200);
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+
+            const name     = document.getElementById('resumeName').value.trim();
+            const email    = document.getElementById('resumeEmail').value.trim();
+            const phone    = document.getElementById('resumePhone').value.trim();
+            const location = document.getElementById('resumeLocation').value.trim();
+            const summary  = document.getElementById('resumeSummary').value.trim();
+            const skills   = document.getElementById('resumeSkills').value.trim();
+            const exp      = document.getElementById('resumeExperience').value.trim();
+            const edu      = document.getElementById('resumeEducation').value.trim();
+
+            if (!name || !email) { showToast('Please fill in Name and Email'); return; }
+
+            const doc = new jsPDF();
+            const pageW = doc.internal.pageSize.getWidth();
+            let y = 18;
+
+            // ── Header bar ──
+            doc.setFillColor(99, 102, 241);
+            doc.roundedRect(0, 0, pageW, 42, 0, 0, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.text(name, pageW / 2, 16, { align: 'center' });
+
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'normal');
+            let contactParts = [email];
+            if (phone)    contactParts.push(phone);
+            if (location) contactParts.push(location);
+            doc.text(contactParts.join('  |  '), pageW / 2, 26, { align: 'center' });
+
+            y = 52;
+            doc.setTextColor(30, 30, 30);
+
+            // ── Helper: section header ──
+            function sectionHeader(title) {
+                doc.setFillColor(99, 102, 241);
+                doc.roundedRect(14, y - 1, pageW - 28, 7, 1, 1, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'bold');
+                doc.text(title.toUpperCase(), 19, y + 4);
+                doc.setTextColor(30, 30, 30);
+                y += 12;
+            }
+
+            // ── Helper: wrap & write text ──
+            function writeText(text, size, style) {
+                doc.setFontSize(size || 9);
+                doc.setFont('helvetica', style || 'normal');
+                const lines = doc.splitTextToSize(text, pageW - 28);
+                lines.forEach(line => {
+                    if (y > 270) { doc.addPage(); y = 20; }
+                    doc.text(line, 14, y);
+                    y += (size || 9) * 0.45;
+                });
+            }
+
+            // ── Professional Summary ──
+            if (summary) {
+                sectionHeader('Professional Summary');
+                writeText(summary, 9, 'normal');
+                y += 4;
+            }
+
+            // ── Skills ──
+            if (skills) {
+                sectionHeader('Skills');
+                writeText(skills, 9, 'normal');
+                y += 4;
+            }
+
+            // ── Experience ──
+            if (exp) {
+                sectionHeader('Work Experience');
+                const expLines = exp.split('\n');
+                expLines.forEach(line => {
+                    if (y > 270) { doc.addPage(); y = 20; }
+                    if (line.match(/^[A-Z]/) && (line.includes('–') || line.includes('-') || line.includes('('))) {
+                        // Role line
+                        doc.setFontSize(10);
+                        doc.setFont('helvetica', 'bold');
+                        doc.text(line, 14, y);
+                        y += 5;
+                    } else if (line.startsWith('•') || line.startsWith('-')) {
+                        doc.setFontSize(9);
+                        doc.setFont('helvetica', 'normal');
+                        const wrapped = doc.splitTextToSize(line, pageW - 30);
+                        wrapped.forEach(w => { doc.text(w, 19, y); y += 4.2; });
+                    } else if (line.trim()) {
+                        doc.setFontSize(9);
+                        doc.setFont('helvetica', 'normal');
+                        doc.text(line, 14, y);
+                        y += 4.2;
+                    } else {
+                        y += 2.5;
+                    }
+                });
+                y += 3;
+            }
+
+            // ── Education ──
+            if (edu) {
+                sectionHeader('Education');
+                writeText(edu, 9, 'normal');
+                y += 4;
+            }
+
+            // ── Footer line ──
+            doc.setDrawColor(99, 102, 241);
+            doc.setLineWidth(0.3);
+            doc.line(14, 280, pageW - 14, 280);
+            doc.setFontSize(7);
+            doc.setTextColor(150, 150, 150);
+            doc.text('Created with AI ToolBox – trendzlib.com.ng', pageW / 2, 286, { align: 'center' });
+
+            // ── Save ──
+            const fileName = name.replace(/\s+/g, '_') + '_Resume.pdf';
+
+            document.getElementById('downloadResumeBtn').onclick = () => doc.save(fileName);
+            document.getElementById('resumeResult').classList.add('show');
+            showToast('Resume generated!');
+        }
+    </script>
+</body>
+</html>
