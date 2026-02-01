@@ -14,7 +14,7 @@
     
     <!-- PDF Merger Tool -->
     <url>
-        <loc>https://trendzlib.com.ng/tools/pdf-merger</loc>
+        <loc>https://trendzlib.com.ng/tools/pdf-merger/</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
@@ -22,7 +22,7 @@
     
     <!-- Image Compressor Tool -->
     <url>
-        <loc>https://trendzlib.com.ng/tools/image-compressor</loc>
+        <loc>https://trendzlib.com.ng/tools/image-compressor/</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
@@ -30,7 +30,7 @@
     
     <!-- QR Code Generator Tool -->
     <url>
-        <loc>https://trendzlib.com.ng/tools/qr-generator</loc>
+        <loc>https://trendzlib.com.ng/tools/qr-generator/</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
@@ -38,7 +38,7 @@
     
     <!-- Text Summarizer Tool -->
     <url>
-        <loc>https://trendzlib.com.ng/tools/text-summarizer</loc>
+        <loc>https://trendzlib.com.ng/tools/text-summarizer/</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
@@ -46,7 +46,7 @@
     
     <!-- Resume Builder Tool -->
     <url>
-        <loc>https://trendzlib.com.ng/tools/resume-builder</loc>
+        <loc>https://trendzlib.com.ng/tools/resume-builder/</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
@@ -54,41 +54,42 @@
     
     <!-- Color Palette Generator Tool -->
     <url>
-        <loc>https://trendzlib.com.ng/tools/color-palette</loc>
+        <loc>https://trendzlib.com.ng/tools/color-palette/</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
-       <!-- blog -->
+    <!-- Blog -->
     <url>
-        <loc>https://trendzlib.com.ng/blog</loc>
+        <loc>https://trendzlib.com.ng/blog/</loc>
         <lastmod>2026-02-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
     </url>
 
-       <!-- privacy policy -->
+    <!-- Privacy Policy -->
     <url>
-        <loc>https://trendzlib.com.ng/privacy-policy</loc>
+        <loc>https://trendzlib.com.ng/privacy-policy/</loc>
         <lastmod>2026-02-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
     </url>
 
-       <!-- terms of service -->
+    <!-- Terms of Service -->
     <url>
-        <loc>https://trendzlib.com.ng/terms-of-service</loc>
+        <loc>https://trendzlib.com.ng/terms-of-service/</loc>
         <lastmod>2026-02-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
     </url>
 
-       <!-- contact -->
+    <!-- Contact -->
     <url>
-        <loc>https://trendzlib.com.ng/contact</loc>
+        <loc>https://trendzlib.com.ng/contact/</loc>
         <lastmod>2026-02-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
     </url>
+    
 </urlset>
