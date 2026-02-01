@@ -1,0 +1,15 @@
+# Trendzlib ToolBox - Robots.txt
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://trendzlib.com.ng/sitemap.xml
+
+# Crawl-delay (optional - helps prevent server overload)
+Crawl-delay: 1
+
+# Disallow any future admin or private directories
+# Disallow: /admin/
+# Disallow: /private/
