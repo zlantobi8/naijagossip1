@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Color Palette Generator – Create Color Schemes Online | AI ToolBox</title>
+    <title>Free Color Palette Generator – Create Color Schemes Online | Trendzlib</title>
     <meta name="description" content="Generate beautiful color palettes and schemes online for free. Analogous, complementary, triadic, and monochromatic palettes. Perfect for designers.">
-    <meta name="keywords" content="color palette generator, color scheme generator, free color palette, design colors, complementary colors, color picker tool">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://trendzlib.com.ng/tools/color-palette">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://trendzlib.com.ng/tools/color-palette/">
 
     <meta property="og:title" content="Free Color Palette Generator – Create Color Schemes Online">
     <meta property="og:description" content="Generate beautiful color palettes online for free. Analogous, complementary, triadic, and monochromatic schemes.">
-    <meta property="og:type" content="tool">
-    <meta property="og:url" content="https://trendzlib.com.ng/tools/color-palette">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://trendzlib.com.ng/tools/color-palette/">
+    <meta property="og:image" content="https://trendzlib.com.ng/images/logo.png">
 
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles.css">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236366f1'/%3E%3Cstop offset='100%25' style='stop-color:%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='70' font-size='60' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3ET%3C/text%3E%3C/svg%3E">
-<meta property="og:image" content="https://trendzlib.com.ng/images/logo.png">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236366f1'/%3E%3Cstop offset='100%25' style='stop-color:%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='70' font-size='60' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3ET%3C/text%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="/css/styles.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -34,139 +38,130 @@
         "logo": "https://trendzlib.com.ng/images/logo.png",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "description": "Generate beautiful color palettes and schemes online for free.",
-        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "356" }
+        "url": "https://trendzlib.com.ng/tools/color-palette/"
     }
     </script>
 
     <style>
-        .color-input-row {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 1rem;
-            align-items: end;
-        }
+        .color-input-row { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: end; }
         .color-input-row .input-group:first-child { max-width: 90px; }
-        .color-input-row input[type="color"] {
-            width: 100%;
-            height: 44px;
-            padding: 0.15rem 0.3rem;
-            border-radius: 10px;
-            cursor: pointer;
-            background: transparent;
+        .color-input-row input[type="color"] { width: 100%; height: 44px; padding: 0.15rem 0.3rem; border-radius: 10px; cursor: pointer; background: transparent; }
+        .swatch-btn {
+            cursor: pointer; transition: transform 0.2s; position: relative;
+            background: none; border: none; padding: 0; width: 100%;
         }
-        .swatch-click {
-            cursor: pointer;
-            transition: transform 0.2s;
-            position: relative;
+        .swatch-btn:hover { transform: scale(1.06); }
+        .swatch-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 8px; }
+        .copy-tip {
+            position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+            background: rgba(15,23,42,0.9); color: #fff; font-size: 0.7rem; padding: 0.2rem 0.5rem;
+            border-radius: 4px; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none;
         }
-        .swatch-click:hover { transform: scale(1.06); }
-        .swatch-click .copy-tip {
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15,23,42,0.9);
-            color: #fff;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
-        }
-        .swatch-click:hover .copy-tip { opacity: 1; }
+        .swatch-btn:hover .copy-tip,
+        .swatch-btn:focus-visible .copy-tip { opacity: 1; }
     </style>
 </head>
 <body>
-    <div class="gradient-bg"></div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="gradient-bg" aria-hidden="true"></div>
 
     <header>
-        <nav>
-            <a href="../" class="logo"><i class="fas fa-cube"></i> AI ToolBox</a>
-            <div class="nav-links">
-                <a href="../#tools">Tools</a>
-                <a href="../#features">Features</a>
+        <nav aria-label="Main navigation">
+            <a href="/" class="logo"><i class="fas fa-cube" aria-hidden="true"></i> Trendzlib ToolBox</a>
+            <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="/#tools">Tools</a>
+                <a href="/#features">Features</a>
+                <a href="/blog/">Blog</a>
+                <a href="/contact/">Contact</a>
             </div>
         </nav>
     </header>
 
-    <div class="breadcrumb">
-        <a href="../">Home</a>
-        <span class="sep">›</span>
-        <a href="../#tools">Tools</a>
-        <span class="sep">›</span>
-        <span class="current">Color Palette Generator</span>
-    </div>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <a href="/#tools">Tools</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <span class="current" aria-current="page">Color Palette Generator</span>
+    </nav>
 
-    <div class="tool-hero">
-        <div class="tool-hero-icon"><i class="fas fa-palette"></i></div>
-        <h1>Color Palette Generator</h1>
-        <p>Pick a base color and a harmony type to instantly generate a beautiful, cohesive color palette for your next project.</p>
-    </div>
+    <main id="main-content">
+        <div class="tool-hero">
+            <div class="tool-hero-icon" aria-hidden="true"><i class="fas fa-palette"></i></div>
+            <h1>Color Palette Generator</h1>
+            <p>Pick a base colour and a harmony type to instantly generate a beautiful, cohesive colour palette for your next project.</p>
+        </div>
 
-    <div class="tool-workspace">
-        <div class="workspace-card">
+        <div class="tool-workspace">
+            <div class="workspace-card">
 
-            <div class="color-input-row">
-                <div class="input-group">
-                    <label>Base Color</label>
-                    <input type="color" id="baseColor" value="#6366f1">
+                <div class="color-input-row">
+                    <div class="input-group">
+                        <label for="baseColor">Base Colour</label>
+                        <input type="color" id="baseColor" value="#6366f1" aria-label="Choose a base colour">
+                    </div>
+                    <div class="input-group">
+                        <label for="paletteType">Palette Type</label>
+                        <select id="paletteType" aria-label="Choose colour harmony type">
+                            <option value="analogous">Analogous – Colours next to each other</option>
+                            <option value="complementary">Complementary – Opposite colours for contrast</option>
+                            <option value="triadic">Triadic – Three evenly spaced colours</option>
+                            <option value="monochromatic">Monochromatic – Shades &amp; tints of one colour</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>Palette Type</label>
-                    <select id="paletteType">
-                        <option value="analogous">Analogous – Colors next to each other on the wheel</option>
-                        <option value="complementary">Complementary – Opposite colors for contrast</option>
-                        <option value="triadic">Triadic – Three evenly spaced colors</option>
-                        <option value="monochromatic">Monochromatic – Shades & tints of one color</option>
-                    </select>
-                </div>
-            </div>
 
-            <button class="btn-primary" onclick="generatePalette()">
-                <i class="fas fa-magic"></i> Generate Palette
-            </button>
-
-            <div class="result-area" id="colorResult">
-                <h3><i class="fas fa-check-circle"></i> Palette Generated!</h3>
-                <p style="font-size:0.82rem;color:var(--gray);margin-top:0.2rem;">Click any swatch to copy its hex code</p>
-                <div class="palette-grid" id="paletteDisplay"></div>
-                <button class="btn-download" onclick="copyPalette()">
-                    <i class="fas fa-copy"></i> Copy All Hex Codes
+                <button class="btn-primary" onclick="generatePalette()">
+                    <i class="fas fa-magic" aria-hidden="true"></i> Generate Palette
                 </button>
+
+                <div class="result-area" id="colorResult" role="region" aria-label="Generated colour palette" aria-live="polite">
+                    <h2 style="font-size:1.15rem;color:var(--success);margin-bottom:0.2rem;">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i> Palette Generated!
+                    </h2>
+                    <p style="font-size:0.82rem;color:var(--gray);margin-top:0.2rem;">Click any swatch to copy its hex code</p>
+                    <div class="palette-grid" id="paletteDisplay" role="list" aria-label="Colour swatches"></div>
+                    <button class="btn-download" onclick="copyPalette()">
+                        <i class="fas fa-copy" aria-hidden="true"></i> Copy All Hex Codes
+                    </button>
+                    <br>
+                    <a href="/#tools" class="try-another"><i class="fas fa-arrow-left" aria-hidden="true"></i> Try another tool</a>
+                </div>
+
             </div>
         </div>
-    </div>
 
-    <div class="related-section">
-        <h2>You might also like</h2>
-        <div class="related-grid">
-            <a href="image-compressor" class="related-card">
-                <i class="fas fa-image"></i><span>Image Compressor</span>
-            </a>
-            <a href="qr-generator" class="related-card">
-                <i class="fas fa-qrcode"></i><span>QR Code Generator</span>
-            </a>
-            <a href="resume-builder" class="related-card">
-                <i class="fas fa-file-alt"></i><span>Resume Builder</span>
-            </a>
-        </div>
-    </div>
+        <section class="related-section" aria-labelledby="related-heading">
+            <h2 id="related-heading">You might also like</h2>
+            <div class="related-grid">
+                <a href="/tools/image-compressor/" class="related-card">
+                    <i class="fas fa-image" aria-hidden="true"></i><span>Image Compressor</span>
+                </a>
+                <a href="/tools/qr-generator/" class="related-card">
+                    <i class="fas fa-qrcode" aria-hidden="true"></i><span>QR Code Generator</span>
+                </a>
+                <a href="/tools/resume-builder/" class="related-card">
+                    <i class="fas fa-file-alt" aria-hidden="true"></i><span>Resume Builder</span>
+                </a>
+            </div>
+        </section>
+    </main>
 
     <footer>
-       <div class="footer-links">
-            <a href="privacy-policy">Privacy Policy</a>
-            <a href="terms-of-service">Terms of Service</a>
-            <a href="contact">Contact</a>
-            <a href="blog">Blog</a>
+        <div class="footer-links">
+            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="/terms-of-service/">Terms of Service</a>
+            <a href="/contact/">Contact</a>
+            <a href="/blog/">Blog</a>
         </div>
-        <p>&copy; 2026 AI ToolBox. All tools are free to use.</p>
+        <p>&copy; 2026 Trendzlib ToolBox. All tools are free to use.</p>
     </footer>
 
-    <div class="toast" id="toast"></div>
-
-  <script src="../js/common.js"></script>
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+    <script src="/js/common.js"></script>
     <script>
         let currentPalette = [];
 
@@ -176,19 +171,16 @@
             currentPalette = generateColorScheme(base, type);
 
             const display = document.getElementById('paletteDisplay');
-            display.innerHTML = currentPalette.map(color => {
-                // Decide text color based on luminance
-                const lum = getLuminance(color);
-                const textColor = lum > 0.45 ? '#1e1e1e' : '#ffffff';
-                return `
-                    <div class="palette-swatch">
-                        <div class="swatch-click" onclick="copyToClipboard('${color}')" style="position:relative;">
-                            <span class="copy-tip">Click to copy</span>
-                            <div class="swatch-color" style="background:${color};"></div>
-                        </div>
-                        <code>${color}</code>
-                    </div>`;
-            }).join('');
+            display.innerHTML = currentPalette.map((color, idx) =>
+                `<div class="palette-swatch" role="listitem">
+                    <button class="swatch-btn" onclick="copyToClipboard('${color}')"
+                        aria-label="Colour ${color} — click to copy">
+                        <span class="copy-tip" aria-hidden="true">Click to copy</span>
+                        <div class="swatch-color" style="background:${color};" aria-hidden="true"></div>
+                    </button>
+                    <code>${color}</code>
+                </div>`
+            ).join('');
 
             document.getElementById('colorResult').classList.add('show');
             showToast('Palette generated!');
@@ -203,7 +195,7 @@
 
         function generateColorScheme(baseColor, type) {
             const hsl = hexToHSL(baseColor);
-            switch(type) {
+            switch (type) {
                 case 'analogous':
                     return [
                         hslToHex((hsl.h - 60 + 360) % 360, hsl.s, hsl.l),
@@ -249,10 +241,10 @@
             else {
                 const d = max - min;
                 s = l > 0.5 ? d/(2-max-min) : d/(max+min);
-                switch(max) {
+                switch (max) {
                     case r: h = ((g-b)/d + (g<b?6:0))/6; break;
-                    case g: h = ((b-r)/d + 2)/6; break;
-                    case b: h = ((r-g)/d + 4)/6; break;
+                    case g: h = ((b-r)/d + 2)/6;         break;
+                    case b: h = ((r-g)/d + 4)/6;         break;
                 }
             }
             return { h: h*360, s: s*100, l: l*100 };
@@ -274,11 +266,9 @@
             return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
         }
 
-        function copyPalette() {
-            copyToClipboard(currentPalette.join(', '));
-        }
+        function copyPalette() { copyToClipboard(currentPalette.join(', ')); }
 
-        // Auto-generate on page load
+        // Auto-generate on load
         window.addEventListener('load', () => generatePalette());
     </script>
 </body>
